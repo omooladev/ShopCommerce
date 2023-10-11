@@ -29,3 +29,4 @@ app.use("/api/docs", swaggerUI.setup(swaggerDocumentation));
 app.use(userRouter);
 
 module.exports = app;
+//MONGO_URI=mongodb+srv://omooladev:olawole2001@shopcommerce-cluster.quccq0i.mongodb.net/ShopCommerce?retryWrites=true&w=majority
