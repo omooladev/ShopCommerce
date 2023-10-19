@@ -1,14 +1,14 @@
-//----------> import packages
+//----------> import modules
 const path = require("path");
 const express = require("express");
 const swaggerUI = require("swagger-ui-express");
 
-//----------> documentation
-const swaggerDocumentation = require("./documentation/swaggerDocumentation");
-
+//----------> import custom dependencies
 //---------->routers
 const adminRouter = require("./routes/admin");
 const userRouter = require("./routes/user");
+//----------> documentation
+const swaggerDocumentation = require("./documentation/swaggerDocumentation");
 
 //----------> Initialize application
 const app = express();
@@ -29,4 +29,3 @@ app.use("/api/docs", swaggerUI.setup(swaggerDocumentation));
 app.use(userRouter);
 
 module.exports = app;
-//MONGO_URI=mongodb+srv://omooladev:olawole2001@shopcommerce-cluster.quccq0i.mongodb.net/ShopCommerce?retryWrites=true&w=majority
