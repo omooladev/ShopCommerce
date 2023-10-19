@@ -1,35 +1,37 @@
-//? import statements
+//----------> import modules
 const express = require("express");
+
+//----------> custom modules
 const {
   viewShopPage,
-  // getAllCartItems,
-  // addProductToCart,
-  // viewCartPage,
-  // handleCartQuantityChange,
-  // removeCartItem,
+  getAllCartItems,
+  addProductToCart,
+  viewCartPage,
+  handleCartQuantityChange,
+  removeCartItem,
 } = require("../controllers/user");
 
 const router = express.Router();
 
-//----------> route that redirects to the shop page
+//----------> redirect to the shop page
 router.get("/", (req, res) => res.redirect("/shop"));
 
-//----------> routes to view the shop page
+//----------> view shop page
 router.get("/shop", viewShopPage);
 
-//----------> route to view the cart page
-// router.route("/cart").get(viewCartPage);
+//----------> view cart page
+router.route("/cart").get(viewCartPage);
 
-//----------> route to add product to cart which contains the product name as a uri parameter
-//router.route("/cart/add/:productId").post(addProductToCart);
+//----------> add product to cart with product id as a uri parameter
+router.route("/cart/add/:productId").post(addProductToCart);
 
-//----------> route to get all the cart items
-//router.route("/cart/items").get(getAllCartItems);
+//----------> get all the cart items
+router.route("/cart/items").get(getAllCartItems);
 
-//----------> route to increase or decrease cart item quantity
-//router.route("/cart/:cartItemId/:action").post(handleCartQuantityChange);
+//----------> increase or decrease cart item quantity
+router.route("/cart/:cartItemId/:action").post(handleCartQuantityChange);
 
-//----------> route to remove product from the cart
-//router.route("/cart/remove/:cartItemId").post(removeCartItem);
+//----------> remove product from the cart
+router.route("/cart/remove/:cartItemId").post(removeCartItem);
 
 module.exports = router;

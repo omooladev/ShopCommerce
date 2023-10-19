@@ -14,14 +14,13 @@ const previewImageContainer = document.querySelector(".preview_image_container")
 
 //----------> declare variables
 let productImageFile;
-//let transformedImage = productImagePreview.src || "";
 
 //----------> default validity
-let productFormInputIsValid = {
+let productFormIsValid = {
   productNameIsValid: productName.value ? true : false,
   productPriceIsValid: productName.value ? true : false,
   productDescriptionIsValid: productName.value ? true : false,
-  //productImageIsValid: productImagePreview.src ? true : false,
+  productImageIsValid: productImage.src ? true : false,
 };
 
 //----------> check validity of inputs and return validity of form
@@ -32,8 +31,8 @@ const saveFormValidity = () => {
     productPriceIsValid,
     productDescriptionIsValid,
     productImageIsValid,
-  } = productFormInputIsValid;
-
+  } = productFormIsValid;
+  console.log(productFormIsValid);
   //----------> check form validity
   const formIsValid =
     productNameIsValid && productPriceIsValid && productDescriptionIsValid && productImageIsValid;

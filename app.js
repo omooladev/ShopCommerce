@@ -25,7 +25,7 @@ app.use("/api/docs", swaggerUI.serve);
 app.use("/api/docs", swaggerUI.setup(swaggerDocumentation));
 
 //----------> routes
-// app.use("/admin", adminRouter);
+app.use("/admin", adminRouter);
 app.use(userRouter);
 
 module.exports = app;

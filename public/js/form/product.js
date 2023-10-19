@@ -1,4 +1,36 @@
 import { changeImageHandler } from "../functions/imageHandler.js";
+import { setFormReply } from "../functions/setFormReply.js";
+
+const productInputIsValid = ({ inputIsValid }) => {
+  //----------> dynamically set the validity of that input to true
+  productFormIsValid = {
+    ...productFormIsValid,
+    [inputIsValid]: true,
+  };
+
+  //----------> save form validity
+  saveFormValidity();
+
+  //----------> reset form reply because the input is valid
+  setFormReply({ replyType: "reset" });
+};
+const productInputNotValid = ({ inputType, inputIsValid, errorMessage }) => {
+  //----------> dynamically set the validity of that input to false
+  productFormIsValid = {
+    ...productFormIsValid,
+    [inputIsValid]: false,
+  };
+
+  //----------> save form validity
+  saveFormValidity();
+
+  //----------> set error message since is it not valid
+  return setFormReply({
+    message: errorMessage || `Please provide a product ${inputType.toLowerCase()}`,
+    type: "error",
+  });
+};
+
 //----------> This function is for handling the product name,price, and description field
 const changeProductInputHandler = (event, { inputType }) => {
   //----------> get the value of the input field
@@ -10,40 +42,26 @@ const changeProductInputHandler = (event, { inputType }) => {
   //----------> check the length of the input field
   const inputValueLength = inputValue.trim().length;
 
-  //----------> check of input type is equal to description
+  //----------> check if input type is description
   if (inputType === "Description") {
     return setProductDescriptionLength(inputValue);
   }
 
   //----------> check if the input value length is 0
   if (inputValueLength === 0) {
-    //----------> dynamically set the validity of that input to false
-    productFormInputIsValid = {
-      ...productFormInputIsValid,
-      [inputIsValid]: false,
-    };
-
-    //----------> check form validity
-    saveFormValidity();
-
-    //----------> set error message since is it not valid
-    return setFormReply({
-      message: `Please provide a product ${inputType.toLowerCase()}`,
-      type: "error",
-    });
+    return productInputNotValid({ inputType, inputIsValid });
   }
-
-  //----------> dynamically set the validity of that input to true
-  productFormInputIsValid = {
-    ...productFormInputIsValid,
-    [inputIsValid]: true,
-  };
-
-  //----------> check form validity again
-  saveFormValidity();
-
-  //----------> reset form reply because the input is valid
-  resetFormReply();
+  //----------> check if input type is description
+  if (inputType === "Price") {
+    if (!Number(inputValue)) {
+      return productInputNotValid({
+        inputType,
+        inputIsValid,
+        errorMessage: "Product price is invalid",
+      });
+    }
+  }
+  return productInputIsValid({ inputIsValid });
 };
 
 const setProductDescriptionLength = (productDescriptionValue) => {
@@ -52,35 +70,26 @@ const setProductDescriptionLength = (productDescriptionValue) => {
 
   //----------> check if the length of the description is zero
   if (productDescriptionValue.trim().length === 0) {
-    //----------> set the validity to false
-    productFormInputIsValid.productDescriptionIsValid = false;
-
-    //----------> configure the form reply
-    setFormReply({
-      message: `Please provide a product description`,
-      type: "error",
+    productInputNotValid({
+      inputIsValid: "productDescriptionIsValid",
+      errorMessage: "Please provide a product description",
     });
   } else {
-    //----------> reset form reply
-    resetFormReply();
-
-    //----------> check if the length of the product description value is less than 500
-    if (productDescriptionValue.length <= 500) {
-      //----------> configure the styles
-      productDescriptionLength.style.color = "black";
-      //----------> change the validity to true
-      productFormInputIsValid.productDescriptionIsValid = true;
-    } else {
+    //----------> check if the length of the product description value is greater than
+    if (productDescriptionValue.trim().length > 500) {
       //----------> configure the styles
       productDescriptionLength.style.color = "red";
-      //----------> change the validity to false
-      productFormInputIsValid.productDescriptionIsValid = false;
-    }
+      return productInputNotValid({
+        inputIsValid: "productDescriptionIsValid",
+        errorMessage: "Product description length cannot exceed 500 characters",
+      });
+    } 
+    //----------> configure the styles
+    productDescriptionLength.style.color = "black";
+    //----------> change the validity to true
+    productInputIsValid({ inputIsValid: "productDescriptionIsValid" });
   }
-  return saveFormValidity();
 };
-
-
 
 //--------> all event listeners
 productName.oninput = (event) => changeProductInputHandler(event, { inputType: "Name" });
