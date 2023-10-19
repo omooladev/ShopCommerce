@@ -1,24 +1,29 @@
-import { validateImage } from "../utils/inputValidator.js";
+import { productInputIsValid, productInputNotValid } from "../lib/productInputValidity.js";
+import { validateImage } from "../utils/imageValidator.js";
 import { transformImage } from "../utils/transformImage.js";
-import { setFormReply } from "./setFormReply.js";
 //----------> resetting preview image
 const resetImagePreview = () => {
   //once we are resetting image preview, we set the validity to false automatically
-  productImagePreview.src = "";
-  productImagePreview.alt = "";
-  productImagePreview.style.display = "none";
-  productFormInputIsValid.productImageIsValid = false;
-  productImageFile = "";
-  transformedImage = "";
+  productFormIsValid.productImageIsValid = false;
+  productImageFiles = [];
+  transformedImages = [];
+
+  //----------> get all the preview images
+  const previewImages = document.querySelectorAll(".preview_image");
+
+  for (let index = 0; index < previewImages.length; index++) {
+    //----------> delete the images
+    previewImageContainer.removeChild(previewImages[index]);
+  }
 };
 
 const changeImageHandler = async (event) => {
-  //----------> get the files
+  //----------> get the images
   let imageFiles = event.target.files;
 
-  return console.log(imageFiles);
+  //----------> validate the images
+  let validationResult = await validateImage({ imageFiles, validationType: "length" });
 
-  let validationResult = await validateImage({ data: imageFiles, validationType: "length" });
   if (validationResult.status === "error") {
     //----------> reset image preview
     return resetImagePreview();
@@ -29,9 +34,8 @@ const changeImageHandler = async (event) => {
   for (let index = 0; index < imageFiles.length; index++) {
     let imageFile = imageFiles[index];
     let validationResult = await validateImage({
-      data: imageFiles,
-      validationType: "others",
-      config: { imageFile },
+      validationType: "file-type/size",
+      imageFile,
     });
 
     if (validationResult.status === "error") {
@@ -42,22 +46,18 @@ const changeImageHandler = async (event) => {
   }
 
   if (errorData.hasError) {
-    //----------> set an error
-    setFormReply({
-      message: errorData.errorMessage,
-      type: "error",
+    productInputNotValid({
+      inputValidityName: "productImageIsValid",
+      errorMessage: errorData.errorMessage,
     });
-    saveFormValidity();
     //----------> reset image preview
-    resetImagePreview();
-    return;
+    return resetImagePreview();
   }
 
+  //----------> let the product image files equal to all the files
+
   //---------> set image validity to true
-  productFormInputIsValid.productImageIsValid = true;
-  setFormReply({
-    replyType: "reset",
-  });
+  productInputIsValid({ inputValidityName: "productImageIsValid" });
   //----------> transform the image
   await transformImage(imageFiles);
 };

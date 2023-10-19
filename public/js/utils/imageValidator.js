@@ -1,23 +1,22 @@
-import { setFormReply } from "../functions/setFormReply.js";
+import { productInputNotValid } from "../lib/productInputValidity.js";
 
-//----------> Default Image Size
+//----------> Default Image Size and number of images that can be accepted
 const MAX_IMAGE_SIZE = 1024 * 1024 * 5; //? This is 2MB
-const MAX_IMAGE_SIZE_NUMBER = 5;
+const MAX_IMAGE_SIZE_NUMBER = 4;
+
 //----------> validate images
-const validateImage = async ({ data, validationType, config }) => {
+const validateImage = async ({ imageFiles, imageFile, validationType }) => {
   if (validationType === "length") {
-    if (data.length > 4) {
-      setFormReply({
-        message: "The maximum number of images that you can upload is 4",
-        type: "error",
+    if (imageFiles.length > 4) {
+      productInputNotValid({
+        inputValidityName: "productImageIsValid",
+        errorMessage: "The maximum number of images that you can upload is 4",
       });
-      //----------> check form validity
-      saveFormValidity();
       return { status: "error" };
     }
     return { status: "success" };
-  } else {
-    const { imageFile } = config;
+  }
+  if (validationType === "file-type/size") {
     //----------> if file type is not an image
     if (!imageFile.type.includes("image/")) {
       return { status: "error", message: "Please upload an image" };

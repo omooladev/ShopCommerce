@@ -1,35 +1,5 @@
 import { changeImageHandler } from "../functions/imageHandler.js";
-import { setFormReply } from "../functions/setFormReply.js";
-
-const productInputIsValid = ({ inputIsValid }) => {
-  //----------> dynamically set the validity of that input to true
-  productFormIsValid = {
-    ...productFormIsValid,
-    [inputIsValid]: true,
-  };
-
-  //----------> save form validity
-  saveFormValidity();
-
-  //----------> reset form reply because the input is valid
-  setFormReply({ replyType: "reset" });
-};
-const productInputNotValid = ({ inputType, inputIsValid, errorMessage }) => {
-  //----------> dynamically set the validity of that input to false
-  productFormIsValid = {
-    ...productFormIsValid,
-    [inputIsValid]: false,
-  };
-
-  //----------> save form validity
-  saveFormValidity();
-
-  //----------> set error message since is it not valid
-  return setFormReply({
-    message: errorMessage || `Please provide a product ${inputType.toLowerCase()}`,
-    type: "error",
-  });
-};
+import { productInputIsValid, productInputNotValid } from "../lib/productInputValidity.js";
 
 //----------> This function is for handling the product name,price, and description field
 const changeProductInputHandler = (event, { inputType }) => {
@@ -37,7 +7,7 @@ const changeProductInputHandler = (event, { inputType }) => {
   const inputValue = event.target.value;
 
   //----------> set a dynamic name for the input field
-  const inputIsValid = `product${inputType}IsValid`;
+  const inputValidityName = `product${inputType}IsValid`;
 
   //----------> check the length of the input field
   const inputValueLength = inputValue.trim().length;
@@ -49,19 +19,19 @@ const changeProductInputHandler = (event, { inputType }) => {
 
   //----------> check if the input value length is 0
   if (inputValueLength === 0) {
-    return productInputNotValid({ inputType, inputIsValid });
+    return productInputNotValid({ inputType, inputValidityName });
   }
   //----------> check if input type is description
   if (inputType === "Price") {
     if (!Number(inputValue)) {
       return productInputNotValid({
         inputType,
-        inputIsValid,
+        inputValidityName,
         errorMessage: "Product price is invalid",
       });
     }
   }
-  return productInputIsValid({ inputIsValid });
+  return productInputIsValid({ inputValidityName });
 };
 
 const setProductDescriptionLength = (productDescriptionValue) => {
@@ -71,7 +41,7 @@ const setProductDescriptionLength = (productDescriptionValue) => {
   //----------> check if the length of the description is zero
   if (productDescriptionValue.trim().length === 0) {
     productInputNotValid({
-      inputIsValid: "productDescriptionIsValid",
+      inputValidityName: "productDescriptionIsValid",
       errorMessage: "Please provide a product description",
     });
   } else {
@@ -80,14 +50,14 @@ const setProductDescriptionLength = (productDescriptionValue) => {
       //----------> configure the styles
       productDescriptionLength.style.color = "red";
       return productInputNotValid({
-        inputIsValid: "productDescriptionIsValid",
+        inputValidityName: "productDescriptionIsValid",
         errorMessage: "Product description length cannot exceed 500 characters",
       });
-    } 
+    }
     //----------> configure the styles
     productDescriptionLength.style.color = "black";
     //----------> change the validity to true
-    productInputIsValid({ inputIsValid: "productDescriptionIsValid" });
+    productInputIsValid({ inputValidityName: "productDescriptionIsValid" });
   }
 };
 

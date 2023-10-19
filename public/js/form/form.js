@@ -11,9 +11,11 @@ const productDescriptionLength = document.querySelector("#product_description_le
 const productImage = document.querySelector("#product_image");
 const productImagePreview = document.querySelector(".preview_image");
 const previewImageContainer = document.querySelector(".preview_image_container");
+const imageChoose = document.querySelector(".product_image_choose");
 
 //----------> declare variables
-let productImageFile;
+let productImageFiles = [];
+let transformedImages = [];
 
 //----------> default validity
 // let productFormIsValid = {
@@ -36,7 +38,6 @@ const saveFormValidity = () => {
     productDescriptionIsValid,
     productImageIsValid,
   } = productFormIsValid;
-  console.log(productFormIsValid);
   //----------> check form validity
   // const formIsValid =
   //   productNameIsValid && productPriceIsValid && productDescriptionIsValid && productImageIsValid;
@@ -54,7 +55,7 @@ const saveFormValidity = () => {
 //----------> submit form handler
 const submitFormHandler = async (event) => {
   event.preventDefault();
-
+  return console.log(productImageFiles, transformedImages);
   //----------> disable form button
   productFormButton.disabled = true;
 
