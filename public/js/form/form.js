@@ -16,10 +16,14 @@ const previewImageContainer = document.querySelector(".preview_image_container")
 let productImageFile;
 
 //----------> default validity
+// let productFormIsValid = {
+//   productNameIsValid: productName.value ? true : false,
+//   productPriceIsValid: productName.value ? true : false,
+//   productDescriptionIsValid: productName.value ? true : false,
+//   productImageIsValid: productImage.src ? true : false,
+// };
+//----------> default validity
 let productFormIsValid = {
-  productNameIsValid: productName.value ? true : false,
-  productPriceIsValid: productName.value ? true : false,
-  productDescriptionIsValid: productName.value ? true : false,
   productImageIsValid: productImage.src ? true : false,
 };
 
@@ -34,9 +38,9 @@ const saveFormValidity = () => {
   } = productFormIsValid;
   console.log(productFormIsValid);
   //----------> check form validity
-  const formIsValid =
-    productNameIsValid && productPriceIsValid && productDescriptionIsValid && productImageIsValid;
-
+  // const formIsValid =
+  //   productNameIsValid && productPriceIsValid && productDescriptionIsValid && productImageIsValid;
+  const formIsValid = productImageIsValid;
   //----------> if form is not valid, disable the form button
   if (!formIsValid) {
     productFormButton.disabled = true;

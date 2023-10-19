@@ -16,13 +16,14 @@ const changeImageHandler = async (event) => {
   //----------> get the files
   let imageFiles = event.target.files;
 
+  return console.log(imageFiles);
+
   let validationResult = await validateImage({ data: imageFiles, validationType: "length" });
   if (validationResult.status === "error") {
     //----------> reset image preview
     return resetImagePreview();
   }
 
-  
   const errorData = { hasError: false, errorMessage: "" };
 
   for (let index = 0; index < imageFiles.length; index++) {
