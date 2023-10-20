@@ -33,7 +33,7 @@ const transformImage = async (imageFiles) => {
     fileReader.readAsDataURL(imageFile);
     fileReader.onloadend = async () => {
       transformedImages.push({ image_name: imageFile.name, result: fileReader.result });
-      previewImageTemplate(fileReader.result);
+      previewImageTemplate({ src: fileReader.result, alt: imageFile.name, id: imageFile.name });
 
       if (index === imageFiles.length - 1) {
       }
