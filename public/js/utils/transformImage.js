@@ -1,3 +1,4 @@
+import { configureClassName } from "../helpers/configureClassName.js";
 import { previewImageTemplate } from "../templates/previewImage.js";
 //----------> transform image
 const transformImage = async (imageFiles) => {
@@ -17,12 +18,12 @@ const transformImage = async (imageFiles) => {
 
     //----------> remove the older class
     if (productImageFiles.length !== 1) {
-      const oldClassName = configureProductImageContainerClassName(productImageFiles.length - 1);
+      const oldClassName = configureClassName(productImageFiles.length - 1);
       previewImageContainer.classList.remove(`${oldClassName}`);
     }
 
     //----------> add the current product images length to the class
-    const newClassName = configureProductImageContainerClassName(productImageFiles.length);
+    const newClassName = configureClassName(productImageFiles.length);
     previewImageContainer.classList.add(`${newClassName}`);
 
     if (productImageFiles.length === 4) {
@@ -30,10 +31,13 @@ const transformImage = async (imageFiles) => {
       imageChoose.removeAttribute("for");
     }
 
+    //----------> configure image name
+    const imageName = Math.random() + "-" + imageFile.name;
+
     fileReader.readAsDataURL(imageFile);
     fileReader.onloadend = async () => {
-      transformedImages.push({ image_name: imageFile.name, result: fileReader.result });
-      previewImageTemplate({ src: fileReader.result, alt: imageFile.name, id: imageFile.name });
+      transformedImages.push({ name: imageName, result: fileReader.result });
+      previewImageTemplate({ src: fileReader.result, alt: imageFile.name, id: imageName });
 
       if (index === imageFiles.length - 1) {
       }
@@ -41,17 +45,4 @@ const transformImage = async (imageFiles) => {
   }
 };
 
-const configureProductImageContainerClassName = (productImageFilesLength) => {
-  let className =
-    productImageFilesLength === 1
-      ? "one"
-      : productImageFilesLength === 2
-      ? "two"
-      : productImageFilesLength === 3
-      ? "three"
-      : productImageFilesLength === 4
-      ? "four"
-      : "";
-  return className;
-};
 export { transformImage };
