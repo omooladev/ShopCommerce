@@ -1,4 +1,5 @@
 import { configureClassName } from "../helpers/configureClassName.js";
+import { productInputNotValid } from "../lib/productInputValidity.js";
 
 const cancelImageHandler = (event, { imageId }) => {
   const imageIndex = transformedImages.findIndex((image) => image.name === imageId);
@@ -27,6 +28,13 @@ const cancelImageHandler = (event, { imageId }) => {
     //----------> add the current product images length to the class
     const newClassName = configureClassName(productImageFiles.length);
     previewImageContainer.classList.add(`${newClassName}`);
+  }
+  if (productImageFiles.length === 0) {
+    //----------> check if there are no product images, then set product image is valid to false
+    productInputNotValid({
+      inputValidityName: "productImageIsValid",
+      errorMessage: "No product image found. Please upload an image for this product",
+    });
   }
 
   const oldClassName = configureClassName(productImageFiles.length + 1);

@@ -1,19 +1,38 @@
 import { productInputNotValid } from "../lib/productInputValidity.js";
 
 //----------> Default Image Size and number of images that can be accepted
-const MAX_IMAGE_SIZE = 1024 * 1024 * 5; //? This is 2MB
-const MAX_IMAGE_SIZE_NUMBER = 4;
+const MAX_IMAGE_SIZE = 1024 * 1024 * 5; //? This is 2MB-----> currently at 5mb
+const MAX_IMAGES_NUMBER = 4;
 
 //----------> validate images
-const validateImage = async ({ imageFiles, imageFile, validationType }) => {
+const validateImage = async ({ selectedImages, imageFile, validationType }) => {
   if (validationType === "length") {
-    if (imageFiles.length > 4) {
+    //----------> find the sum of the length of the images already uploaded and the selected images
+    const totalImagesToUpload = productImageFiles.length + selectedImages.length;
+
+    //----------> CASE 1
+    if (selectedImages.length > MAX_IMAGES_NUMBER) {
       productInputNotValid({
         inputValidityName: "productImageIsValid",
-        errorMessage: "The maximum number of images that you can upload is 4",
+        errorMessage: `The maximum number of images that you can upload is ${MAX_IMAGES_NUMBER}`,
       });
       return { status: "error" };
     }
+    //----------> CASE 2
+    if (productImageFiles.length === MAX_IMAGES_NUMBER) {
+      productInputNotValid({
+        errorMessage: `The maximum number of images that you can upload is ${MAX_IMAGES_NUMBER}`,
+      });
+      return { status: "error" };
+    }
+    //----------> CASE 3
+    if (totalImagesToUpload > MAX_IMAGES_NUMBER) {
+      productInputNotValid({
+        errorMessage: `Please upload ${MAX_IMAGES_NUMBER - productImageFiles.length} more images`,
+      });
+      return { status: "error" };
+    }
+
     return { status: "success" };
   }
   if (validationType === "file-type/size") {
@@ -27,7 +46,7 @@ const validateImage = async ({ imageFiles, imageFile, validationType }) => {
     if (imageSize > MAX_IMAGE_SIZE) {
       return {
         status: "error",
-        message: `Please upload a picture smaller than ${MAX_IMAGE_SIZE_NUMBER}MB`,
+        message: `Please upload a picture smaller than ${MAX_IMAGE_SIZE}MB`,
       };
     }
     return { status: "success" };
@@ -35,3 +54,15 @@ const validateImage = async ({ imageFiles, imageFile, validationType }) => {
 };
 
 export { validateImage };
+
+// CASE 1:-
+//    we check if the total images selected to
+//    be uploaded is greater than the maximum image you can upload
+
+// CASE 2:-
+//    we check if the total images already uploaded is equal to the
+//    maximum image you can upload
+
+// CASE 3:-
+//    This helps us to know how many more images is needed to equal the maximum image number
+//    we first add the total images already uploaded to the current images selected to be uploaded

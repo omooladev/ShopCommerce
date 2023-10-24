@@ -1,4 +1,5 @@
 import { configureClassName } from "../helpers/configureClassName.js";
+import { productInputIsValid } from "../lib/productInputValidity.js";
 import { previewImageTemplate } from "../templates/previewImage.js";
 //----------> transform image
 const transformImage = async (imageFiles) => {
@@ -26,10 +27,10 @@ const transformImage = async (imageFiles) => {
     const newClassName = configureClassName(productImageFiles.length);
     previewImageContainer.classList.add(`${newClassName}`);
 
-    if (productImageFiles.length === 4) {
-      imageChoose.classList.add("disabled");
-      imageChoose.removeAttribute("for");
-    }
+    // if (productImageFiles.length === 4) {
+    //   imageChoose.classList.add("disabled");
+    //   imageChoose.removeAttribute("for");
+    // }
 
     //----------> configure image name
     const imageName = Math.random() + "-" + imageFile.name;
@@ -40,6 +41,8 @@ const transformImage = async (imageFiles) => {
       previewImageTemplate({ src: fileReader.result, alt: imageFile.name, id: imageName });
 
       if (index === imageFiles.length - 1) {
+        //---------> set image validity to true
+        productInputIsValid({ inputValidityName: "productImageIsValid" });
       }
     };
   }

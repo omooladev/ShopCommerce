@@ -1,4 +1,4 @@
-import { productInputIsValid, productInputNotValid } from "../lib/productInputValidity.js";
+import { productInputNotValid } from "../lib/productInputValidity.js";
 import { validateImage } from "../utils/imageValidator.js";
 import { transformImage } from "../utils/transformImage.js";
 //----------> resetting preview image
@@ -22,11 +22,13 @@ const changeImageHandler = async (event) => {
   let imageFiles = event.target.files;
 
   //----------> validate the images
-  let validationResult = await validateImage({ imageFiles, validationType: "length" });
+  let validationResult = await validateImage({
+    selectedImages: imageFiles,
+    validationType: "length",
+  });
 
   if (validationResult.status === "error") {
-    //----------> reset image preview
-    return resetImagePreview();
+    return;
   }
 
   const errorData = { hasError: false, errorMessage: "" };
@@ -50,14 +52,10 @@ const changeImageHandler = async (event) => {
       inputValidityName: "productImageIsValid",
       errorMessage: errorData.errorMessage,
     });
-    //----------> reset image preview
-    return resetImagePreview();
+
+    return;
   }
 
-  //----------> let the product image files equal to all the files
-
-  //---------> set image validity to true
-  productInputIsValid({ inputValidityName: "productImageIsValid" });
   //----------> transform the image
   await transformImage(imageFiles);
 };

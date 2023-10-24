@@ -2,11 +2,7 @@ import { setFormReply } from "../functions/setFormReply.js";
 
 const productInputIsValid = ({ inputValidityName }) => {
   //----------> dynamically set the validity of that input to true
-  productFormIsValid = {
-    ...productFormIsValid,
-    [inputValidityName]: true,
-  };
-
+  productFormIsValid[inputValidityName] = true;
   //----------> save form validity
   saveFormValidity();
 
@@ -15,13 +11,11 @@ const productInputIsValid = ({ inputValidityName }) => {
 };
 const productInputNotValid = ({ inputType, inputValidityName, errorMessage }) => {
   //----------> dynamically set the validity of that input to false
-  productFormIsValid = {
-    ...productFormIsValid,
-    [inputValidityName]: false,
-  };
-
-  //----------> save form validity
-  saveFormValidity();
+  if (inputValidityName) {
+    productFormIsValid[inputValidityName] = false;
+    //----------> save form validity
+    saveFormValidity();
+  }
 
   //----------> set error message since is it not valid
   return setFormReply({
