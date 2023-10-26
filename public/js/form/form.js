@@ -18,15 +18,11 @@ let productImageFiles = [];
 let transformedImages = [];
 
 //----------> default validity
-// let productFormIsValid = {
-//   productNameIsValid: productName.value ? true : false,
-//   productPriceIsValid: productName.value ? true : false,
-//   productDescriptionIsValid: productName.value ? true : false,
-//   productImageIsValid: productImage.src ? true : false,
-// };
-//----------> default validity
 let productFormIsValid = {
-  productImageIsValid: productImage.src ? true : false,
+  productNameIsValid: productName.value ? true : false,
+  productPriceIsValid: productName.value ? true : false,
+  productDescriptionIsValid: productName.value ? true : false,
+  productImageIsValid: previewImageContainer.children.length > 0 ? true : false,
 };
 
 //----------> check validity of inputs and return validity of form
@@ -39,9 +35,9 @@ const saveFormValidity = () => {
     productImageIsValid,
   } = productFormIsValid;
   //----------> check form validity
-  // const formIsValid =
-  //   productNameIsValid && productPriceIsValid && productDescriptionIsValid && productImageIsValid;
-  const formIsValid = productImageIsValid;
+  const formIsValid =
+    productNameIsValid && productPriceIsValid && productDescriptionIsValid && productImageIsValid;
+
   //----------> if form is not valid, disable the form button
   if (!formIsValid) {
     productFormButton.disabled = true;
@@ -55,57 +51,75 @@ const saveFormValidity = () => {
 //----------> submit form handler
 const submitFormHandler = async (event) => {
   event.preventDefault();
-  return console.log(productImageFiles, transformedImages);
   //----------> disable form button
   productFormButton.disabled = true;
 
   //----------> reset reply when the form is submitted
+
   resetFormReply();
+  //----------> create form data
+  const formData = new FormData();
 
   //----------> assign a variable for the new product and
   let newProduct = {
     name: productName.value,
     price: productPrice.value,
     description: productDescription.value,
-    transformedImage: transformedImage,
+    images: productImageFiles,
   };
+
+  for (const key in newProduct) {
+    if (key === "images") {
+      newProduct[key].forEach((image) => {
+        formData.append("images[]", image);
+      });
+    } else {
+      formData.append(key, newProduct[key]);
+    }
+  }
 
   const isEditing = productForm.className.includes("isEditing");
   const pageLocation = isEditing && window.location.href.split("/");
   const productId = pageLocation && pageLocation[pageLocation.length - 1];
-  // resetForm();
+
   try {
-    const { data } = await axios.post(
+    const response = await axios.post(
       `/admin${isEditing ? `/edit-product/${productId}` : "/add-product"}`,
-      newProduct,
+      formData,
       {
         headers: { "Content-Type": "multipart/form-data" },
       }
     );
+    console.log(response);
 
-    if (data) {
-      setFormReply({
-        message: isEditing ? "Product edited successfully" : "Product item added successfully",
-        type: "success",
-      });
-      setTimeout(() => {
-        resetForm();
-        if (data.message === "Product has been edited successfully") {
-          window.location.href = "/admin/products";
-        }
-      }, 2000);
-    }
+    // if (data) {
+    //   setFormReply({
+    //     message: isEditing ? "Product edited successfully" : "Product item added successfully",
+    //     type: "success",
+    //   });
+    //   setTimeout(() => {
+    //     resetForm();
+    //     if (data.message === "Product has been edited successfully") {
+    //       window.location.href = "/admin/products";
+    //     }
+    //   }, 2000);
+    // }
   } catch (error) {
-    formatResponseError(error, (errorMessage) => {
-      setFormReply({
-        message: errorMessage,
-        type: "error",
-      });
-    });
+    // formatResponseError(error, (errorMessage) => {
+    //   setFormReply({
+    //     message: errorMessage,
+    //     type: "error",
+    //   });
+    // });
   }
   productFormButton.disabled = false;
 };
-
+//----------> reset form reply
+const resetFormReply = () => {
+  productFormReply.innerHTML = "";
+  productFormReply.classList.remove("error");
+  productFormReply.classList.remove("success");
+};
 const resetForm = () => {
   productName.value =
     productPrice.value =

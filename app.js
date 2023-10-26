@@ -2,6 +2,7 @@
 const path = require("path");
 const express = require("express");
 const swaggerUI = require("swagger-ui-express");
+const multer = require("multer");
 
 //----------> import custom dependencies
 //---------->routers
@@ -17,6 +18,8 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 //----------> middlewares
+app.use(multer({}).array("images[]"));
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 

@@ -1,7 +1,7 @@
 import { productInputNotValid } from "../lib/productInputValidity.js";
 
 //----------> Default Image Size and number of images that can be accepted
-const MAX_IMAGE_SIZE = 1024 * 1024 * 2; //? This is 2MB-----> currently at 5mb
+const MAX_IMAGE_SIZE = 1024 * 1024 * 5; //? This is 2MB-----> currently at 5mb
 const MAX_IMAGE_SIZE_WHOLE_NUMBER = MAX_IMAGE_SIZE.toString().slice(0, 1);
 const MAX_IMAGES_NUMBER = 4;
 
