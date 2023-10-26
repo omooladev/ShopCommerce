@@ -3,7 +3,9 @@ const Product = require("../models/product");
 
 const addProductToList = async (req, res) => {
   const { name, price, description } = req.body;
-  console.log(req.files);
+  req.files.forEach((image) => {
+    console.log({ filename: image.filename, path: image.path });
+  });
   return console.log(name, price, description);
 
   const { success, message } = await productDetailsValidator({
