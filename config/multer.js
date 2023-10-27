@@ -1,4 +1,8 @@
 const multer = require("multer");
+const {
+  serverConfigurations: { MAX_PRODUCT_IMAGES },
+} = require("../config/server");
+
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -13,6 +17,6 @@ const storage = multer.diskStorage({
     cb(null, newFileName);
   },
 });
-const multerConfiguration = multer({ storage }).array("images[]");
+const multerConfiguration = multer({ storage }).array("images[]", MAX_PRODUCT_IMAGES);
 
 module.exports = multerConfiguration;

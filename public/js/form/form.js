@@ -19,7 +19,7 @@ let transformedImages = [];
 
 //----------> default validity
 let productFormIsValid = {
-  productNameIsValid: productName.value ? true : false,
+  productNameIsValid: productName.value ? true : true,
   productPriceIsValid: productName.value ? true : false,
   productDescriptionIsValid: productName.value ? true : false,
   productImageIsValid: previewImageContainer.children.length > 0 ? true : false,
@@ -56,7 +56,7 @@ const submitFormHandler = async (event) => {
 
   //----------> reset reply when the form is submitted
 
-  resetFormReply();
+  setFormReply({ replyType: "reset" });
   //----------> create form data
   const formData = new FormData();
 
@@ -90,6 +90,7 @@ const submitFormHandler = async (event) => {
         headers: { "Content-Type": "multipart/form-data" },
       }
     );
+    console.log("an error 1");
     console.log(response);
 
     // if (data) {
@@ -105,7 +106,9 @@ const submitFormHandler = async (event) => {
     //   }, 2000);
     // }
   } catch (error) {
-    // formatResponseError(error, (errorMessage) => {
+    console.log("an error");
+    console.log(error);
+    // formatError(error, (errorMessage) => {
     //   setFormReply({
     //     message: errorMessage,
     //     type: "error",
@@ -114,37 +117,47 @@ const submitFormHandler = async (event) => {
   }
   productFormButton.disabled = false;
 };
+//----------> configure form reply
+const setFormReply = ({ message, type, replyType }) => {
+  if (replyType === "reset") {
+    return resetFormReply();
+  }
+  productFormReply.innerHTML = message;
+  productFormReply.classList.add(`${type}`);
+};
+
 //----------> reset form reply
 const resetFormReply = () => {
   productFormReply.innerHTML = "";
   productFormReply.classList.remove("error");
   productFormReply.classList.remove("success");
 };
-const resetForm = () => {
-  productName.value =
-    productPrice.value =
-    productImage.value =
-    productDescription.value =
-    productImageFile =
-    transformedImage =
-      "";
-  productDescriptionLength.innerHTML = "0";
-  productImagePreview.src = productImagePreview.alt = "";
 
-  productFormInputIsValid = {
-    productNameIsValid: false,
-    productPriceIsValid: false,
-    productDescriptionIsValid: false,
-    productImageIsValid: false,
-  };
+// const resetForm = () => {
+//   productName.value =
+//     productPrice.value =
+//     productImage.value =
+//     productDescription.value =
+//     productImageFile =
+//     transformedImage =
+//       "";
+//   productDescriptionLength.innerHTML = "0";
+//   productImagePreview.src = productImagePreview.alt = "";
 
-  saveFormValidity();
-  resetFormReply();
-};
+//   productFormInputIsValid = {
+//     productNameIsValid: false,
+//     productPriceIsValid: false,
+//     productDescriptionIsValid: false,
+//     productImageIsValid: false,
+//   };
 
-const formatResponseError = (error, callback) => {
-  const errorMessage = error.response.data.message || error.message;
-  return callback(errorMessage);
-};
+//   saveFormValidity();
+//   resetFormReply();
+// };
+
+// const formatError = (error, cb) => {
+//   const errorMessage = error.response.data.message || error.message;
+//   return cb(errorMessage);
+// };
 //----------> listen to submit event for the form
 productForm.onsubmit = (event) => submitFormHandler(event);

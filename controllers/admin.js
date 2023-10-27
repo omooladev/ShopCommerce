@@ -3,38 +3,33 @@ const Product = require("../models/product");
 
 const addProductToList = async (req, res) => {
   const { name, price, description } = req.body;
+  console.log(req.body);
+  const imageUrl = [];
+  //----------> loop through the images and get their path
   req.files.forEach((image) => {
-    console.log({ filename: image.filename, path: image.path });
+    imageUrl.push(image.path);
   });
-  return console.log(name, price, description);
 
-  const { success, message } = await productDetailsValidator({
+  // return res.status(201).json({ message: "Product item added successfully" });
+  const { status, message } = await productDetailsValidator({
     name,
     price,
     description,
     imageUrl,
   });
-  if (!success) {
-    return res.status(400).json({ message });
+  if (status === "failed") {
+    console.log(message);
+    throw new Error(message);
+    // return res.status(400).json({ message });
   }
-  //----------> create a new product
+  // ---> create a new product
   const product = new Product({
     name,
     price,
     description,
     imageUrl,
-    userId: req.user,
   });
-
-  //----------> save the product
-  product
-    .save()
-    .then((product) => {
-      if (product) {
-        return res.status(201).json({ message: "Product item added successfully" });
-      }
-    })
-    .catch((error) => console.log(error));
+  return console.log(product);
 };
 
 const editProduct = async (req, res) => {
