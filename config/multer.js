@@ -17,18 +17,15 @@ const storage = multer.diskStorage({
   },
 });
 const fileFilter = (req, file, cb) => {
-  console.log(req.files);
-  return;
   if (["image/png", "image/jpg", "image/jpeg"].includes(file.mimetype)) {
     cb(null, true);
   } else {
-    console.log("error");
-    cb(null, false);
+    cb(null, false, new Error("error"));
   }
 };
 const multerConfiguration = multer({
   storage,
   fileFilter,
-}).array("images[]", MAX_PRODUCT_IMAGES);
+}).array("images[]",MAX_PRODUCT_IMAGES);
 
 module.exports = multerConfiguration;
