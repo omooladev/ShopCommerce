@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please provide product description"],
     },
-    imageUrl: [String],
+    imageUrls: [String],
   },
   { timestamps: true }
 );

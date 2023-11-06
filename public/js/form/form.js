@@ -19,11 +19,12 @@ let transformedImages = [];
 
 //----------> default validity
 let productFormIsValid = {
-  productNameIsValid: productName.value ? true : true,
+  productNameIsValid: productName.value ? true : false,
   productPriceIsValid: productName.value ? true : false,
   productDescriptionIsValid: productName.value ? true : false,
   productImageIsValid: previewImageContainer.children.length > 0 ? true : false,
 };
+productFormButton.disabled = false;
 
 //----------> check validity of inputs and return validity of form
 const saveFormValidity = () => {
@@ -39,10 +40,10 @@ const saveFormValidity = () => {
     productNameIsValid && productPriceIsValid && productDescriptionIsValid && productImageIsValid;
 
   //----------> if form is not valid, disable the form button
-  if (!formIsValid) {
-    productFormButton.disabled = true;
-    return;
-  }
+  // if (!formIsValid) {
+  //   productFormButton.disabled = true;
+  //   return;
+  // }
 
   //----------> enable the form button
   productFormButton.disabled = false;

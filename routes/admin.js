@@ -14,6 +14,7 @@ const {
 const router = express.Router();
 
 //----------> add product
+
 router.route("/add-product").get(viewAddProductPage).post(addProductToList);
 
 //----------> view all products

@@ -3,7 +3,6 @@ const {
   serverConfigurations: { MAX_PRODUCT_IMAGES },
 } = require("../config/server");
 
-
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "data/product-images");
@@ -17,6 +16,19 @@ const storage = multer.diskStorage({
     cb(null, newFileName);
   },
 });
-const multerConfiguration = multer({ storage }).array("images[]", MAX_PRODUCT_IMAGES);
+const fileFilter = (req, file, cb) => {
+  console.log(req.files);
+  return;
+  if (["image/png", "image/jpg", "image/jpeg"].includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    console.log("error");
+    cb(null, false);
+  }
+};
+const multerConfiguration = multer({
+  storage,
+  fileFilter,
+}).array("images[]", MAX_PRODUCT_IMAGES);
 
 module.exports = multerConfiguration;

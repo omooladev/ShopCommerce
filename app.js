@@ -25,14 +25,18 @@ app.use(cors());
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(multerConfiguration);
+
 //----------> documentation route
 app.use("/api/docs", swaggerUI.serve);
 app.use("/api/docs", swaggerUI.setup(swaggerDocumentation));
 
+//----------> use multer
+app.use(multerConfiguration);
 //----------> routes
 app.use("/admin", adminRouter);
 app.use(userRouter);
+
+
 
 //----------> middlewares
 app.use(errorHandlerMiddleware);

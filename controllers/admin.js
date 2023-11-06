@@ -1,35 +1,34 @@
+const { BadRequestError, UnprocessableEntityError } = require("../errors");
 const productDetailsValidator = require("../lib/productDetailsValidator");
 const Product = require("../models/product");
 
 const addProductToList = async (req, res) => {
   const { name, price, description } = req.body;
-  console.log(req.body);
-  const imageUrl = [];
+  const imageUrls = [];
   //----------> loop through the images and get their path
-  req.files.forEach((image) => {
-    imageUrl.push(image.path);
-  });
-
-  // return res.status(201).json({ message: "Product item added successfully" });
+  if (req.files.length > 0) {
+    req.files.forEach((image) => {
+      imageUrls.push(image.path);
+    });
+  }
+  return res.status(201).json({ message: "Product item added successfully" });
   const { status, message } = await productDetailsValidator({
     name,
     price,
     description,
-    imageUrl,
+    imageUrls,
   });
   if (status === "failed") {
-    console.log(message);
-    throw new Error(message);
-    // return res.status(400).json({ message });
+    throw new UnprocessableEntityError(message);
   }
   // ---> create a new product
   const product = new Product({
     name,
     price,
     description,
-    imageUrl,
+    imageUrls,
   });
-  return console.log(product);
+  res.status(201).json({ status: "success", message: "Product Created Successfully" });
 };
 
 const editProduct = async (req, res) => {

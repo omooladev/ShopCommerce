@@ -10,10 +10,12 @@ const errorHandlerMiddleware = (error, req, res, next) => {
   };
   if (error.code === "LIMIT_UNEXPECTED_FILE") {
     customError.message = `You cannot upload more than ${MAX_PRODUCT_IMAGES} product images`;
-    customError.statusCode = StatusCodes.BAD_REQUEST;
+    customError.statusCode = StatusCodes.UNPROCESSABLE_ENTITY;
   }
+  console.log(customError);
 
   res.status(customError.statusCode).json({ message: customError.message });
+ 
 };
 
 module.exports = errorHandlerMiddleware;
