@@ -1,4 +1,4 @@
-const { BadRequestError, UnprocessableEntityError } = require("../errors");
+const { UnprocessableEntityError } = require("../errors");
 const productDetailsValidator = require("../lib/productDetailsValidator");
 const Product = require("../models/product");
 
@@ -11,7 +11,8 @@ const addProductToList = async (req, res) => {
       imageUrls.push(image.path);
     });
   }
-  return res.status(201).json({ message: "Product item added successfully" });
+
+  //-----------> validate the products
   const { status, message } = await productDetailsValidator({
     name,
     price,
@@ -28,6 +29,11 @@ const addProductToList = async (req, res) => {
     description,
     imageUrls,
   });
+
+  //----------> save the product to the database
+  await product.save();
+
+  //----------> return response to client
   res.status(201).json({ status: "success", message: "Product Created Successfully" });
 };
 

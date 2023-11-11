@@ -20,12 +20,12 @@ const fileFilter = (req, file, cb) => {
   if (["image/png", "image/jpg", "image/jpeg"].includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(null, false, new Error("error"));
+    cb(null, false);
   }
 };
 const multerConfiguration = multer({
   storage,
   fileFilter,
-}).array("images[]",MAX_PRODUCT_IMAGES);
+}).array("images[]");
 
 module.exports = multerConfiguration;

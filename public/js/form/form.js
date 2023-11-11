@@ -84,37 +84,34 @@ const submitFormHandler = async (event) => {
   const productId = pageLocation && pageLocation[pageLocation.length - 1];
 
   try {
-    const response = await axios.post(
+    const { data } = await axios.post(
       `/admin${isEditing ? `/edit-product/${productId}` : "/add-product"}`,
       formData,
       {
         headers: { "Content-Type": "multipart/form-data" },
       }
     );
-    console.log("an error 1");
-    console.log(response);
 
-    // if (data) {
-    //   setFormReply({
-    //     message: isEditing ? "Product edited successfully" : "Product item added successfully",
-    //     type: "success",
-    //   });
-    //   setTimeout(() => {
-    //     resetForm();
-    //     if (data.message === "Product has been edited successfully") {
-    //       window.location.href = "/admin/products";
-    //     }
-    //   }, 2000);
-    // }
+    if (data.status === "success") {
+      setFormReply({
+        message: isEditing ? "Product edited successfully" : "Product item added successfully",
+        type: "success",
+      });
+      setTimeout(() => {
+        console.log("reset form here");
+        //resetForm();
+        if (data.message === "Product has been edited successfully") {
+          //window.location.href = "/admin/products";
+        }
+      }, 2000);
+    }
   } catch (error) {
-    console.log("an error");
-    console.log(error);
-    // formatError(error, (errorMessage) => {
-    //   setFormReply({
-    //     message: errorMessage,
-    //     type: "error",
-    //   });
-    // });
+    formatError(error, (errorMessage) => {
+      setFormReply({
+        message: errorMessage,
+        type: "error",
+      });
+    });
   }
   productFormButton.disabled = false;
 };
@@ -132,6 +129,10 @@ const resetFormReply = () => {
   productFormReply.innerHTML = "";
   productFormReply.classList.remove("error");
   productFormReply.classList.remove("success");
+};
+const formatError = (error, cb) => {
+  const errorMessage = error.response.data.message || error.message;
+  return cb(errorMessage);
 };
 
 // const resetForm = () => {
@@ -156,9 +157,5 @@ const resetFormReply = () => {
 //   resetFormReply();
 // };
 
-// const formatError = (error, cb) => {
-//   const errorMessage = error.response.data.message || error.message;
-//   return cb(errorMessage);
-// };
 //----------> listen to submit event for the form
 productForm.onsubmit = (event) => submitFormHandler(event);

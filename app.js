@@ -3,10 +3,11 @@ require("express-async-errors");
 const path = require("path");
 const express = require("express");
 const swaggerUI = require("swagger-ui-express");
+//----------> import custom dependencies
 const multerConfiguration = require("./config/multer");
 const errorHandlerMiddleware = require("./middlewares/error-handler");
 const cors = require("cors");
-//----------> import custom dependencies
+
 //---------->routers
 const adminRouter = require("./routes/admin");
 const userRouter = require("./routes/user");
@@ -23,6 +24,7 @@ app.use(cors());
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/data/product-images", express.static(path.join(__dirname, "data/product-images")));
 
 //----------> documentation route
 app.use("/api/docs", swaggerUI.serve);
