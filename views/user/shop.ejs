@@ -1,6 +1,7 @@
 <%-include("../includes/head")%>
  <link rel="stylesheet" href="/css/product.css" />
  <script src="/js/script.js" defer></script>
+ <script src="/js/shop/shop.js" defer></script>
   <script src="/js/cart.js" defer></script>
 </head>
 <body>
@@ -12,16 +13,14 @@
         <%}else{%>
             <h2>Products Available in store</h2>
             <div class="products">
-                 
                 <%products.forEach(product=>{%>
                     <div class="product_card">
                         <div class="product_image">
-                            <%if(product.imageUrls===1){%>
-                                 <img alt="<%=product.name%>" src="<%=product.imageUrls[0]%>"/>
-                            <%}else{%>
-                                <img alt="<%=product.name%>" src="<%=product.imageUrls[0]%>"/>
-                                <%}%>
-                           
+                            <img alt="<%=product.name%>" src="<%=product.imageUrls[0]%>" data-image-id="<%=product._id%>" data-image-urls="<%=product.imageUrls%>" data-active-image-index="0" class="shop-product-images"/>
+                            <div class="image-switcher">
+                                <button type="button" class="prev-arrow" data-image-id="<%=product._id%>" disabled>Previous</button>
+                                <button type="button"  class="next-arrow" data-image-id="<%=product._id%>">Next</button>
+                            </div>
                         </div>
                             <div class="product_info">
                                 <h3 class="product_name"><%=product.name%></h3>
