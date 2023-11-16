@@ -12,11 +12,16 @@
             <h2>No Products found in store</h2>
         <%}else{%>
             <h2>Products Available in store</h2>
-            <div class="products">
+            <div class="shop-products">
                 <%products.forEach(product=>{%>
-                    <div class="product_card">
-                        <div class="product_image">
-                            <img alt="<%=product.name%>" src="<%=product.imageUrls[0]%>" data-image-id="<%=product._id%>" data-image-urls="<%=product.imageUrls%>" data-active-image-index="0" class="shop-product-images"/>
+                    <div class="product-card">
+                        <div class="product-image-container" >
+                            <div class="product-images"  data-image-id="<%=product._id%>" data-image-index-number="0" data-image-urls="<%=product.imageUrls%>">
+                                <%product.imageUrls.forEach(imageUrl=>{%>
+                                <img alt="<%=product.name%>" src="<%=imageUrl%>" data-image-id="<%=product._id%>" data-image-urls="<%=product.imageUrls%>" class="product-image"/>
+                            <%})%>
+                            </div>
+                           
                             <div class="image-switcher">
                                 <button type="button" class="prev-arrow" data-image-id="<%=product._id%>" disabled>Previous</button>
                                 <button type="button"  class="next-arrow" data-image-id="<%=product._id%>">Next</button>
