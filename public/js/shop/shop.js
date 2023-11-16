@@ -1,14 +1,34 @@
 const productImages = document.querySelectorAll(".product-image-container .product-images");
+const imageSwitcher = document.querySelectorAll(".image-switcher");
 const prevArrow = document.querySelectorAll(".prev-arrow");
 const nextArrow = document.querySelectorAll(".next-arrow");
 
 const hoverImageHandler = (event) => {
-  const imageUrls = event.target.dataset.imageUrls.split(",");
-  const activeImageIndex = event.target.dataset.activeImageIndex;
+
+  if (event.target.className.includes("image-switcher")){
+    event.target.classList.add("active");
+    return;
+   
+  }
+ 
+  const imageSwitcher = event.target.parentElement.parentElement.children[1]
+  //----------> check if there are more than one images
+  const imageUrls = event.target.parentElement.dataset.imageUrls.split(",")
+
   if (imageUrls.length === 1) {
     return;
   }
-  console.log("show arrow");
+  imageSwitcher.classList.add("active");
+};
+const leaveImageHandler = (event) => {
+  const imagePreview = event.target.parentElement.parentElement.children[1];
+  //----------> check if there are more than one images
+  const imageUrls = event.target.parentElement.dataset.imageUrls.split(",");
+
+  if (imageUrls.length === 1) {
+    return;
+  }
+  imagePreview.classList.remove("active");
 };
 const viewNextImageHandler = (event) => {
   event.stopPropagation();
@@ -79,9 +99,16 @@ const viewPreviousImageHandler = (event) => {
     }
   }
 };
+
 productImages.forEach((productImages) => {
   productImages.addEventListener("mouseover", hoverImageHandler);
+  productImages.addEventListener("mouseout", leaveImageHandler);
 });
+imageSwitcher.forEach((imageSwitcher) => {
+  imageSwitcher.addEventListener("mouseover", hoverImageHandler);
+//   imageSwitcher.addEventListener("mouseout", leaveImageHandler);
+// });
+})
 nextArrow.forEach((nextArrow) => {
   nextArrow.addEventListener("click", viewNextImageHandler);
 });

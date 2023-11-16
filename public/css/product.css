@@ -35,6 +35,7 @@
   border-radius: 0.5rem;
 }
 .shop-products .product-card .product-image-container .product-images img {
+  cursor: pointer;
   /* position: absolute; */
   display: block;
   max-height: 250px;
@@ -58,6 +59,12 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem;
+  display: none;
+  
+ 
+}
+.shop-products .product-card .product-image-container .image-switcher.active {
+  display: flex;
 }
 .shop-products .product-card .product-image-container .image-switcher button {
   background-color: black;
