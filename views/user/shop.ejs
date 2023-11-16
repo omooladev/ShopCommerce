@@ -15,16 +15,22 @@
             <div class="shop-products">
                 <%products.forEach(product=>{%>
                     <div class="product-card">
-                        <div class="product-image-container" >
+                        <div class="product-image-container">
                             <div class="product-images"  data-image-id="<%=product._id%>" data-image-index-number="0" data-image-urls="<%=product.imageUrls%>">
-                                <%product.imageUrls.forEach(imageUrl=>{%>
-                                <img alt="<%=product.name%>" src="<%=imageUrl%>" data-image-id="<%=product._id%>" data-image-urls="<%=product.imageUrls%>" class="product-image"/>
-                            <%})%>
+                               
+                               <%for(let i=0;i<product.imageUrls.length;i++){%>
+                                    <%if(i===0){%>
+                                        <img alt="<%=product.name%>" src="<%=product.imageUrls[i]%>"  class="product-image active"/>
+                                    <%}else{%>
+                                        <img alt="<%=product.name%>" src="<%=product.imageUrls[i]%>"   class="product-image"/>
+                                    <%}%>
+                                
+                            <%}%>
                             </div>
                            
                             <div class="image-switcher">
-                                <button type="button" class="prev-arrow" data-image-id="<%=product._id%>" disabled>Previous</button>
-                                <button type="button"  class="next-arrow" data-image-id="<%=product._id%>">Next</button>
+                                <button type="button" class="prev-arrow"  disabled><i class='bx bx-left-arrow-alt prev-arrow icon' ></i></button>
+                                <button type="button" class="next-arrow" ><i class='bx bx-right-arrow-alt next-arrow icon' ></i></button>
                             </div>
                         </div>
                             <div class="product_info">
