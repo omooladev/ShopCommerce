@@ -4,23 +4,26 @@ const prevArrow = document.querySelectorAll(".prev-arrow");
 const nextArrow = document.querySelectorAll(".next-arrow");
 
 const hoverImageHandler = (event) => {
-
-  if (event.target.className.includes("image-switcher")){
+  console.log("hover into image");
+  if (event.target.className.includes("image-switcher")) {
     event.target.classList.add("active");
     return;
-   
   }
- 
-  const imageSwitcher = event.target.parentElement.parentElement.children[1]
+
+  const imageSwitcher = event.target.parentElement.parentElement.children[1];
   //----------> check if there are more than one images
-  const imageUrls = event.target.parentElement.dataset.imageUrls.split(",")
+  const imageUrls = event.target.parentElement.dataset.imageUrls.split(",");
 
   if (imageUrls.length === 1) {
     return;
   }
   imageSwitcher.classList.add("active");
 };
+const hoverImageHandler1 = (event) => {
+  console.log("image-switcher hover ");
+};
 const leaveImageHandler = (event) => {
+  console.log("left image");
   const imagePreview = event.target.parentElement.parentElement.children[1];
   //----------> check if there are more than one images
   const imageUrls = event.target.parentElement.dataset.imageUrls.split(",");
@@ -28,9 +31,10 @@ const leaveImageHandler = (event) => {
   if (imageUrls.length === 1) {
     return;
   }
-  imagePreview.classList.remove("active");
+  //imagePreview.classList.remove("active");
 };
 const viewNextImageHandler = (event) => {
+  console.log("next");
   event.stopPropagation();
   let targetElement = event.target;
   if (event.target.className.includes("icon")) {
@@ -64,6 +68,7 @@ const viewNextImageHandler = (event) => {
   }
 };
 const viewPreviousImageHandler = (event) => {
+  console.log("previous");
   event.stopPropagation();
   let targetElement = event.target;
   if (event.target.className.includes("icon")) {
@@ -105,10 +110,10 @@ productImages.forEach((productImages) => {
   productImages.addEventListener("mouseout", leaveImageHandler);
 });
 imageSwitcher.forEach((imageSwitcher) => {
-  imageSwitcher.addEventListener("mouseover", hoverImageHandler);
-//   imageSwitcher.addEventListener("mouseout", leaveImageHandler);
-// });
-})
+  imageSwitcher.addEventListener("mouseover", hoverImageHandler1);
+  //   imageSwitcher.addEventListener("mouseout", leaveImageHandler);
+  // });
+});
 nextArrow.forEach((nextArrow) => {
   nextArrow.addEventListener("click", viewNextImageHandler);
 });

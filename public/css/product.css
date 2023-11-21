@@ -51,6 +51,7 @@
 }
 
 .shop-products .product-card .product-image-container .image-switcher {
+  background-color: red;
   position: absolute;
 
   width: 100%;
