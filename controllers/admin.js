@@ -1,9 +1,13 @@
 const { UnprocessableEntityError } = require("../errors");
-const productDetailsValidator = require("../lib/productDetailsValidator");
+const { productDetailsValidator, productImageValidator } = require("../lib/productValidator");
 const Product = require("../models/product");
 
 const addProductToList = async (req, res) => {
   const { name, price, description } = req.body;
+  const { status, message } = await productImageValidator(req.files);
+  if (status === "failed") {
+    throw new UnprocessableEntityError(message);
+  }
   const imageUrls = [];
   //----------> loop through the images and get their path
   if (req.files.length > 0) {

@@ -29,7 +29,7 @@ const transformImage = async (imageFiles) => {
     previewImageContainer.classList.add(`${newClassName}`);
 
     if (productImageFiles.length === 4) {
-      imageChoose.classList.add("disabled");
+      //todo imageChoose.classList.add("disabled");
       imageChoose.removeAttribute("for");
     }
 

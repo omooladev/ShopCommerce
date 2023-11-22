@@ -1,7 +1,6 @@
 //----------> import modules
 const express = require("express");
 const { uploadProductImages } = require("../config/multer");
-const fileUpload = require("express-fileupload");
 const {
   viewAddProductPage,
   addProductToList,
@@ -17,10 +16,8 @@ const router = express.Router();
 //----------> add product
 
 router.route("/add-product").get(viewAddProductPage);
-// router.post("/add-product", uploadProductImages, addProductToList);
-router.post("/add-product",fileUpload(), (req, res) => {
-  console.log(req.files.images.length);
-});
+router.post("/add-product", uploadProductImages, addProductToList);
+
 
 //----------> view all products
 router.route("/products").get(viewAdminProductsPage);
