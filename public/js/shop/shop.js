@@ -19,16 +19,22 @@ const toggleHoverImage = (event, { action }) => {
   }
 };
 
-const viewNextImageHandler = (event) => {
+const handleImageNavigation = (event, { direction }) => {
   event.stopPropagation();
   let targetElement = event.target;
+  let nextArrow;
+  let prevArrow;
   if (event.target.className.includes("icon")) {
     targetElement = event.target.parentElement;
   }
-
-  const nextArrow = targetElement;
-
-  const prevArrow = targetElement.parentElement.children[0];
+  if (direction === "next") {
+    nextArrow = targetElement;
+    prevArrow = targetElement.parentElement.children[0];
+  }
+  if (direction === "previous") {
+    nextArrow = targetElement.parentElement.children[1];
+    prevArrow = targetElement;
+  }
 
   const productImagesElement = targetElement.parentElement.parentElement;
 
@@ -41,7 +47,7 @@ const viewNextImageHandler = (event) => {
     return;
   }
   let imageIndexNumber = Number(productImagesElement.dataset.imageIndexNumber);
-  if (imageIndexNumber < productImagesArray.length - 1) {
+  if (direction === "next" && imageIndexNumber < productImagesArray.length - 1) {
     imageIndexNumber += 1;
 
     productImagesElement.dataset.imageIndexNumber = imageIndexNumber;
@@ -55,31 +61,7 @@ const viewNextImageHandler = (event) => {
       nextArrow.disabled = true;
     }
   }
-};
-const viewPreviousImageHandler = (event) => {
-  event.stopPropagation();
-  let targetElement = event.target;
-  if (event.target.className.includes("icon")) {
-    targetElement = event.target.parentElement;
-  }
-  //----------> get all the elements needed
-  const prevArrow = targetElement;
-  const nextArrow = targetElement.parentElement.children[1];
-  const productImagesElement = targetElement.parentElement.parentElement;
-
-  let productImagesArray = targetElement.parentElement.parentElement.children;
-  //----------> we create a new array and remove the first item from the html collection
-  productImagesArray = Array.prototype.slice.call(productImagesArray, 1);
-  //----------> If the length of images in one, do nothing
-  if (productImagesArray.length === 1) {
-    return;
-  }
-  let imageIndexNumber = Number(productImagesElement.dataset.imageIndexNumber);
-
-  // if (imageIndexNumber === 0) {
-  //   return;
-  // }
-  if (imageIndexNumber > 0) {
+  if (direction === "previous" && imageIndexNumber > 0) {
     imageIndexNumber -= 1;
     productImagesElement.dataset.imageIndexNumber = imageIndexNumber;
     productImagesArray[imageIndexNumber + 1].classList.remove("active");
@@ -94,7 +76,7 @@ const viewPreviousImageHandler = (event) => {
     }
   }
 };
-const viewImageHandler = () => {};
+
 productImages.forEach((productImages) => {
   productImages.addEventListener("mouseenter", (event) => {
     toggleHoverImage(event, { action: "hover" });
@@ -104,8 +86,12 @@ productImages.forEach((productImages) => {
   });
 });
 nextArrow.forEach((nextArrow) => {
-  nextArrow.addEventListener("click", viewNextImageHandler);
+  nextArrow.addEventListener("click", (event) => {
+    handleImageNavigation(event, { direction: "next" });
+  });
 });
 prevArrow.forEach((prevArrow) => {
-  prevArrow.addEventListener("click", viewPreviousImageHandler);
+  prevArrow.addEventListener("click", (event) => {
+    handleImageNavigation(event, { direction: "previous" });
+  });
 });
