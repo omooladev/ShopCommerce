@@ -21,7 +21,6 @@
   box-shadow: 0 1px 3px #807979, 0 1px 2px #807979;
 }
 .shop-products .product-card .product-image-container {
-  position: relative;
   height: 250px;
   width: 100%;
   display: flex;
@@ -31,6 +30,7 @@
   border-radius: 0.5rem;
 }
 .shop-products .product-card .product-image-container .product-images {
+  position: relative;
   width: 100%;
   border-radius: 0.5rem;
 }
@@ -50,8 +50,7 @@
   width: 100%;
 }
 
-.shop-products .product-card .product-image-container .image-switcher {
-  background-color: red;
+.shop-products .product-card .product-image-container .product-images .image-switcher {
   position: absolute;
 
   width: 100%;
@@ -61,13 +60,13 @@
   justify-content: space-between;
   padding: 0.5rem;
   display: none;
-  
- 
+  top: 50%;
+  transform: translateY(-25%);
 }
-.shop-products .product-card .product-image-container .image-switcher.active {
+.shop-products .product-card .product-image-container .product-images .image-switcher.active {
   display: flex;
 }
-.shop-products .product-card .product-image-container .image-switcher button {
+.shop-products .product-card .product-image-container .product-images .image-switcher button {
   background-color: black;
   padding: 0.3rem 0.5rem;
   color: white;
@@ -82,7 +81,12 @@
 /* .shop-products .product-card .product-image-container .image-switcher button i {
   background-color: red;
 } */
-.shop-products .product-card .product-image-container .image-switcher button:disabled {
+.shop-products
+  .product-card
+  .product-image-container
+  .product-images
+  .image-switcher
+  button:disabled {
   cursor: not-allowed;
   background-color: #888;
 }

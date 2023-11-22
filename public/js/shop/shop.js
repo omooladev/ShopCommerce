@@ -3,38 +3,23 @@ const imageSwitcher = document.querySelectorAll(".image-switcher");
 const prevArrow = document.querySelectorAll(".prev-arrow");
 const nextArrow = document.querySelectorAll(".next-arrow");
 
-const hoverImageHandler = (event) => {
-  console.log("hover into image");
-  if (event.target.className.includes("image-switcher")) {
-    event.target.classList.add("active");
-    return;
-  }
-
-  const imageSwitcher = event.target.parentElement.parentElement.children[1];
-  //----------> check if there are more than one images
-  const imageUrls = event.target.parentElement.dataset.imageUrls.split(",");
-
+const toggleHoverImage = (event, { action }) => {
+  event.stopPropagation();
+  let targetElement = event.target;
+  let imageSwitcher = targetElement.children[0];
+  let imageUrls = targetElement.dataset.imageUrls.split(",");
   if (imageUrls.length === 1) {
     return;
   }
-  imageSwitcher.classList.add("active");
-};
-const hoverImageHandler1 = (event) => {
-  console.log("image-switcher hover ");
-};
-const leaveImageHandler = (event) => {
-  console.log("left image");
-  const imagePreview = event.target.parentElement.parentElement.children[1];
-  //----------> check if there are more than one images
-  const imageUrls = event.target.parentElement.dataset.imageUrls.split(",");
-
-  if (imageUrls.length === 1) {
-    return;
+  if (action === "hover") {
+    imageSwitcher.classList.add("active");
   }
-  //imagePreview.classList.remove("active");
+  if (action === "leave") {
+    imageSwitcher.classList.remove("active");
+  }
 };
+
 const viewNextImageHandler = (event) => {
-  console.log("next");
   event.stopPropagation();
   let targetElement = event.target;
   if (event.target.className.includes("icon")) {
@@ -44,8 +29,12 @@ const viewNextImageHandler = (event) => {
   const nextArrow = targetElement;
 
   const prevArrow = targetElement.parentElement.children[0];
-  const productImagesElement = targetElement.parentElement.parentElement.children[0];
-  const productImagesArray = targetElement.parentElement.parentElement.children[0].children;
+
+  const productImagesElement = targetElement.parentElement.parentElement;
+
+  let productImagesArray = targetElement.parentElement.parentElement.children;
+  //----------> we create a new array and remove the first item from the html collection
+  productImagesArray = Array.prototype.slice.call(productImagesArray, 1);
 
   //----------> check if the length of the images is only one
   if (productImagesArray.length === 1) {
@@ -54,7 +43,7 @@ const viewNextImageHandler = (event) => {
   let imageIndexNumber = Number(productImagesElement.dataset.imageIndexNumber);
   if (imageIndexNumber < productImagesArray.length - 1) {
     imageIndexNumber += 1;
-    console.log(imageIndexNumber);
+
     productImagesElement.dataset.imageIndexNumber = imageIndexNumber;
     productImagesArray[imageIndexNumber - 1].classList.remove("active");
     productImagesArray[imageIndexNumber].classList.add("active");
@@ -68,7 +57,6 @@ const viewNextImageHandler = (event) => {
   }
 };
 const viewPreviousImageHandler = (event) => {
-  console.log("previous");
   event.stopPropagation();
   let targetElement = event.target;
   if (event.target.className.includes("icon")) {
@@ -77,9 +65,11 @@ const viewPreviousImageHandler = (event) => {
   //----------> get all the elements needed
   const prevArrow = targetElement;
   const nextArrow = targetElement.parentElement.children[1];
-  const productImagesElement = targetElement.parentElement.parentElement.children[0];
-  const productImagesArray = targetElement.parentElement.parentElement.children[0].children;
+  const productImagesElement = targetElement.parentElement.parentElement;
 
+  let productImagesArray = targetElement.parentElement.parentElement.children;
+  //----------> we create a new array and remove the first item from the html collection
+  productImagesArray = Array.prototype.slice.call(productImagesArray, 1);
   //----------> If the length of images in one, do nothing
   if (productImagesArray.length === 1) {
     return;
@@ -104,15 +94,14 @@ const viewPreviousImageHandler = (event) => {
     }
   }
 };
-
+const viewImageHandler = () => {};
 productImages.forEach((productImages) => {
-  productImages.addEventListener("mouseover", hoverImageHandler);
-  productImages.addEventListener("mouseout", leaveImageHandler);
-});
-imageSwitcher.forEach((imageSwitcher) => {
-  imageSwitcher.addEventListener("mouseover", hoverImageHandler1);
-  //   imageSwitcher.addEventListener("mouseout", leaveImageHandler);
-  // });
+  productImages.addEventListener("mouseenter", (event) => {
+    toggleHoverImage(event, { action: "hover" });
+  });
+  productImages.addEventListener("mouseleave", (event) => {
+    toggleHoverImage(event, { action: "leave" });
+  });
 });
 nextArrow.forEach((nextArrow) => {
   nextArrow.addEventListener("click", viewNextImageHandler);
