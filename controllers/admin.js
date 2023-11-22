@@ -12,17 +12,18 @@ const addProductToList = async (req, res) => {
     });
   }
 
-  //-----------> validate the products
-  const { status, message } = await productDetailsValidator({
-    name,
-    price,
-    description,
-    imageUrls,
-  });
-  if (status === "failed") {
-    throw new UnprocessableEntityError(message);
-  }
+  //----------->TODO validate the products
+  // const { status, message } = await productDetailsValidator({
+  //   name,
+  //   price,
+  //   description,
+  //   imageUrls,
+  // });
+  // if (status === "failed") {
+  //   throw new UnprocessableEntityError(message);
+  // }
   // ---> create a new product
+  return;
   const product = new Product({
     name,
     price,

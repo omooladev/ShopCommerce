@@ -72,7 +72,7 @@ const submitFormHandler = async (event) => {
   for (const key in newProduct) {
     if (key === "images") {
       newProduct[key].forEach((image) => {
-        formData.append("images[]", image);
+        formData.append("images", image);
       });
     } else {
       formData.append(key, newProduct[key]);

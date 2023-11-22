@@ -1,6 +1,6 @@
 const multer = require("multer");
 const {
-  serverConfigurations: { MAX_PRODUCT_IMAGES },
+  serverConfigurations: { MAX_PRODUCT_IMAGES, MAX_IMAGE_SIZE },
 } = require("../config/server");
 
 const storage = multer.diskStorage({
@@ -23,9 +23,10 @@ const fileFilter = (req, file, cb) => {
     cb(null, false);
   }
 };
-const multerConfiguration = multer({
+const uploadProductImages = multer({
   storage,
   fileFilter,
+  limits: { fileSize: MAX_IMAGE_SIZE },
 }).array("images[]");
 
-module.exports = multerConfiguration;
+module.exports = { uploadProductImages };

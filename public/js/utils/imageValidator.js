@@ -69,7 +69,7 @@ const validateImageSize = (imageFile) => {
   if (imageSize > MAX_IMAGE_SIZE) {
     productInputNotValid({
       inputValidityName: productImageFiles.length === 0 && "productImageIsValid",
-      errorMessage: `Please upload a picture smaller than ${MAX_IMAGE_SIZE_WHOLE_NUMBER} MB`,
+      errorMessage: `Please upload an image smaller than ${MAX_IMAGE_SIZE_WHOLE_NUMBER} MB`,
     });
     return false;
   }
