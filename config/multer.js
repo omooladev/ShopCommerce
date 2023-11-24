@@ -29,6 +29,7 @@ const fileFilter = (req, file, cb) => {
 const uploadProductImages = multer({
   storage: temporaryStorage,
   fileFilter,
-}).array("images[]");
+  limits: { fileSize: MAX_IMAGE_SIZE },
+}).array("images");
 
 module.exports = { uploadProductImages };
