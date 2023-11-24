@@ -91,21 +91,21 @@ const submitFormHandler = async (event) => {
         headers: { "Content-Type": "multipart/form-data" },
       }
     );
-    return console.log(data);
+    
 
-    // if (data.status === "success") {
-    //   setFormReply({
-    //     message: isEditing ? "Product edited successfully" : "Product item added successfully",
-    //     type: "success",
-    //   });
-    //   setTimeout(() => {
-    //     console.log("reset form here");
-    //     //resetForm();
-    //     if (data.message === "Product has been edited successfully") {
-    //       //window.location.href = "/admin/products";
-    //     }
-    //   }, 2000);
-    // }
+    if (data.status === "success") {
+      setFormReply({
+        message: isEditing ? "Product edited successfully" : "Product item added successfully",
+        type: "success",
+      });
+      // setTimeout(() => {
+      //   console.log("reset form here");
+      //   //resetForm();
+      //   if (data.message === "Product has been edited successfully") {
+      //     //window.location.href = "/admin/products";
+      //   }
+      // }, 2000);
+    }
   } catch (error) {
     formatError(error, (errorMessage) => {
       setFormReply({

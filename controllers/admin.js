@@ -27,7 +27,6 @@ const addProductToList = async (req, res) => {
     throw new UnprocessableEntityError(message);
   }
   // ---> create a new product
-  return;
   const product = new Product({
     name,
     price,
