@@ -1,13 +1,17 @@
 const { StatusCodes } = require("http-status-codes");
 const {
-  serverConfigurations: { MAX_PRODUCT_IMAGES, MAX_IMAGE_SIZE_WHOLE_NUMBER },
-} = require("../config/server");
+  appConfigurations: { MAX_IMAGE_SIZE_WHOLE_NUMBER },
+} = require("../config/app");
 
 const errorHandlerMiddleware = (error, req, res, next) => {
   let customError = {
     message: error.message || "Something went wrong, please try again later",
     statusCode: error.statusCode || 500,
   };
+  if (error.code === "LIMIT_FILE_SIZE") {
+    customError.message = `Please upload a file that is no larger than ${MAX_IMAGE_SIZE_WHOLE_NUMBER}MB`;
+    customError.statusCode = StatusCodes.UNPROCESSABLE_ENTITY;
+  }
   console.log(error);
   console.log(customError);
 
