@@ -2,8 +2,9 @@ const multer = require("multer");
 const {
   serverConfigurations: { MAX_PRODUCT_IMAGES, MAX_IMAGE_SIZE },
 } = require("../config/server");
+const { UnprocessableEntityError } = require("../errors");
 
-const storage = multer.diskStorage({
+const temporaryStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "data/temp/product-images");
   },
@@ -17,8 +18,17 @@ const storage = multer.diskStorage({
   },
 });
 
+const fileFilter = (req, file, cb) => {
+  if (["image/png", "image/jpg", "image/jpeg"].includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+    return cb(new UnprocessableEntityError("Please upload images in PNG, JPG, or JPEG format"));
+  }
+};
 const uploadProductImages = multer({
-  storage,
+  storage: temporaryStorage,
+  fileFilter,
 }).array("images[]");
 
 module.exports = { uploadProductImages };
