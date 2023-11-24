@@ -1,15 +1,13 @@
 const { UnprocessableEntityError } = require("../errors");
-const { productDetailsValidator, productImageValidator } = require("../lib/productValidator");
+const { productDetailsValidator } = require("../lib/productValidator");
 const Product = require("../models/product");
 
 const addProductToList = async (req, res) => {
-  return;
-  return console.log(req.files);
   const { name, price, description } = req.body;
-  const { status, message } = await productImageValidator(req.files);
-  if (status === "failed") {
-    throw new UnprocessableEntityError(message);
-  }
+  // const { status, message } = await productImageValidator(req.files);
+  // if (status === "failed") {
+  //   throw new UnprocessableEntityError(message);
+  // }
   const imageUrls = [];
   //----------> loop through the images and get their path
   if (req.files.length > 0) {
@@ -19,15 +17,15 @@ const addProductToList = async (req, res) => {
   }
 
   //----------->TODO validate the products
-  // const { status, message } = await productDetailsValidator({
-  //   name,
-  //   price,
-  //   description,
-  //   imageUrls,
-  // });
-  // if (status === "failed") {
-  //   throw new UnprocessableEntityError(message);
-  // }
+  const { status, message } = await productDetailsValidator({
+    name,
+    price,
+    description,
+    imageUrls,
+  });
+  if (status === "failed") {
+    throw new UnprocessableEntityError(message);
+  }
   // ---> create a new product
   return;
   const product = new Product({
@@ -128,3 +126,5 @@ module.exports = {
   editProduct,
   deleteProduct,
 };
+
+

@@ -1,12 +1,13 @@
 const multer = require("multer");
+
 const {
   appConfigurations: { MAX_PRODUCT_IMAGES, MAX_IMAGE_SIZE },
 } = require("../config/app");
 const { UnprocessableEntityError } = require("../errors");
 
-const temporaryStorage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "data/temp/product-images");
+    cb(null, "data/product-images");
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -32,7 +33,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 const uploadProductImages = multer({
-  storage: temporaryStorage,
+  storage,
   fileFilter,
   limits: { fileSize: MAX_IMAGE_SIZE },
 }).array("images");

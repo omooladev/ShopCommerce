@@ -12,8 +12,6 @@ const errorHandlerMiddleware = (error, req, res, next) => {
     customError.message = `Please upload a file that is no larger than ${MAX_IMAGE_SIZE_WHOLE_NUMBER}MB`;
     customError.statusCode = StatusCodes.UNPROCESSABLE_ENTITY;
   }
-  console.log(error);
-  console.log(customError);
 
   res.status(customError.statusCode).json({ message: customError.message });
 };
