@@ -19,8 +19,13 @@ const temporaryStorage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  if (["image/png", "image/jpg", "image/jpeg"].includes(file.mimetype)) {
-    cb(null, true);
+  if (req.files.length <= MAX_PRODUCT_IMAGES) {
+    if (["image/png", "image/jpg", "image/jpeg"].includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new UnprocessableEntityError("Please upload images in PNG, JPG, or JPEG format"));
+    }
   } else {
     cb(null, false);
     return cb(new UnprocessableEntityError("Please upload images in PNG, JPG, or JPEG format"));

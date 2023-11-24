@@ -3,6 +3,7 @@ const { productDetailsValidator, productImageValidator } = require("../lib/produ
 const Product = require("../models/product");
 
 const addProductToList = async (req, res) => {
+  return;
   return console.log(req.files);
   const { name, price, description } = req.body;
   const { status, message } = await productImageValidator(req.files);
