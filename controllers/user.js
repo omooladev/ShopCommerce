@@ -7,7 +7,7 @@ exports.viewShopPage = async (req, res) => {
 
   const products = await Product.find();
   //----------> render shop page
-  return res.render("user/shop.ejs", { path: "/", pageTitle: "Shop", products: products || [] });
+  return res.render("user/shop", { path: "/", pageTitle: "Shop", products: products || [] });
 };
 exports.viewCartPage = (req, res) => {
   // req.user

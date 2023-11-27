@@ -81,7 +81,7 @@ const deleteProduct = (req, res) => {
 
 //----------> view add product page
 const viewAddProductPage = (req, res) => {
-  res.render("admin/product-management.ejs", {
+  res.render("admin/product-management", {
     pageTitle: "Add New Product",
     path: "/admin/add-product",
     isEditing: false,
