@@ -1,6 +1,6 @@
 <%-include("../includes/head")%>
 <link rel="stylesheet" href="/css/form.css" />
-<script src="/js/form/form.js" defer></script>
+<script src="/js/form/form.js"defer></script>
 <script src="/js/form/product.js" type="module" defer></script>
 </head>
 <body>
@@ -29,22 +29,19 @@
                  <div class="form_control image_control">
                     <div class="control">
                         <%if(isEditing){%>
-                             <label>Image</label>
+                             <label for="product_image">Image</label>
                             <label for="product_image" class="change_image_label">change image</label>
                             <input type="file" id="product_image" name="product_image" accept="image/" style="display: none;"/>
                         <%}else{%>
                              <label for="product_image">Image</label>
+                             <label for="product_image" class="product_image_choose">Choose Files</label>
                             <input type="file" id="product_image" name="product_image" accept="image/" multiple/>
                             <%}%>
                     </div>
                     <div class="preview_image_container">
-
+                        
                     </div>
-                    <!-- <%if(isEditing){%>
-                           <img src="<%=product.imageUrl%>" alt="product image" class="preview_image edit"/>
-                        <%}else{%>
-                             <img alt="product image" class="preview_image"/>
-                            <%}%> -->
+                    
                     
                 </div>
             </div>
@@ -59,3 +56,9 @@
         </form>
     </main>
 </body>
+
+<!-- <%if(isEditing){%>
+                           <img src="<%=product.imageUrl%>" alt="product image" class="preview_image edit"/>
+                        <%}else{%>
+                             
+                            <%}%>  -->

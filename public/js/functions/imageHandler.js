@@ -1,62 +1,37 @@
-import { validateImage } from "../utils/inputValidator.js";
+import { validateImage } from "../utils/imageValidator.js";
 import { transformImage } from "../utils/transformImage.js";
-import { setFormReply } from "./setFormReply.js";
-//----------> resetting preview image
-const resetImagePreview = () => {
-  //once we are resetting image preview, we set the validity to false automatically
-  productImagePreview.src = "";
-  productImagePreview.alt = "";
-  productImagePreview.style.display = "none";
-  productFormInputIsValid.productImageIsValid = false;
-  productImageFile = "";
-  transformedImage = "";
-};
 
 const changeImageHandler = async (event) => {
-  //----------> get the files
+  //----------> get the images
   let imageFiles = event.target.files;
 
-  let validationResult = await validateImage({ data: imageFiles, validationType: "length" });
-  if (validationResult.status === "error") {
-    //----------> reset image preview
-    return resetImagePreview();
-  }
+  //----------> validate the images
+  //todo uncomment the validation
+  // let validationResult = await validateImage({
+  //   selectedImages: imageFiles,
+  //   validationType: "length",
+  // });
 
-  
-  const errorData = { hasError: false, errorMessage: "" };
+  // if (validationResult.hasError) {
+  //   return;
+  // }
 
-  for (let index = 0; index < imageFiles.length; index++) {
-    let imageFile = imageFiles[index];
-    let validationResult = await validateImage({
-      data: imageFiles,
-      validationType: "others",
-      config: { imageFile },
-    });
+  // for (let index = 0; index < imageFiles.length; index++) {
+  //   let imageFile = imageFiles[index];
+  //   validationResult = await validateImage({
+  //     validationType: "file-type/size",
+  //     imageFile,
+  //   });
 
-    if (validationResult.status === "error") {
-      errorData.errorMessage = validationResult.message;
-      errorData.hasError = true;
-      break;
-    }
-  }
+  //   if (validationResult.hasError) {
+  //     break;
+  //   }
+  // }
 
-  if (errorData.hasError) {
-    //----------> set an error
-    setFormReply({
-      message: errorData.errorMessage,
-      type: "error",
-    });
-    saveFormValidity();
-    //----------> reset image preview
-    resetImagePreview();
-    return;
-  }
+  // if (validationResult.hasError) {
+  //   return;
+  // }
 
-  //---------> set image validity to true
-  productFormInputIsValid.productImageIsValid = true;
-  setFormReply({
-    replyType: "reset",
-  });
   //----------> transform the image
   await transformImage(imageFiles);
 };

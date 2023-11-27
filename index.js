@@ -1,18 +1,28 @@
+//----------> import modules
 require("dotenv").config();
+
+//----------> custom modules
 const app = require("./app");
+const { connectToDatabase } = require("./utils/connectToDatabase");
 
-const { PORT = 5000 } = process.env;
+//----------> configurations
+const { PORT = 5000, MONGO_URI } = process.env;
 
-//----------> start function
-const start = () => {
+//----------> start server
+const start = async () => {
   try {
+    //----------> connect to database
+    await connectToDatabase(MONGO_URI);
+
+    //----------> listen to connection
     app.listen(PORT, () => {
       console.log(`Server is listening at PORT ${PORT}`);
     });
   } catch (error) {
+    console.log(error);
     console.log("Something went wrong, please try again");
   }
 };
 
-//----------> initialize the start function
+//----------> initialize start server
 start();
