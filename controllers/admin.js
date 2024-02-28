@@ -38,7 +38,9 @@ const addProductToList = async (req, res) => {
   await product.save();
 
   //----------> return response to client
-  res.status(201).json({ status: "success", message: "Product Created Successfully" });
+  res
+    .status(201)
+    .json({ status: "success", message: "Product Created Successfully" });
 };
 
 const editProduct = async (req, res) => {
@@ -105,16 +107,15 @@ const viewEditProductPage = (req, res) => {
 };
 
 //----------> view admin products page
-const viewAdminProductsPage = (req, res) => {
-  Product.find()
-    .then((products) => {
-      res.render("admin/products", {
-        products,
-        path: "/admin/products",
-        pageTitle: "Admin Products",
-      });
-    })
-    .catch((error) => console.log(error));
+const viewAdminProductsPage = async (req, res) => {
+  const products = await Product.find();
+
+  //----------> render shop page
+  return res.render("user/shop", {
+    path: "/",
+    pageTitle: "Shop",
+    products: products || [],
+  });
 };
 
 module.exports = {
@@ -125,5 +126,3 @@ module.exports = {
   editProduct,
   deleteProduct,
 };
-
-

@@ -23,16 +23,16 @@ app.set("views", "views");
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(
-  "/data/product-images",
-  express.static(path.join(__dirname, "data/product-images"))
-);
+// app.use(
+//   "/data/product-images",
+//   express.static(path.join(__dirname, "data/product-images"))
+// );
 
 //----------> documentation route
 app.use("/api/docs", swaggerUI.serve);
 app.use("/api/docs", swaggerUI.setup(swaggerDocumentation));
 //----------> routes
-app.use("/admin", adminRouter);
+app.use(adminRouter);
 app.use(userRouter);
 
 //----------> middlewares

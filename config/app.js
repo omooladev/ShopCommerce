@@ -1,4 +1,4 @@
-let MAX_IMAGE_SIZE = 1 * 1024 * 1024; //---this is 1MB
+let MAX_IMAGE_SIZE = 10 * 1024 * 1024; //todo---change to 1MB
 module.exports.appConfigurations = {
   //----------> maximum product images that can be uploaded
   MAX_PRODUCT_IMAGES: 4,

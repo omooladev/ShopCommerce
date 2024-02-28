@@ -7,7 +7,11 @@ exports.viewShopPage = async (req, res) => {
 
   const products = await Product.find();
   //----------> render shop page
-  return res.render("user/shop", { path: "/", pageTitle: "Shop", products: products || [] });
+  return res.render("user/shop", {
+    path: "/",
+    pageTitle: "Shop",
+    products: products || [],
+  });
 };
 exports.viewCartPage = (req, res) => {
   // req.user
@@ -16,7 +20,6 @@ exports.viewCartPage = (req, res) => {
   //     const items = user.cart.items.map((item) => {
   //       return { ...item.productId._doc, quantity: item.quantity };
   //     });
-
   //     const totalAmount = user.cart.totalAmount;
   //     const cart = { items, totalAmount };
   //     res.render("user/cart.ejs", {
@@ -66,7 +69,6 @@ exports.getAllCartItems = (req, res, next) => {
 exports.handleCartQuantityChange = (req, res) => {
   // //----------> get product id
   // const { cartItemId, action } = req.params;
-
   // req.user
   //   .handleCartQuantityChange(cartItemId, action)
   //   .then((result) => {

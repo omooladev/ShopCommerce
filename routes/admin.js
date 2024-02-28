@@ -20,7 +20,7 @@ router.post("/add-product", uploadProductImages, addProductToList);
 
 
 //----------> view all products
-router.route("/products").get(viewAdminProductsPage);
+router.route("/admin/products").get(viewAdminProductsPage);
 
 //----------> view edit product page
 router.route("/edit-product/:productId").get(viewEditProductPage);
