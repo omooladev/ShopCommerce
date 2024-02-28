@@ -6,7 +6,7 @@ const app = require("./app");
 const { connectToDatabase } = require("./utils/connectToDatabase");
 
 //----------> configurations
-const { PORT = 5000, MONGO_URI } = process.env;
+const { PORT = 5500, MONGO_URI } = process.env;
 
 //----------> start server
 const start = async () => {
