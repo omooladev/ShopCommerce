@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/docs", swaggerUI.serve);
 app.use("/api/docs", swaggerUI.setup(swaggerDocumentation));
 //----------> routes
-app.use(adminRouter);
+app.use("/admin", adminRouter);
 app.use(userRouter);
 
 //----------> middlewares
