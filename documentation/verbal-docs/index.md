@@ -1,11 +1,13 @@
 # Description
 
+## 29/02/24
+
 The [index.js](../../index.js) file served as the entry point for this
 application and the following was done:
 
 - The dotenv package used to load environment variables from a .env file was
   imported and attached to it was config() method used to parse the key-value
-  pairs in the .env file and loads it in process.env where it can be easily
+  pairs in the .env file and loads it into process.env where it can be easily
   accessed from the application.
 - The [app.js](../../app.js) file was imported
 - The PORT number and MONGO URI which serves as a connection string to the
