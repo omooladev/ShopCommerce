@@ -2,6 +2,15 @@ const { UnprocessableEntityError } = require("../errors");
 const { productDetailsValidator } = require("../lib/productValidator");
 const Product = require("../models/product");
 
+//----------> render add new product page
+const viewAddProductPage = (req, res) => {
+  res.render("admin/product-management", {
+    pageTitle: "Add New Product",
+    path: "/admin/add-product",
+    isEditing: false,
+  });
+};
+
 const addProductToList = async (req, res) => {
   const { name, price, description } = req.body;
   // const { status, message } = await productImageValidator(req.files);
@@ -79,15 +88,6 @@ const deleteProduct = (req, res) => {
   Product.findOneAndRemove({ _id: productId })
     .then((result) => res.redirect("/admin/products"))
     .catch((error) => console.log(error));
-};
-
-//----------> view add product page
-const viewAddProductPage = (req, res) => {
-  res.render("admin/product-management", {
-    pageTitle: "Add New Product",
-    path: "/admin/add-product",
-    isEditing: false,
-  });
 };
 
 //----------> view edit product page

@@ -13,11 +13,10 @@ const {
 //----------> router
 const router = express.Router();
 
-//----------> add product
-
+//----------> view the add product page
 router.route("/add-product").get(viewAddProductPage);
+//----------> add product
 router.post("/add-product", uploadProductImages, addProductToList);
-
 
 //----------> view all products
 router.route("/admin/products").get(viewAdminProductsPage);
