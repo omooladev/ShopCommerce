@@ -20,13 +20,22 @@ const productImagePreview = document.querySelector(".preview_image");
 let productImageFiles: any = [];
 let transformedImages: any = [];
 
+//<---------- INTERFACES ---------->I would have this here here but turns out you cannot import a moduke
+interface ProductFormValidity {
+  productNameIsValid: boolean;
+  productPriceIsValid: boolean;
+  productDescriptionIsValid: boolean;
+  productImageIsValid: boolean;
+}
+
 //----------> default validity
-// let productFormIsValid = {
-//   productNameIsValid: productName.value ? true : false,
-//   productPriceIsValid: productName.value ? true : false,
-//   productDescriptionIsValid: productName.value ? true : false,
-//   productImageIsValid: previewImageContainer.children.length > 0 ? true : false,
-// };
+let productFormIsValid: ProductFormValidity = {
+  productNameIsValid: productName.value ? true : false,
+  productPriceIsValid: productName.value ? true : false,
+  productDescriptionIsValid: productName.value ? true : false,
+  productImageIsValid: previewImageContainer.children.length > 0 ? true : false,
+};
+console.log(productFormIsValid);
 
 //----------> check validity of inputs and return validity of form
 // const saveFormValidity = () => {

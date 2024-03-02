@@ -20,12 +20,13 @@ const productImagePreview = document.querySelector(".preview_image");
 let productImageFiles = [];
 let transformedImages = [];
 //----------> default validity
-// let productFormIsValid = {
-//   productNameIsValid: productName.value ? true : false,
-//   productPriceIsValid: productName.value ? true : false,
-//   productDescriptionIsValid: productName.value ? true : false,
-//   productImageIsValid: previewImageContainer.children.length > 0 ? true : false,
-// };
+let productFormIsValid = {
+    productNameIsValid: productName.value ? true : false,
+    productPriceIsValid: productName.value ? true : false,
+    productDescriptionIsValid: productName.value ? true : false,
+    productImageIsValid: previewImageContainer.children.length > 0 ? true : false,
+};
+console.log(productFormIsValid);
 //----------> check validity of inputs and return validity of form
 // const saveFormValidity = () => {
 //   //----------> get all validity
