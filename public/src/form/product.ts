@@ -1,9 +1,11 @@
 //<---------- Import modules ---------->
 // import { changeImageHandler } from "../../js/functions/imageHandler.js";
 import { changeProductInputHandler } from "../functions/ProductInputHandler.js";
+
 // const setProductDescriptionLength = (productDescriptionValue) => {
 //   //----------> set the length of the product description in the inner html
 //   productDescriptionLength.innerHTML = productDescriptionValue.length;
+
 //   //----------> check if the length of the description is zero
 //   if (productDescriptionValue.trim().length === 0) {
 //     productInputNotValid({
@@ -26,8 +28,9 @@ import { changeProductInputHandler } from "../functions/ProductInputHandler.js";
 //     productInputIsValid({ inputValidityName: "productDescriptionIsValid" });
 //   }
 // };
+
 //<---------- EVENT LISTENERS FOR PRODUCTS INPUTS ---------->
-productName.oninput = (event) => changeProductInputHandler(event, "Name");
-productPrice.oninput = (event) => changeProductInputHandler(event, "Price");
-productDescription.oninput = (event) => changeProductInputHandler(event, "Description");
+productName.oninput = (event: Event) => changeProductInputHandler(event, "Name");
+productPrice.oninput = (event: Event) => changeProductInputHandler(event, "Price");
+productDescription.oninput = (event: Event) => changeProductInputHandler(event, "Description");
 // productImage.onchange = (event: Event) => changeImageHandler(event);
