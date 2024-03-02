@@ -1,16 +1,18 @@
+import { ValidateProductDescription } from "../lib/ValidateProductDescription.js";
+
 //<----------A function for handling the product name,price, and description field ---------->
 export const changeProductInputHandler = (event: Event, inputType: string) => {
-  console.log("aza");
-  //----------> get the value of the input field
-  // const inputValue = event.target.value;
+  //----------> access the target element
+  const input = event.target as HTMLInputElement;
+  //----------> declare variables
+  let inputValue: string = input.value;
+  //   let inputValueLength: string | number = inputValue.trim().length;
   //----------> set a dynamic name for the input field
-  //const inputValidityName = `product${inputType}IsValid`;
-  //----------> check the length of the input field
-  //const inputValueLength = inputValue.trim().length;
+  const inputValidityName: string = `product${inputType}IsValid`;
   //----------> check if input type is description
-  //   if (inputType === "Description") {
-  //     return setProductDescriptionLength(inputValue);
-  //   }
+  if (inputType === "Description") {
+    return ValidateProductDescription(inputValue.trim());
+  }
   //----------> check if the input value length is 0
   //   if (inputValueLength === 0) {
   //     return productInputNotValid({ inputType, inputValidityName });
