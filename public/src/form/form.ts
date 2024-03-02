@@ -22,10 +22,7 @@ let transformedImages: any = [];
 
 //<---------- INTERFACES ---------->I would have this here here but turns out you cannot import a moduke
 interface ProductFormValidity {
-  productNameIsValid: boolean;
-  productPriceIsValid: boolean;
-  productDescriptionIsValid: boolean;
-  productImageIsValid: boolean;
+  [key: string]: boolean;
 }
 
 //----------> default validity
@@ -35,7 +32,6 @@ let productFormIsValid: ProductFormValidity = {
   productDescriptionIsValid: productName.value ? true : false,
   productImageIsValid: previewImageContainer.children.length > 0 ? true : false,
 };
-console.log(productFormIsValid);
 
 //----------> check validity of inputs and return validity of form
 // const saveFormValidity = () => {

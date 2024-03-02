@@ -1,11 +1,18 @@
-import { productInputNotValid } from "./productInputValidity.js";
+import { productInputIsValid, productInputNotValid } from "./productInputValidity.js";
 
 export const ValidateProductDescription = (value: any) => {
   //----------> set the length of the product description in the inner html
   productDescriptionLength.innerHTML = value.length;
   //----------> check if the length of the description is zero
   if (value.length === 0) {
-    productInputNotValid("Description", "productDescriptionIsValid", "Please provide a product description");
+    return productInputNotValid(
+      "Description",
+      "productDescriptionIsValid",
+      "Please provide a product description"
+    );
+  }
+  if (value.length > 0) {
+    return productInputIsValid("Description");
   }
   //   else {
   //   ----------> check if the length of the product description value is greater than
