@@ -1,32 +1,29 @@
 import { productInputIsValid, productInputNotValid } from "./productInputValidity.js";
 
 export const ValidateProductDescription = (value: any) => {
+  let lengthOfValue = value.length;
   //----------> set the length of the product description in the inner html
-  productDescriptionLength.innerHTML = value.length;
+  productDescriptionLength.innerHTML = lengthOfValue;
   //----------> check if the length of the description is zero
-  if (value.length === 0) {
+  if (lengthOfValue === 0) {
+    return productInputNotValid("productDescriptionIsValid", "Please provide a product description");
+  }
+
+  //----------> check if the length of the product description value is greater than
+  if (lengthOfValue > 500) {
+    // ----------> configure the styles
+    productDescriptionLength.style.color = "red";
     return productInputNotValid(
-      "Description",
       "productDescriptionIsValid",
-      "Please provide a product description"
+      "Product description length cannot exceed 500 characters"
     );
   }
-  if (value.length > 0) {
-    return productInputIsValid("Description");
+  //----------> configure the styles
+  //productDescriptionLength.style.color = "black";
+  //----------> change the validity to true
+  // productInputIsValid({ inputValidityName: "productDescriptionIsValid" });
+
+  if (lengthOfValue > 0 && lengthOfValue <= 500) {
+    return productInputIsValid("productDescriptionIsValid");
   }
-  //   else {
-  //   ----------> check if the length of the product description value is greater than
-  //       if (productDescriptionValue.trim().length > 500) {
-  //    ----------> configure the styles
-  //         productDescriptionLength.style.color = "red";
-  //         return productInputNotValid({
-  //           inputValidityName: "productDescriptionIsValid",
-  //           errorMessage: "Product description length cannot exceed 500 characters",
-  //         });
-  //       }
-  //     //----------> configure the styles
-  //     productDescriptionLength.style.color = "black";
-  //     //----------> change the validity to true
-  //     productInputIsValid({ inputValidityName: "productDescriptionIsValid" });
-  //   }
 };
