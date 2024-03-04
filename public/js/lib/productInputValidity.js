@@ -1,23 +1,25 @@
 import { setFormReply } from "../functions/setFormReply.js";
 export const productInputIsValid = (inputValidityName) => {
-    //----------> dynamically set the validity of that input to true
+    //----------> If the input is already valid, don't validate it again
     if (productFormIsValid[inputValidityName]) {
         return;
     }
+    console.log("is valid");
+    //----------> dynamically set the validity of that input to true
     productFormIsValid[inputValidityName] = true;
-    console.log(productFormIsValid);
     //----------> save form validity
     //saveFormValidity();
     //----------> reset form reply because the input is valid
     return setFormReply("", "", "reset");
 };
 export const productInputNotValid = (inputValidityName, errorMessage) => {
+    //----------> If Input is not valid, do not run the validator again
     if (!productFormIsValid[inputValidityName]) {
         return;
     }
-    //----------> Set the validity of the input to false
+    console.log("not valid");
+    //----------> dynamically set the validity of that input to false
     productFormIsValid[inputValidityName] = false;
-    console.log(productFormIsValid);
     //----------> save form validity
     //saveFormValidity();
     //----------> set error message since is it not valid
