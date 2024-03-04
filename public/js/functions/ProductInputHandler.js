@@ -1,4 +1,4 @@
-import { ValidateProductInput } from "../lib/productInputValidator.js";
+import { ValidateProductInput } from "../lib/ProductInputValidator.js";
 //<----------A function for handling the product name,price, and description field ---------->
 export const changeProductInputHandler = (event, inputType) => {
     //----------> access the target element
@@ -7,18 +7,3 @@ export const changeProductInputHandler = (event, inputType) => {
     //----------> check if input type is description
     ValidateProductInput(inputValue, inputType);
 };
-//----------> check if the input value length is 0
-//   if (inputValueLength === 0) {
-//     return productInputNotValid({ inputType, inputValidityName });
-//   }
-//----------> check if input type is description
-//   if (inputType === "Price") {
-//     if (!Number(inputValue)) {
-//       return productInputNotValid({
-//         inputType,
-//         inputValidityName,
-//         errorMessage: "Product price is invalid",
-//       });
-//     }
-//   }
-//   return productInputIsValid({ inputValidityName });

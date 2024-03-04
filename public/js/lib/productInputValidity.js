@@ -12,9 +12,9 @@ export const productInputIsValid = (inputValidityName) => {
     //----------> reset form reply because the input is valid
     return setFormReply("", "", "reset");
 };
-export const productInputNotValid = (inputValidityName, errorMessage) => {
-    //----------> If Input is not valid, do not run the validator again
-    if (!productFormIsValid[inputValidityName]) {
+export const productInputNotValid = (inputValidityName, errorMessage, skip = "no") => {
+    //----------> If Input is not valid and we do not skip the statement, do not run the validator again
+    if (!productFormIsValid[inputValidityName] && skip === "no") {
         return;
     }
     console.log("not valid");
