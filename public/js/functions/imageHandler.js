@@ -1,39 +1,25 @@
-import { validateImage } from "../utils/imageValidator.js";
-import { transformImage } from "../utils/transformImage.js";
-
-const changeImageHandler = async (event) => {
-  //----------> get the images
-  let imageFiles = event.target.files;
-
-  //----------> validate the images
-  //todo uncomment the validation
-  // let validationResult = await validateImage({
-  //   selectedImages: imageFiles,
-  //   validationType: "length",
-  // });
-
-  // if (validationResult.hasError) {
-  //   return;
-  // }
-
-  // for (let index = 0; index < imageFiles.length; index++) {
-  //   let imageFile = imageFiles[index];
-  //   validationResult = await validateImage({
-  //     validationType: "file-type/size",
-  //     imageFile,
-  //   });
-
-  //   if (validationResult.hasError) {
-  //     break;
-  //   }
-  // }
-
-  // if (validationResult.hasError) {
-  //   return;
-  // }
-
-  //----------> transform the image
-  await transformImage(imageFiles);
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
 };
-
-export { changeImageHandler };
+import { validateImage } from "../utils/imageValidator.js";
+export const changeImageHandler = (event, inputType) => __awaiter(void 0, void 0, void 0, function* () {
+    //----------> get the images
+    let imageElement = event.target;
+    let imageFiles = imageElement.files;
+    //----------> validate the image files
+    let validationResult = yield validateImage(imageFiles, inputType);
+    // if (validationResult.hasError) {
+    //   return;
+    // }
+    // if (validationResult.hasError) {
+    //   return;
+    // }
+    //----------> transform the image
+    //await transformImage(imageFiles);
+});

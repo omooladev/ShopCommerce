@@ -5,6 +5,6 @@ export const changeProductInputHandler = (event: Event, inputType: string) => {
   //----------> access the target element
   const input = event.target as HTMLInputElement;
   let inputValue: string = input.value;
-  //----------> check if input type is description
+  //----------> validate the input
   ValidateProductInput(inputValue, inputType);
 };

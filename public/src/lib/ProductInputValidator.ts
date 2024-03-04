@@ -1,6 +1,5 @@
+import { PRODUCT_DESCRIPTION_MAX_LENGTH } from "../config.js";
 import { productInputIsValid, productInputNotValid } from "./ProductInputValidity.js";
-
-const PRODUCT_DESCRIPTION_MAX_LENGTH: number = 500;
 
 //----------> set the product description length to the maximum when page loads
 productDescription.maxLength = PRODUCT_DESCRIPTION_MAX_LENGTH;

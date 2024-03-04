@@ -17,8 +17,8 @@ const productImagePreview = document.querySelector(".preview_image");
 //----------> make the button disabled
 // productFormButton.disabled = false;//todo----> come back to this
 //---------->Declare Variables
-let productImageFiles: any = [];
-let transformedImages: any = [];
+// let productImageFiles: any = [];
+// let transformedImages: any = [];
 
 //<---------- INTERFACES ---------->I would have this here here but turns out you cannot import a moduke
 interface ProductFormValidity {

@@ -3,8 +3,8 @@ export const saveFormValidity = () => {
   const { productNameIsValid, productPriceIsValid, productDescriptionIsValid, productImageIsValid } =
     productFormIsValid;
   //----------> check form validity
-  const formIsValid = productNameIsValid && productPriceIsValid && productDescriptionIsValid;
-  //&& productImageIsValid;
+  const formIsValid = productImageIsValid;//todo----------> change this
+  //productNameIsValid && productPriceIsValid && productDescriptionIsValid && productImageIsValid;
   console.log(formIsValid);
   //----------> if form is not valid, disable the form button
   if (!formIsValid) {
