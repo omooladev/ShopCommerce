@@ -26,22 +26,6 @@ let productFormIsValid = {
     productDescriptionIsValid: productName.value ? true : false,
     productImageIsValid: previewImageContainer.children.length > 0 ? true : false,
 };
-//----------> check validity of inputs and return validity of form
-// const saveFormValidity = () => {
-//   //----------> get all validity
-//   const { productNameIsValid, productPriceIsValid, productDescriptionIsValid, productImageIsValid } =
-//     productFormIsValid;
-//   //----------> check form validity
-//   const formIsValid =
-//     productNameIsValid && productPriceIsValid && productDescriptionIsValid && productImageIsValid;
-//   //----------> if form is not valid, disable the form button
-//   // if (!formIsValid) {
-//   //   productFormButton.disabled = true;
-//   //   return;
-//   // }
-//   //----------> enable the form button
-//   productFormButton.disabled = false;
-// };
 //----------> submit form handler
 // const submitFormHandler = async (event) => {
 //   event.preventDefault();

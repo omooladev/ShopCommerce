@@ -1,3 +1,4 @@
+import { saveFormValidity } from "../functions/saveFormValidity.js";
 import { setFormReply } from "../functions/setFormReply.js";
 
 export const productInputIsValid = (inputValidityName: string) => {
@@ -5,14 +6,11 @@ export const productInputIsValid = (inputValidityName: string) => {
   if (productFormIsValid[inputValidityName]) {
     return;
   }
-  console.log("is valid");
   //----------> dynamically set the validity of that input to true
   productFormIsValid[inputValidityName] = true;
   //----------> save form validity
-  //saveFormValidity();
-
+  saveFormValidity();
   //----------> reset form reply because the input is valid
-
   return setFormReply("", "", "reset");
 };
 export const productInputNotValid = (inputValidityName: string, errorMessage: string, skip = "no") => {
@@ -20,12 +18,10 @@ export const productInputNotValid = (inputValidityName: string, errorMessage: st
   if (!productFormIsValid[inputValidityName] && skip === "no") {
     return;
   }
-  console.log("not valid");
   //----------> dynamically set the validity of that input to false
   productFormIsValid[inputValidityName] = false;
   //----------> save form validity
-  //saveFormValidity();
-
+  saveFormValidity();
   //----------> set error message since is it not valid
   return setFormReply(errorMessage, "error");
 };
