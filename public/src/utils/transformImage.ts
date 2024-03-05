@@ -1,52 +1,42 @@
-// import { setFormReply } from "../../js/functions/setFormReply.js";
-// import { configureClassName } from "../../js/helpers/configureClassName.js";
-// import { productInputIsValid } from "../../js/lib/productInputValidity.js";
-// import { previewImageTemplate } from "../../js/templates/previewImage.js";
-// //----------> transform image
-// const transformImage = async (imageFiles) => {
-//   //----------> check if image file was not passed
-//   if (!imageFiles) {
-//     return console.log("No images is found");
-//   }
+import { ConfigureClassName } from "../helpers/ConfigureClassName.js";
+import { productInputIsValid } from "../lib/ProductInputValidity.js";
+import { previewImageTemplate } from "../templates/PreviewImage.js";
 
-//   for (let index = 0; index < imageFiles.length; index++) {
-//     //---------->access file reader class
-//     const fileReader = new FileReader();
-
-//     //----------> get the image
-//     const imageFile = imageFiles[index];
-//     //----------> push the product image file
-//     productImageFiles.push(imageFile);
-
-//     //----------> remove the older class
-//     if (productImageFiles.length !== 1) {
-//       const oldClassName = configureClassName(productImageFiles.length - 1);
-//       previewImageContainer.classList.remove(`${oldClassName}`);
-//     }
-
-//     //----------> add the current product images length to the class
-//     const newClassName = configureClassName(productImageFiles.length);
-//     previewImageContainer.classList.add(`${newClassName}`);
-
-//     if (productImageFiles.length === 4) {
-//       //todo imageChoose.classList.add("disabled");
-//       imageChoose.removeAttribute("for");
-//     }
-
-//     //----------> configure image name
-//     const imageName = Math.random() + "-" + imageFile.name;
-
-//     fileReader.readAsDataURL(imageFile);
-//     fileReader.onloadend = async () => {
-//       transformedImages.push({ name: imageName, result: fileReader.result });
-//       previewImageTemplate({ src: fileReader.result, alt: imageFile.name, id: imageName });
-
-//       if (index === imageFiles.length - 1) {
-//         //---------> set image validity to true
-//         productInputIsValid({ inputValidityName: "productImageIsValid" });
-//       }
-//     };
-//   }
-// };
-
-// export { transformImage };
+export const TransformImage = async (imageFiles: FileList | null, inputValidityName: string) => {
+  //----------> if image exist
+  if (imageFiles) {
+    for (let index = 0; index < imageFiles.length; index++) {
+      //---------->access file reader class
+      const fileReader = new FileReader();
+      //----------> get each of the image in the image files array
+      const imageFile = imageFiles[index];
+      //----------> push the image file to the product image files array
+      productImageFiles.push(imageFile);
+      //----------> remove the older class
+      if (productImageFiles.length !== 1) {
+        const oldClassName = ConfigureClassName(productImageFiles.length - 1);
+        previewImageContainer.classList.remove(`${oldClassName}`);
+      }
+      //----------> add the current product images length to the class
+      const newClassName = ConfigureClassName(productImageFiles.length);
+      previewImageContainer.classList.add(`${newClassName}`);
+      if (productImageFiles.length === 4) {
+        //todo imageChoose.classList.add("disabled");
+        imageChoose.removeAttribute("for");
+      }
+      //----------> configure image name and ID
+      const imageName = imageFile.name.split(".")[0];
+      const imageId = imageName + "-" + Math.random() * 1000;
+      fileReader.readAsDataURL(imageFile);
+      fileReader.onloadend = async () => {
+        let result = fileReader.result;
+        transformedImages.push({ name: imageName, result });
+        previewImageTemplate(result, imageName, imageId);
+        if (index === imageFiles.length - 1) {
+          //---------> set image validity to true
+          productInputIsValid(inputValidityName);
+        }
+      };
+    }
+  }
+};
