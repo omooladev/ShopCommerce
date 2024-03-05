@@ -14,6 +14,7 @@ export const changeImageHandler = (event, inputType) => __awaiter(void 0, void 0
     let imageFiles = imageElement.files;
     //----------> validate the image files
     let validationResult = yield validateImage(imageFiles, inputType);
+    return console.log(validationResult);
     // if (validationResult.hasError) {
     //   return;
     // }

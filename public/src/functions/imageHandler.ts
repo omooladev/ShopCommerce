@@ -8,6 +8,7 @@ export const changeImageHandler = async (event: Event, inputType: string) => {
   //----------> validate the image files
 
   let validationResult = await validateImage(imageFiles, inputType);
+  return console.log(validationResult);
 
   // if (validationResult.hasError) {
   //   return;

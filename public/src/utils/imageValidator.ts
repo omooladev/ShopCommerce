@@ -17,23 +17,28 @@ export const validateImage = async (imageFiles: FileList | null, type: string) =
     );
   }
   //----------> validate size and type of the images
+  let hasError: boolean;
   for (let index = 0; index < imageFiles.length; index++) {
     let imageFile = imageFiles[index];
     //----------> validate file type
     let fileTypeValidationResult = await validateFileType("file-type", imageFile, inputValidityName);
     if (fileTypeValidationResult.hasError) {
+      hasError = true;
       break;
     }
     //----------> validate file size
     let fileSizeValidationResult = await validateFileSize("file-size", imageFile, inputValidityName);
     if (fileSizeValidationResult.hasError) {
+      hasError = true;
       break;
     }
   }
+  // if (hasError) {
+  //   console.log("an error ");
+  // }
 };
 const validateFileType = async (action: string, imageFile: File, inputValidityName: string) => {
   if (!imageFile.type.includes("image/")) {
-    console.log("not an image");
     productInputNotValid(
       inputValidityName,
       "Please upload an image",
