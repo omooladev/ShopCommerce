@@ -3,11 +3,10 @@
   "compilerOptions": {
     "target": "ES2016",
     /* Modules */
-    "rootDir": "./src" /* Specify the root folder within your source files. */,
+    "rootDir": "./src",
     "outDir": "./js",
-    "module": "es6" /* Specify what module code is generated. */
-
-    // "moduleResolution": "node10",                     /* Specify how TypeScript looks up a file from a given module specifier. */
-    // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
+    "module": "es6",
+    "noImplicitAny": true,
+    "strictNullChecks": true
   }
 }
