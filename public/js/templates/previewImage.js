@@ -7,44 +7,45 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-// const cancelImageHandler = (event: Event, id: number) => {
-//   //----------> find the index of the product image from either the transformed images or product image files
-//   const imageIndex = transformedImages.findIndex((image) => image.name === i);
-//   //----------> remove the image from the transformed images and product images files
-//   transformedImages.splice(imageIndex, 1);
-//   productImageFiles.splice(imageIndex, 1);
-//   //----------> get the product image container
-//   const previewContainer = document.querySelectorAll(".preview_container");
-//   for (let index = 0; index < previewContainer.length; index++) {
-//     //----------> loop through all the product container and find the image whose
-//     //            id is equal to the id of the image to be cancelled
-//     if (previewContainer[index].id === imageId) {
-//       //----------> update the dom
-//       previewImageContainer.removeChild(previewContainer[index]);
-//     }
-//   }
-//   //----------> if the total images uploaded is less than 4, then make the choose image button active
-//   if (productImageFiles.length < 4) {
-//     imageChoose.classList.remove("disabled");
-//     imageChoose.setAttribute("for", "product_image");
-//   }
-//   //----------> remove the older class
-//   if (productImageFiles.length !== 0) {
-//     //----------> add a new class
-//     const newClassName = ConfigureClassName(productImageFiles.length);
-//     previewImageContainer.classList.add(`${newClassName}`);
-//   }
-//   if (productImageFiles.length === 0) {
-//     //----------> if there are no product images,set product image validity to false
-//     productInputNotValid({
-//       inputValidityName: "productImageIsValid",
-//       errorMessage: "No product image found. Please upload an image for this product",
-//     });
-//   }
-//   //----------> remove the former class
-//   const oldClassName = ConfigureClassName(productImageFiles.length + 1);
-//   previewImageContainer.classList.remove(`${oldClassName}`);
-// };
+const cancelImageHandler = (event, id) => {
+    return console.log(transformedImages);
+    //----------> find the index of the product image from either the transformed images or product image files
+    //const imageIndex = transformedImages.findIndex((image) => image.id === id);
+    //----------> remove the image from the transformed images and product images files
+    // transformedImages.splice(imageIndex, 1);
+    // productImageFiles.splice(imageIndex, 1);
+    //----------> get the product image container
+    //const previewContainer = document.querySelectorAll(".preview_container");
+    // for (let index = 0; index < previewContainer.length; index++) {
+    //   //----------> loop through all the product container and find the image whose
+    //   //            id is equal to the id of the image to be cancelled
+    //   if (previewContainer[index].id === imageId) {
+    //     //----------> update the dom
+    //     previewImageContainer.removeChild(previewContainer[index]);
+    //   }
+    // }
+    //----------> if the total images uploaded is less than 4, then make the choose image button active
+    // if (productImageFiles.length < 4) {
+    //   imageChoose.classList.remove("disabled");
+    //   imageChoose.setAttribute("for", "product_image");
+    // }
+    //----------> remove the older class
+    // if (productImageFiles.length !== 0) {
+    //   //----------> add a new class
+    //   const newClassName = ConfigureClassName(productImageFiles.length);
+    //   previewImageContainer.classList.add(`${newClassName}`);
+    // }
+    // if (productImageFiles.length === 0) {
+    //   //----------> if there are no product images,set product image validity to false
+    //   productInputNotValid({
+    //     inputValidityName: "productImageIsValid",
+    //     errorMessage: "No product image found. Please upload an image for this product",
+    //   });
+    // }
+    // //----------> remove the former class
+    // const oldClassName = ConfigureClassName(productImageFiles.length + 1);
+    // previewImageContainer.classList.remove(`${oldClassName}`);
+};
 export const previewImageTemplate = (src, alt, id) => __awaiter(void 0, void 0, void 0, function* () {
     //----------> Create elements
     const div = document.createElement("div");
@@ -65,7 +66,7 @@ export const previewImageTemplate = (src, alt, id) => __awaiter(void 0, void 0, 
     div.classList.add("preview_container");
     //----------> configure button
     button.type = "button";
-    //button.addEventListener("click", (event: Event) => cancelImageHandler(event, id));
+    button.addEventListener("click", (event) => cancelImageHandler(event, id));
     //----------> append children
     button.appendChild(span1);
     button.appendChild(span2);
