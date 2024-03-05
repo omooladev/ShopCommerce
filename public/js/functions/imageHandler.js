@@ -7,17 +7,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import { productInputIsValid, productInputNotValid } from "../lib/ProductInputValidity.js";
 import { validateImage } from "../utils/imageValidator.js";
 export const changeImageHandler = (event, inputType) => __awaiter(void 0, void 0, void 0, function* () {
     //----------> get the images
     let imageElement = event.target;
     let imageFiles = imageElement.files;
+    const inputValidityName = `product${inputType}IsValid`;
     //----------> validate the image files
     let validationResult = yield validateImage(imageFiles, inputType);
-    return console.log(validationResult);
-    // if (validationResult.hasError) {
-    //   return;
-    // }
+    console.log(validationResult);
+    if (validationResult.hasError) {
+        //inputValidityName: productImageFiles.length === 0 && "productImageIsValid",
+        return productInputNotValid(inputValidityName, validationResult.errorMessage, "yes");
+    }
+    return productInputIsValid(inputValidityName);
     // if (validationResult.hasError) {
     //   return;
     // }

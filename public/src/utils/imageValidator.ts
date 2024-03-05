@@ -1,73 +1,56 @@
 import { MAX_IMAGES_NUMBER, MAX_IMAGE_SIZE, MAX_IMAGE_SIZE_WHOLE_NUMBER } from "../config.js";
-import { productInputIsValid, productInputNotValid } from "../lib/ProductInputValidity.js";
 
 export const validateImage = async (imageFiles: FileList | null, type: string) => {
-  const inputValidityName: string = `product${type}IsValid`;
+  let fileErrorObject = { hasError: false, errorMessage: "" };
   //----------> If no image was selected
   if (!imageFiles) {
-    return productInputNotValid(inputValidityName, "Please provide product image", "yes");
-  }
-  const totalImages: number = imageFiles.length;
-  let hasError: boolean = true;
-  //----------> CASE 1
-  if (totalImages > MAX_IMAGES_NUMBER) {
-    productInputNotValid(
-      inputValidityName,
-      `The maximum number of images that you can upload is ${MAX_IMAGES_NUMBER}`,
-      "yes"
-    );
-  }
-  //----------> validate size and type of the images
-
-  for (let index = 0; index < imageFiles.length; index++) {
-    let imageFile = imageFiles[index];
-    //----------> validate file type
-    let fileTypeValidationResult = await validateFileType("file-type", imageFile, inputValidityName);
-    if (fileTypeValidationResult.hasError) {
-      hasError = true;
-      break;
-    }
-    //----------> validate file size
-    let fileSizeValidationResult = await validateFileSize("file-size", imageFile, inputValidityName);
-    if (fileSizeValidationResult.hasError) {
-      hasError = true;
-      break;
-    }
-  }
-
-  //----------> check if error existed
-  if (hasError) {
-    return { hasError };
+    fileErrorObject = { hasError: true, errorMessage: "Please provide product image" };
   } else {
-    return { hasError };
+    const totalImages = imageFiles.length;
+    //----------> CASE 1
+    if (totalImages > MAX_IMAGES_NUMBER) {
+      fileErrorObject = {
+        hasError: true,
+        errorMessage: `The maximum number of images that you can upload is ${MAX_IMAGES_NUMBER}`,
+      };
+    } else {
+      //----------> validate size and type of the images
+      for (let index = 0; index < imageFiles.length; index++) {
+        let imageFile = imageFiles[index];
+        //----------> validate file type
+        let fileTypeValidationResult = await validateFileType(imageFile);
+        if (fileTypeValidationResult.hasError) {
+          fileErrorObject = { hasError: true, errorMessage: fileTypeValidationResult.errorMessage };
+          break;
+        }
+        //----------> validate file size
+        let fileSizeValidationResult = await validateFileSize(imageFile);
+        if (fileSizeValidationResult.hasError) {
+          fileErrorObject = { hasError: true, errorMessage: fileSizeValidationResult.errorMessage };
+          break;
+        }
+      }
+    }
   }
+  return fileErrorObject;
 };
-const validateFileType = async (action: string, imageFile: File, inputValidityName: string) => {
+const validateFileType = async (imageFile: File) => {
   if (!imageFile.type.includes("image/")) {
-    productInputNotValid(
-      inputValidityName,
-      "Please upload an image",
-      "yes"
-      //inputValidityName: productImageFiles.length === 0 && "productImageIsValid",
-    );
-    return { hasError: true };
+    return { hasError: true, errorMessage: "Please upload an Image" };
   }
-  return { hasError: false };
+  return { hasError: false, errorMessage: "" };
 };
-const validateFileSize = async (action: string, imageFile: File, inputValidityName: string) => {
+const validateFileSize = async (imageFile: File) => {
   const imageSize = imageFile.size;
 
   //----------> if the size of image to be uploaded is greater then the default size
   if (imageSize > MAX_IMAGE_SIZE) {
-    productInputNotValid(
-      inputValidityName,
-      `Please upload an image smaller than ${MAX_IMAGE_SIZE_WHOLE_NUMBER} MB`,
-      "yes"
-      //inputValidityName: productImageFiles.length === 0 && "productImageIsValid",
-    );
-    return { hasError: true };
+    return {
+      hasError: true,
+      errorMessage: `Please upload an image smaller than ${MAX_IMAGE_SIZE_WHOLE_NUMBER} MB`,
+    };
   }
-  return { hasError: false };
+  return { hasError: false, errorMessage: "" };
 };
 
 //     //----------> find the sum of the length of the images already uploaded and the selected images
