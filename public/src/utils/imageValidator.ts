@@ -1,5 +1,5 @@
 import { MAX_IMAGES_NUMBER, MAX_IMAGE_SIZE, MAX_IMAGE_SIZE_WHOLE_NUMBER } from "../config.js";
-import { productInputNotValid } from "../lib/ProductInputValidity.js";
+import { productInputIsValid, productInputNotValid } from "../lib/ProductInputValidity.js";
 
 export const validateImage = async (imageFiles: FileList | null, type: string) => {
   const inputValidityName: string = `product${type}IsValid`;
@@ -8,16 +8,17 @@ export const validateImage = async (imageFiles: FileList | null, type: string) =
     return productInputNotValid(inputValidityName, "Please provide product image", "yes");
   }
   const totalImages: number = imageFiles.length;
+  let hasError: boolean = true;
   //----------> CASE 1
   if (totalImages > MAX_IMAGES_NUMBER) {
-    return productInputNotValid(
+    productInputNotValid(
       inputValidityName,
       `The maximum number of images that you can upload is ${MAX_IMAGES_NUMBER}`,
       "yes"
     );
   }
   //----------> validate size and type of the images
-  let hasError: boolean;
+
   for (let index = 0; index < imageFiles.length; index++) {
     let imageFile = imageFiles[index];
     //----------> validate file type
@@ -33,9 +34,13 @@ export const validateImage = async (imageFiles: FileList | null, type: string) =
       break;
     }
   }
-  // if (hasError) {
-  //   console.log("an error ");
-  // }
+
+  //----------> check if error existed
+  if (hasError) {
+    return { hasError };
+  } else {
+    return { hasError };
+  }
 };
 const validateFileType = async (action: string, imageFile: File, inputValidityName: string) => {
   if (!imageFile.type.includes("image/")) {

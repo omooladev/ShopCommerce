@@ -16,12 +16,12 @@ export const validateImage = (imageFiles, type) => __awaiter(void 0, void 0, voi
         return productInputNotValid(inputValidityName, "Please provide product image", "yes");
     }
     const totalImages = imageFiles.length;
+    let hasError = true;
     //----------> CASE 1
     if (totalImages > MAX_IMAGES_NUMBER) {
-        return productInputNotValid(inputValidityName, `The maximum number of images that you can upload is ${MAX_IMAGES_NUMBER}`, "yes");
+        productInputNotValid(inputValidityName, `The maximum number of images that you can upload is ${MAX_IMAGES_NUMBER}`, "yes");
     }
     //----------> validate size and type of the images
-    let hasError;
     for (let index = 0; index < imageFiles.length; index++) {
         let imageFile = imageFiles[index];
         //----------> validate file type
@@ -37,9 +37,13 @@ export const validateImage = (imageFiles, type) => __awaiter(void 0, void 0, voi
             break;
         }
     }
-    // if (hasError) {
-    //   console.log("an error ");
-    // }
+    //----------> check if error existed
+    if (hasError) {
+        return { hasError };
+    }
+    else {
+        return { hasError };
+    }
 });
 const validateFileType = (action, imageFile, inputValidityName) => __awaiter(void 0, void 0, void 0, function* () {
     if (!imageFile.type.includes("image/")) {
