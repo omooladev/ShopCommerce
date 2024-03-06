@@ -38,8 +38,9 @@ export const TransformImage = (imageFiles, inputValidityName) => __awaiter(void 
             fileReader.readAsDataURL(imageFile);
             fileReader.onloadend = () => __awaiter(void 0, void 0, void 0, function* () {
                 let result = fileReader.result;
-                transformedImages.push({ name: imageName, result });
-                previewImageTemplate(result, imageName, imageId);
+                //----------> push the image into the transformed image array
+                transformedImages.push({ imageId });
+                previewImageTemplate(result, imageName, imageId, inputValidityName);
                 if (index === imageFiles.length - 1) {
                     //---------> set image validity to true
                     productInputIsValid(inputValidityName);

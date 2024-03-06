@@ -2,8 +2,9 @@ import { MAX_IMAGES_NUMBER, MAX_IMAGE_SIZE, MAX_IMAGE_SIZE_WHOLE_NUMBER } from "
 
 export const validateImage = async (imageFiles: FileList | null, type: string) => {
   let fileErrorObject = { hasError: false, errorMessage: "" };
+  console.log(imageFiles);
   //----------> If no image was selected
-  if (!imageFiles) {
+  if (!imageFiles || imageFiles.length === 0) {
     fileErrorObject = { hasError: true, errorMessage: "Please provide product image" };
   } else {
     const totalImages = imageFiles.length;

@@ -5,6 +5,7 @@ const productFormReply = document.querySelector(".form_reply") as HTMLElement;
 const productDescriptionLength = document.querySelector("#product_description_length") as HTMLElement;
 const previewImageContainer = document.querySelector(".preview_image_container") as HTMLElement;
 const imageChoose = document.querySelector(".product_image_choose") as HTMLElement;
+
 //imp<---------- HTML BUTTON ELEMENT ---------->
 const productFormButton = document.querySelector(".product_form button") as HTMLButtonElement;
 //imp<---------- HTML INPUT ELEMENT ---------->
@@ -17,8 +18,8 @@ const productImagePreview = document.querySelector(".preview_image");
 //----------> make the button disabled
 // productFormButton.disabled = false;//todo----> come back to this
 //---------->Declare Variables
-let productImageFiles = [];
-let transformedImages: object[] = [];
+let productImageFiles: File[] = [];
+let transformedImages: { imageId: string }[] = [];
 
 //<---------- INTERFACES ---------->I would have this here here but turns out you cannot import a moduke
 interface ProductFormValidity {
