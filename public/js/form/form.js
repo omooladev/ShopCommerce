@@ -15,7 +15,7 @@ const productDescription = document.querySelector("#product_description");
 const productImage = document.querySelector("#product_image");
 const productImagePreview = document.querySelector(".preview_image");
 //----------> make the button disabled
-// productFormButton.disabled = false;//todo----> come back to this
+productFormButton.disabled = false; //todo----> come back to this
 //---------->Declare Variables
 let productImageFiles = [];
 let transformedImages = [];

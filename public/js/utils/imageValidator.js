@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { MAX_IMAGES_NUMBER, MAX_IMAGE_SIZE, MAX_IMAGE_SIZE_WHOLE_NUMBER } from "../config.js";
 export const validateImage = (imageFiles, type) => __awaiter(void 0, void 0, void 0, function* () {
     let fileErrorObject = { hasError: false, errorMessage: "" };
-    console.log(imageFiles);
     //----------> If no image was selected
     if (!imageFiles || imageFiles.length === 0) {
         fileErrorObject = { hasError: true, errorMessage: "Please provide product image" };

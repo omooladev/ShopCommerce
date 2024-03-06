@@ -1,3 +1,5 @@
+//----------> modifiers
+declare const axios: any;
 //imp<---------- HTML FORM ---------->
 const productForm = document.querySelector(".product_form") as HTMLFormElement;
 //imp<---------- HTML ELEMENT ---------->
@@ -16,7 +18,7 @@ const productImage = document.querySelector("#product_image") as HTMLInputElemen
 const productImagePreview = document.querySelector(".preview_image");
 
 //----------> make the button disabled
-// productFormButton.disabled = false;//todo----> come back to this
+productFormButton.disabled = false; //todo----> come back to this
 //---------->Declare Variables
 let productImageFiles: File[] = [];
 let transformedImages: { imageId: string }[] = [];
