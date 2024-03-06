@@ -1,3 +1,1 @@
-//TODO---------->continue from the transform image file
-//TODO I just need to finish work on the cancel button functionality on the
-// images that is to be uploaded
+//TODO---------->work on the submit from handler for sending the image to the server
