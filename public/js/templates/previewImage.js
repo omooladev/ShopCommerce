@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { ConfigureClassName } from "../helpers/ConfigureClassName.js";
 import { productInputNotValid } from "../lib/ProductInputValidity.js";
+import { toggleClass, toggleFilePickerDisabledState } from "../utils/TransformImage.js";
 const cancelImageHandler = (event, imageId, inputValidityName) => {
     //----------> find the index of the product image from either the transformed images or product image files
     const imageIndex = transformedImages.findIndex((image) => image.imageId === imageId);
@@ -24,20 +24,8 @@ const cancelImageHandler = (event, imageId, inputValidityName) => {
             previewImageContainer.removeChild(imagePreviewContainer[index]);
         }
     }
-    //----------> if the total images uploaded is less than 4, then make the choose image button active
-    if (productImageFiles.length < 4) {
-        imageChoose.classList.remove("disabled");
-        imageChoose.setAttribute("for", "product_image");
-    }
-    //----------> remove the older class
-    if (productImageFiles.length !== 0) {
-        //----------> add a new class
-        const newClassName = ConfigureClassName(productImageFiles.length);
-        previewImageContainer.classList.add(`${newClassName}`);
-    }
-    //----------> remove the former class
-    const oldClassName = ConfigureClassName(productImageFiles.length + 1);
-    previewImageContainer.classList.remove(`${oldClassName}`);
+    toggleFilePickerDisabledState(productImageFiles);
+    toggleClass(productImageFiles, "cancel");
     //----------> If no product image can be found, automatically set the validity state to false
     if (productImageFiles.length === 0) {
         //----------> if there are no product images,set product image validity to false

@@ -8,22 +8,12 @@ export const TransformImage = async (imageFiles: FileList | null, inputValidityN
     for (let index = 0; index < imageFiles.length; index++) {
       //---------->access file reader class
       const fileReader = new FileReader();
-      //----------> get each of the image in the image files array
+      //----------> get each of the image in the imageFiles array
       const imageFile = imageFiles[index];
-      //----------> push the image file to the product image files array
+      //----------> push the image file to the productImageFiles array
       productImageFiles.push(imageFile);
-      //----------> remove the older class
-      if (productImageFiles.length !== 1) {
-        const oldClassName = ConfigureClassName(productImageFiles.length - 1);
-        previewImageContainer.classList.remove(`${oldClassName}`);
-      }
-      //----------> add the current product images length to the class
-      const newClassName = ConfigureClassName(productImageFiles.length);
-      previewImageContainer.classList.add(`${newClassName}`);
-      if (productImageFiles.length === 4) {
-        //todo imageChoose.classList.add("disabled");
-        imageChoose.removeAttribute("for");
-      }
+      toggleClass(productImageFiles, "add");
+      toggleFilePickerDisabledState(productImageFiles);
       //----------> configure image name and ID
       const imageName = imageFile.name.split(".")[0];
       const imageId = imageName + "-" + Math.random() * 1000;
@@ -39,5 +29,36 @@ export const TransformImage = async (imageFiles: FileList | null, inputValidityN
         }
       };
     }
+  }
+};
+
+export const toggleClass = (productImageFiles: File[], action: "add" | "cancel") => {
+  console.log(previewImageContainer);
+  if (action === "add") {
+    const newClassName = ConfigureClassName(productImageFiles.length);
+    previewImageContainer.classList.add(`${newClassName}`);
+    if (productImageFiles.length > 1) {
+      const oldClassName = ConfigureClassName(productImageFiles.length - 1);
+      previewImageContainer.classList.remove(`${oldClassName}`);
+    }
+  }
+  if (action === "cancel") {
+    const oldClassName = ConfigureClassName(productImageFiles.length + 1); //this is because we have the latest instance
+    previewImageContainer.classList.remove(`${oldClassName}`);
+    if (productImageFiles.length > 0) {
+      const newClassName = ConfigureClassName(productImageFiles.length);
+      previewImageContainer.classList.add(`${newClassName}`);
+    }
+  }
+};
+
+export const toggleFilePickerDisabledState = (productImageFiles: File[]) => {
+  //----------> if the total images uploaded is less than 4, then make file picker active
+  if (productImageFiles.length < 4) {
+    filePicker.classList.remove("disabled");
+    filePicker.setAttribute("for", "product_image");
+  } else {
+    filePicker.classList.add("disabled");
+    filePicker.removeAttribute("for");
   }
 };

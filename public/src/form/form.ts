@@ -4,7 +4,7 @@ const productForm = document.querySelector(".product_form") as HTMLFormElement;
 const productFormReply = document.querySelector(".form_reply") as HTMLElement;
 const productDescriptionLength = document.querySelector("#product_description_length") as HTMLElement;
 const previewImageContainer = document.querySelector(".preview_image_container") as HTMLElement;
-const imageChoose = document.querySelector(".product_image_choose") as HTMLElement;
+const filePicker = document.querySelector(".product_image_choose") as HTMLElement;
 
 //imp<---------- HTML BUTTON ELEMENT ---------->
 const productFormButton = document.querySelector(".product_form button") as HTMLButtonElement;
