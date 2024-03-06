@@ -16,7 +16,7 @@ export const validateImage = (imageFiles, type) => __awaiter(void 0, void 0, voi
         fileErrorObject = { hasError: true, errorMessage: "Please provide product image" };
     }
     else {
-        const totalImages = imageFiles.length;
+        const totalImages = imageFiles.length + productImageFiles.length;
         //----------> CASE 1
         if (totalImages > MAX_IMAGES_NUMBER) {
             fileErrorObject = {
@@ -62,15 +62,6 @@ const validateFileSize = (imageFile) => __awaiter(void 0, void 0, void 0, functi
     }
     return { hasError: false, errorMessage: "" };
 });
-//     //----------> find the sum of the length of the images already uploaded and the selected images
-//     const totalImagesToUpload = productImageFiles.length + selectedImages.length;
-//     //----------> CASE 3
-//     if (totalImagesToUpload > MAX_IMAGES_NUMBER) {
-//       productInputNotValid({
-//         errorMessage: `Please upload ${MAX_IMAGES_NUMBER - productImageFiles.length} more images`,
-//       });
-//       return { hasError: true };
-//     }
 // CASE 1:-
 //    we check if the total images selected to
 //    be uploaded is greater than the maximum image you can upload
@@ -80,10 +71,3 @@ const validateFileSize = (imageFile) => __awaiter(void 0, void 0, void 0, functi
 // CASE 3:-
 //    This helps us to know how many more images is needed to equal the maximum image number
 //    we first add the total images already uploaded to the current images selected to be uploaded
-//     //----------> CASE 2
-//     if (productImageFiles.length === MAX_IMAGES_NUMBER) {
-//       productInputNotValid({
-//         errorMessage: `The maximum number of images that you can upload is ${MAX_IMAGES_NUMBER}`,
-//       });
-//       return { hasError: true };
-//     }

@@ -33,7 +33,6 @@ export const TransformImage = async (imageFiles: FileList | null, inputValidityN
 };
 
 export const toggleClass = (productImageFiles: File[], action: "add" | "cancel") => {
-  console.log(previewImageContainer);
   if (action === "add") {
     const newClassName = ConfigureClassName(productImageFiles.length);
     previewImageContainer.classList.add(`${newClassName}`);

@@ -17,10 +17,14 @@ export const productInputNotValid = (inputValidityName, errorMessage, skip = "no
     if (!productFormIsValid[inputValidityName] && skip === "no") {
         return;
     }
-    //----------> dynamically set the validity of that input to false
-    productFormIsValid[inputValidityName] = false;
-    //----------> save form validity
-    saveFormValidity();
+    //----------> means if the validity name is supplied
+    if (inputValidityName) {
+        //----------> dynamically set the validity of that input to false
+        productFormIsValid[inputValidityName] = false;
+        //----------> save form validity
+        saveFormValidity();
+    }
+    console.log(productFormIsValid);
     //----------> set error message since is it not valid
     return setFormReply(errorMessage, "error");
 };

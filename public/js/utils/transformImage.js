@@ -40,7 +40,6 @@ export const TransformImage = (imageFiles, inputValidityName) => __awaiter(void 
     }
 });
 export const toggleClass = (productImageFiles, action) => {
-    console.log(previewImageContainer);
     if (action === "add") {
         const newClassName = ConfigureClassName(productImageFiles.length);
         previewImageContainer.classList.add(`${newClassName}`);

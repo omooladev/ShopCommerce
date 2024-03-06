@@ -6,13 +6,16 @@ export const changeImageHandler = async (event: Event, inputType: string) => {
   //----------> get the images
   let imageElement = event.target as HTMLInputElement;
   let imageFiles = imageElement.files;
-  const inputValidityName = `product${inputType}IsValid`;
+  let inputValidityName = `product${inputType}IsValid`;
   //----------> validate the image files
 
   let validationResult = await validateImage(imageFiles, inputType);
   if (validationResult.hasError) {
-    //inputValidityName: productImageFiles.length === 0 && "productImageIsValid",
-    return productInputNotValid(inputValidityName, validationResult.errorMessage, "yes");
+    if (productImageFiles.length === 0) {
+      return productInputNotValid(inputValidityName, validationResult.errorMessage, "yes");
+    }
+    //---------->This means that if we already have some images to be uploaded, then only want you to see the error message but still keep the state of the image as valid
+    return productInputNotValid("", validationResult.errorMessage, "yes"); //----------> we do not supply validity name because we do not want the validity of the image to change
   }
   productInputIsValid(inputValidityName);
   //----------> transform the image
