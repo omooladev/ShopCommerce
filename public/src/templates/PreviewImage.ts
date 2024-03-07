@@ -1,4 +1,3 @@
-import { ConfigureClassName } from "../helpers/ConfigureClassName.js";
 import { productInputNotValid } from "../lib/ProductInputValidity.js";
 import { toggleClass, toggleFilePickerDisabledState } from "../utils/TransformImage.js";
 
