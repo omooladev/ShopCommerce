@@ -1,5 +1,6 @@
-//----------> import modules
+//<---------- import modules ---------->
 const express = require("express");
+//<---------- import custom modules ----------->
 const { uploadProductImages } = require("../config/multer");
 const {
   viewAddProductPage,
@@ -10,15 +11,17 @@ const {
   viewEditProductPage,
 } = require("../controllers/admin");
 
-//----------> router
+//<---------- router ---------->
 const router = express.Router();
 
-//----------> view the add product page
+//<---------- VIEW ADD PRODUCT PAGE ---------->
 router.route("/add-product").get(viewAddProductPage);
-//----------> add product
-router.post("/add-product", uploadProductImages, addProductToList);
 
-//----------> view all products
+//<---------- ADD PRODUCT ROUTE ---------->
+router.post("/add-product", uploadProductImages, addProductToList);
+// router.post("/add-product", uploadProductImages, addProductToList);
+
+//<---------- VIEW ADMIN PRODUCTS PAGE
 router.route("/admin/products").get(viewAdminProductsPage);
 
 //----------> view edit product page

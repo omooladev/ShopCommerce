@@ -1,13 +1,14 @@
+//<---------- IMPORT MODULES ----------->
 const multer = require("multer");
 
 const {
-  appConfigurations: { MAX_PRODUCT_IMAGES, MAX_IMAGE_SIZE },
-} = require("../config/app");
+  configurations: { MAX_IMAGE_SIZE, MAX_IMAGE_SIZE_WHOLE_NUMBER, MAX_PRODUCT_IMAGES },
+} = require("./app");
 const { UnprocessableEntityError } = require("../errors");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "data/product-images");
+    cb(null, "data/temp");
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);

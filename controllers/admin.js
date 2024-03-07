@@ -13,6 +13,7 @@ const viewAddProductPage = (req, res) => {
 
 const addProductToList = async (req, res) => {
   const { name, price, description } = req.body;
+  return console.log(req.body, req.files);
   // const { status, message } = await productImageValidator(req.files);
   // if (status === "failed") {
   //   throw new UnprocessableEntityError(message);
@@ -47,9 +48,7 @@ const addProductToList = async (req, res) => {
   await product.save();
 
   //----------> return response to client
-  res
-    .status(201)
-    .json({ status: "success", message: "Product Created Successfully" });
+  res.status(201).json({ status: "success", message: "Product Created Successfully" });
 };
 
 const editProduct = async (req, res) => {

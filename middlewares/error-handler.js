@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const {
-  appConfigurations: { MAX_IMAGE_SIZE_WHOLE_NUMBER },
+  configurations: { MAX_IMAGE_SIZE_WHOLE_NUMBER },
 } = require("../config/app");
 
 const errorHandlerMiddleware = (error, req, res, next) => {

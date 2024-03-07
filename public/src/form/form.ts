@@ -18,7 +18,7 @@ const productImage = document.querySelector("#product_image") as HTMLInputElemen
 const productImagePreview = document.querySelector(".preview_image");
 
 //----------> make the button disabled
-productFormButton.disabled = false; //todo----> come back to this
+productFormButton.disabled = false; //todo----> remove this as it makes the validation of our application invalid
 //---------->Declare Variables
 let productImageFiles: File[] = [];
 let transformedImages: { imageId: string }[] = [];
