@@ -13,6 +13,7 @@ const adminRouter = require("./routes/admin");
 const userRouter = require("./routes/user");
 //----------> documentation
 const swaggerDocumentation = require("./documentation/swaggerDocumentation");
+const { cloudinary_js_config } = require("./config/cloudinary");
 
 //----------> Initialize application
 const app = express();

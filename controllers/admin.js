@@ -1,6 +1,7 @@
 const { UnprocessableEntityError } = require("../errors");
 const { productDetailsValidator } = require("../lib/productValidator");
 const Product = require("../models/product");
+const cloudinary = require("../config/cloudinary");
 
 //----------> render add new product page
 const viewAddProductPage = (req, res) => {
@@ -13,7 +14,16 @@ const viewAddProductPage = (req, res) => {
 
 const addProductToList = async (req, res) => {
   const { name, price, description } = req.body;
-  return console.log(req.body, req.files);
+  const images = req.files;
+  if (images) {
+    const options = {
+      folder: "ShopCommerce/Products",
+    };
+    images.forEach((image) => {
+      return console.log(image);
+      //cloudinary.uploader.upload();
+    });
+  }
   // const { status, message } = await productImageValidator(req.files);
   // if (status === "failed") {
   //   throw new UnprocessableEntityError(message);
