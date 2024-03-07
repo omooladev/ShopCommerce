@@ -3,6 +3,9 @@ const { UnprocessableEntityError } = require("../errors");
 const { productDetailsValidator } = require("../lib/productValidator");
 const Product = require("../models/product");
 const cloudinary = require("../config/cloudinary");
+const {
+  configurations: { MAX_PRODUCT_IMAGES },
+} = require("../config/app");
 
 //----------> render add new product page
 const viewAddProductPage = (req, res) => {
@@ -20,7 +23,7 @@ const addProductToList = async (req, res) => {
     return;
   }
   const imageUrls = [];
-  const failedUploads = 0;
+  let failedUploads = 0;
   for (let index = 0; index < images.length; index++) {
     const imagePath = images[index].path;
     try {
@@ -32,15 +35,13 @@ const addProductToList = async (req, res) => {
     } catch (error) {
       console.log(error);
       imageUrls.push("error");
-      // failedUploads++;
+      failedUploads++;
     }
-    console.log(imagePath);
-    //fs.unlinkSync(imagePath);
+    fs.unlinkSync(imagePath);
   }
-
-  console.log(imageUrls, failedUploads);
-  if (imageUrls.length === 0) {
-    console.log("no images upload");
+  //----------> This means that if no of our images were uploaded at all
+  if (failedUploads === MAX_PRODUCT_IMAGES) {
+    throw new UnprocessableEntityError("There was an error during the product upload. Please try again.");
   }
 };
 // if (images) {
