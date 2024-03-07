@@ -11,7 +11,7 @@ import { setFormReply } from "./setFormReply.js";
 export const submitFormHandler = (event) => __awaiter(void 0, void 0, void 0, function* () {
     event.preventDefault();
     //----------> disable form button
-    productFormButton.disabled = true;
+    //productFormButton.disabled = true;//todo----------> uncomment this line
     //----------> reset reply when the form is submitted
     setFormReply("", "", "reset");
     //----------> create form data

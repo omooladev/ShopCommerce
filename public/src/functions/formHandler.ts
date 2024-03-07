@@ -5,7 +5,7 @@ export const submitFormHandler = async (event: Event) => {
   event.preventDefault();
 
   //----------> disable form button
-  productFormButton.disabled = true;
+  //productFormButton.disabled = true;//todo----------> uncomment this line
   //----------> reset reply when the form is submitted
   setFormReply("", "", "reset");
   //----------> create form data

@@ -1,3 +1,4 @@
+const fs = require("fs");
 const { UnprocessableEntityError } = require("../errors");
 const { productDetailsValidator } = require("../lib/productValidator");
 const Product = require("../models/product");
@@ -15,51 +16,76 @@ const viewAddProductPage = (req, res) => {
 const addProductToList = async (req, res) => {
   const { name, price, description } = req.body;
   const images = req.files;
-  if (images) {
-    const options = {
-      folder: "ShopCommerce/Products",
-    };
-    images.forEach((image) => {
-      return console.log(image);
-      //cloudinary.uploader.upload();
-    });
+  if (images.length === 0) {
+    return;
   }
-  // const { status, message } = await productImageValidator(req.files);
-  // if (status === "failed") {
-  //   throw new UnprocessableEntityError(message);
-  // }
   const imageUrls = [];
-  //----------> loop through the images and get their path
-  if (req.files.length > 0) {
-    req.files.forEach((image) => {
-      imageUrls.push(image.path);
-    });
+  const failedUploads = 0;
+  for (let index = 0; index < images.length; index++) {
+    const imagePath = images[index].path;
+    try {
+      const result = await cloudinary.uploader.upload(imagePath, {
+        folder: "ShopCommerce/products",
+        use_filename: true,
+      });
+      imageUrls.push(result.secure_url);
+    } catch (error) {
+      console.log(error);
+      imageUrls.push("error");
+      // failedUploads++;
+    }
+    console.log(imagePath);
+    //fs.unlinkSync(imagePath);
   }
 
-  //----------->TODO validate the products
-  const { status, message } = await productDetailsValidator({
-    name,
-    price,
-    description,
-    imageUrls,
-  });
-  if (status === "failed") {
-    throw new UnprocessableEntityError(message);
+  console.log(imageUrls, failedUploads);
+  if (imageUrls.length === 0) {
+    console.log("no images upload");
   }
-  // ---> create a new product
-  const product = new Product({
-    name,
-    price,
-    description,
-    imageUrls,
-  });
-
-  //----------> save the product to the database
-  await product.save();
-
-  //----------> return response to client
-  res.status(201).json({ status: "success", message: "Product Created Successfully" });
 };
+// if (images) {
+
+//   //images.forEach((image) => {
+//   //   return console.log(image);
+//   //   //cloudinary.uploader.upload();
+//   // });
+//   //}
+//   // const { status, message } = await productImageValidator(req.files);
+//   // if (status === "failed") {
+//   //   throw new UnprocessableEntityError(message);
+//   // }
+//   const imageUrls = [];
+//   //----------> loop through the images and get their path
+//   if (req.files.length > 0) {
+//     req.files.forEach((image) => {
+//       imageUrls.push(image.path);
+//     });
+//   }
+// }
+
+//----------->TODO validate the products
+// const { status, message } = await productDetailsValidator({
+//   name,
+//   price,
+//   description,
+//   imageUrls,
+// });
+// if (status === "failed") {
+//   throw new UnprocessableEntityError(message);
+// }
+// ---> create a new product
+// const product = new Product({
+//   name,
+//   price,
+//   description,
+//   imageUrls,
+// });
+
+//----------> save the product to the database
+//await product.save();
+
+//----------> return response to client
+//res.status(201).json({ status: "success", message: "Product Created Successfully" });
 
 const editProduct = async (req, res) => {
   const { productId } = req.params;
