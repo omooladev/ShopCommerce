@@ -19,9 +19,18 @@ const viewAddProductPage = (req, res) => {
 const addProductToList = async (req, res) => {
   const { name, price, description } = req.body;
   const images = req.files;
-  if (images.length === 0) {
-    return;
+  //----------->TODO validate the products details
+  const { status, message } = await productDetailsValidator({
+    name,
+    price,
+    description,
+    imageUrls: req.files || [],
+  });
+
+  if (status === "failed") {
+    throw new UnprocessableEntityError(message);
   }
+
   const imageUrls = [];
   let failedUploads = 0;
   for (let index = 0; index < images.length; index++) {
@@ -37,56 +46,29 @@ const addProductToList = async (req, res) => {
       imageUrls.push("error");
       failedUploads++;
     }
-    fs.unlinkSync(imagePath);
+    fs.unlinkSync(imagePath); //----------> delete images from temporary folder
   }
-  //----------> This means that if no of our images were uploaded at all
-  if (failedUploads === MAX_PRODUCT_IMAGES) {
+  //----------> This means that if none of our images were uploaded at all
+  //-----------> This also means that when the total image failed to upload
+  //             is equal to the number of images the user wants to upload
+  if (failedUploads === MAX_PRODUCT_IMAGES || failedUploads === req.files.length) {
     throw new UnprocessableEntityError("There was an error during the product upload. Please try again.");
   }
+
+  //----------> if product details are valid and images has been uploaded successfully
+  // ---> create a new product
+  const product = new Product({
+    name,
+    price,
+    description,
+    imageUrls,
+  });
+  //----------> save the product to the database
+  //await product.save();
+
+  //----------> return response to client
+  res.status(201).json({ status: "success", message: "Product Created Successfully" });
 };
-// if (images) {
-
-//   //images.forEach((image) => {
-//   //   return console.log(image);
-//   //   //cloudinary.uploader.upload();
-//   // });
-//   //}
-//   // const { status, message } = await productImageValidator(req.files);
-//   // if (status === "failed") {
-//   //   throw new UnprocessableEntityError(message);
-//   // }
-//   const imageUrls = [];
-//   //----------> loop through the images and get their path
-//   if (req.files.length > 0) {
-//     req.files.forEach((image) => {
-//       imageUrls.push(image.path);
-//     });
-//   }
-// }
-
-//----------->TODO validate the products
-// const { status, message } = await productDetailsValidator({
-//   name,
-//   price,
-//   description,
-//   imageUrls,
-// });
-// if (status === "failed") {
-//   throw new UnprocessableEntityError(message);
-// }
-// ---> create a new product
-// const product = new Product({
-//   name,
-//   price,
-//   description,
-//   imageUrls,
-// });
-
-//----------> save the product to the database
-//await product.save();
-
-//----------> return response to client
-//res.status(201).json({ status: "success", message: "Product Created Successfully" });
 
 const editProduct = async (req, res) => {
   const { productId } = req.params;

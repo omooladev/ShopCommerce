@@ -40,7 +40,13 @@ export const submitFormHandler = async (event: Event) => {
       }
     );
   } catch (error) {
-    console.log(error);
+    console.log((error as any).response.data.message);
+
+    // if (error.response) {
+    //   console.log(error.response.data);
+    // } else {
+    //   console.log(error);
+    // }
   }
   //     if (data.status === "success") {
   //       setFormReply({

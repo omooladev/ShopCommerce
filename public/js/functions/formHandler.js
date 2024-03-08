@@ -43,7 +43,12 @@ export const submitFormHandler = (event) => __awaiter(void 0, void 0, void 0, fu
         });
     }
     catch (error) {
-        console.log(error);
+        console.log(error.response.data.message);
+        // if (error.response) {
+        //   console.log(error.response.data);
+        // } else {
+        //   console.log(error);
+        // }
     }
     //     if (data.status === "success") {
     //       setFormReply({
