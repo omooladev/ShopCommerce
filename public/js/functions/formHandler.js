@@ -7,11 +7,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import { FormatError } from "../utils/FormatError.js";
 import { setFormReply } from "./setFormReply.js";
+let timeOutId;
 export const submitFormHandler = (event) => __awaiter(void 0, void 0, void 0, function* () {
     event.preventDefault();
     //----------> disable form button
-    //productFormButton.disabled = true;//todo----------> uncomment this line
+    productFormButton.disabled = true;
     //----------> reset reply when the form is submitted
     setFormReply("", "", "reset");
     //----------> create form data
@@ -41,56 +43,38 @@ export const submitFormHandler = (event) => __awaiter(void 0, void 0, void 0, fu
         const { data } = yield axios.post(`/admin${isEditing ? `/edit-product/${productId}` : "/add-product"}`, formData, {
             headers: { "Content-Type": "multipart/form-data" },
         });
+        if (data.status === "success") {
+            const message = isEditing ? "Product edited successfully" : "Product item added successfully";
+            //----------> Inform the admin that the product edit or add was successfully
+            setFormReply(message, "success");
+            //----------> set a timeout that counts for 2s then the form is reset automatically
+            timeOutId = setTimeout(() => {
+                console.log("reset form here");
+                //resetForm();
+                if (data.message === "Product has been edited successfully") {
+                    //window.location.href = "/admin/products";
+                }
+            }, 2000);
+            //----------> clear the TimeOut
+            // clearTimeout(timeOut);
+        }
     }
     catch (error) {
-        console.log(error.response.data.message);
-        // if (error.response) {
-        //   console.log(error.response.data);
-        // } else {
-        //   console.log(error);
-        // }
+        FormatError(error, (message) => {
+            setFormReply(message, "error");
+        });
+        timeOutId = setTimeout(() => {
+            console.log("time out done");
+            resetTimeOut();
+        }, 2000);
     }
-    //     if (data.status === "success") {
-    //       setFormReply({
-    //         message: isEditing ? "Product edited successfully" : "Product item added successfully",
-    //         type: "success",
-    //       });
-    //       // setTimeout(() => {
-    //       //   console.log("reset form here");
-    //       //   //resetForm();
-    //       //   if (data.message === "Product has been edited successfully") {
-    //       //     //window.location.href = "/admin/products";
-    //       //   }
-    //       // }, 2000);
-    //     }
-    //   } catch (error) {
-    //     formatError(error, (errorMessage) => {
-    //       setFormReply({
-    //         message: errorMessage,
-    //         type: "error",
-    //       });
-    //     });
-    //   }
-    //   productFormButton.disabled = false;
-    // };}
+    productFormButton.disabled = false;
 });
-//----------> configure form reply
-// const setFormReply = ({ message, type, replyType }) => {
-//   if (replyType === "reset") {
-//     return resetFormReply();
-//   }
-//   productFormReply.innerHTML = message;
-//   productFormReply.classList.add(`${type}`);
-// };
 //----------> reset form reply
 // const resetFormReply = () => {
 //   productFormReply.innerHTML = "";
 //   productFormReply.classList.remove("error");
 //   productFormReply.classList.remove("success");
-// };
-// const formatError = (error, cb) => {
-//   const errorMessage = error.response ? error.response.data.message : error.message;
-//   return cb(errorMessage);
 // };
 // const resetForm = () => {
 //   productName.value =
@@ -111,5 +95,8 @@ export const submitFormHandler = (event) => __awaiter(void 0, void 0, void 0, fu
 //   saveFormValidity();
 //   resetFormReply();
 // };
-//----------> listen to submit event for the form
-// productForm.onsubmit = (event: Event) => submitFormHandler(event);
+const resetTimeOut = () => {
+    console.log(timeOutId);
+    clearTimeout(timeOutId);
+    console.log(timeOutId);
+};

@@ -1,11 +1,14 @@
 import { Product } from "../interface/Product.js";
+import { FormatError } from "../utils/FormatError.js";
 import { setFormReply } from "./setFormReply.js";
+
+let timeOutId: NodeJS.Timeout;
 
 export const submitFormHandler = async (event: Event) => {
   event.preventDefault();
 
   //----------> disable form button
-  //productFormButton.disabled = true;//todo----------> uncomment this line
+  productFormButton.disabled = true;
   //----------> reset reply when the form is submitted
   setFormReply("", "", "reset");
   //----------> create form data
@@ -39,57 +42,38 @@ export const submitFormHandler = async (event: Event) => {
         headers: { "Content-Type": "multipart/form-data" },
       }
     );
+    if (data.status === "success") {
+      const message = isEditing ? "Product edited successfully" : "Product item added successfully";
+      //----------> Inform the admin that the product edit or add was successfully
+      setFormReply(message, "success");
+      //----------> set a timeout that counts for 2s then the form is reset automatically
+      timeOutId = setTimeout(() => {
+        console.log("reset form here");
+        //resetForm();
+        if (data.message === "Product has been edited successfully") {
+          //window.location.href = "/admin/products";
+        }
+      }, 2000);
+      //----------> clear the TimeOut
+      // clearTimeout(timeOut);
+    }
   } catch (error) {
-    console.log((error as any).response.data.message);
-
-    // if (error.response) {
-    //   console.log(error.response.data);
-    // } else {
-    //   console.log(error);
-    // }
+    FormatError(error as any, (message: string) => {
+      setFormReply(message, "error");
+    });
+    timeOutId = setTimeout(() => {
+      console.log("time out done");
+      resetTimeOut();
+    }, 2000);
   }
-  //     if (data.status === "success") {
-  //       setFormReply({
-  //         message: isEditing ? "Product edited successfully" : "Product item added successfully",
-  //         type: "success",
-  //       });
-  //       // setTimeout(() => {
-  //       //   console.log("reset form here");
-  //       //   //resetForm();
-  //       //   if (data.message === "Product has been edited successfully") {
-  //       //     //window.location.href = "/admin/products";
-  //       //   }
-  //       // }, 2000);
-  //     }
-  //   } catch (error) {
-  //     formatError(error, (errorMessage) => {
-  //       setFormReply({
-  //         message: errorMessage,
-  //         type: "error",
-  //       });
-  //     });
-  //   }
-  //   productFormButton.disabled = false;
-  // };}
+  productFormButton.disabled = false;
 };
-//----------> configure form reply
-// const setFormReply = ({ message, type, replyType }) => {
-//   if (replyType === "reset") {
-//     return resetFormReply();
-//   }
-//   productFormReply.innerHTML = message;
-//   productFormReply.classList.add(`${type}`);
-// };
 
 //----------> reset form reply
 // const resetFormReply = () => {
 //   productFormReply.innerHTML = "";
 //   productFormReply.classList.remove("error");
 //   productFormReply.classList.remove("success");
-// };
-// const formatError = (error, cb) => {
-//   const errorMessage = error.response ? error.response.data.message : error.message;
-//   return cb(errorMessage);
 // };
 
 // const resetForm = () => {
@@ -114,5 +98,8 @@ export const submitFormHandler = async (event: Event) => {
 //   resetFormReply();
 // };
 
-//----------> listen to submit event for the form
-// productForm.onsubmit = (event: Event) => submitFormHandler(event);
+const resetTimeOut = () => {
+  console.log(timeOutId);
+  clearTimeout(timeOutId);
+  console.log(timeOutId);
+};
