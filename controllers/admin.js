@@ -64,7 +64,7 @@ const addProductToList = async (req, res) => {
     imageUrls,
   });
   //----------> save the product to the database
-  //await product.save();
+  await product.save();
 
   //----------> return response to client
   res.status(201).json({ status: "success", message: "Product Created Successfully" });
