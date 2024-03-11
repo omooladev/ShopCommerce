@@ -1,4 +1,11 @@
-export const saveFormValidity = () => {
+export const saveFormValidity = (action?: string) => {
+  if (action === "form-reset") {
+    (productFormIsValid.productNameIsValid = false),
+      (productFormIsValid.productPriceIsValid = false),
+      (productFormIsValid.productDescriptionIsValid = false),
+      (productFormIsValid.productImageIsValid = false);
+  }
+
   //----------> get all input validity
   const { productNameIsValid, productPriceIsValid, productDescriptionIsValid, productImageIsValid } =
     productFormIsValid;

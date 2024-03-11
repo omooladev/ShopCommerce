@@ -1,5 +1,7 @@
 import { Product } from "../interface/Product.js";
 import { FormatError } from "../utils/FormatError.js";
+import { resetForm } from "./resetForm.js";
+import { resetTimeOut } from "./resetTimeOut.js";
 import { setFormReply } from "./setFormReply.js";
 import { setIsLoading } from "./setIsLoading.js";
 
@@ -33,6 +35,15 @@ export const submitFormHandler = async (event: Event) => {
   //   const pageLocation = isEditing && window.location.href.split("/");
   //const productId = pageLocation && pageLocation[pageLocation.length - 1];
   //----------> set loading state
+  return (timeOutId = setTimeout(() => {
+    //----------> Reset the timeout
+    resetTimeOut(timeOutId);
+    //----------> Reset the form
+    resetForm();
+    // if (data.message === "Product has been edited successfully") {
+    //   //window.location.href = "/admin/products";
+    // }
+  }, 2000));
   setIsLoading(true, isEditing);
   try {
     const { data } = await axios.post(
@@ -48,11 +59,13 @@ export const submitFormHandler = async (event: Event) => {
       setFormReply(message, "success");
       //----------> set a timeout that counts for 2s then the form is reset automatically
       timeOutId = setTimeout(() => {
-        //resetForm();
-        resetTimeOut();
-        if (data.message === "Product has been edited successfully") {
-          //window.location.href = "/admin/products";
-        }
+        //----------> Reset the timeout
+        resetTimeOut(timeOutId);
+        //----------> Reset the form
+        resetForm();
+        // if (data.message === "Product has been edited successfully") {
+        //   //window.location.href = "/admin/products";
+        // }
       }, 2000);
     }
   } catch (error) {
@@ -62,38 +75,4 @@ export const submitFormHandler = async (event: Event) => {
   }
 
   setIsLoading(false, isEditing);
-};
-
-//----------> reset form reply
-// const resetFormReply = () => {
-//   productFormReply.innerHTML = "";
-//   productFormReply.classList.remove("error");
-//   productFormReply.classList.remove("success");
-// };
-
-// const resetForm = () => {
-//   productName.value =
-//     productPrice.value =
-//     productImage.value =
-//     productDescription.value =
-//     productImageFile =
-//     transformedImage =
-//       "";
-//   productDescriptionLength.innerHTML = "0";
-//   productImagePreview.src = productImagePreview.alt = "";
-
-//   productFormInputIsValid = {
-//     productNameIsValid: false,
-//     productPriceIsValid: false,
-//     productDescriptionIsValid: false,
-//     productImageIsValid: false,
-//   };
-
-//   saveFormValidity();
-//   resetFormReply();
-// };
-
-const resetTimeOut = () => {
-  //----------> clear the timeout
-  clearTimeout(timeOutId);
 };
