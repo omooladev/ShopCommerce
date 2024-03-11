@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { ConfigureClassName } from "../helpers/ConfigureClassName.js";
+import { productInputIsValid } from "../lib/ProductInputValidity.js";
 import { previewImageTemplate } from "../templates/PreviewImage.js";
 export const TransformImage = (imageFiles, inputValidityName) => __awaiter(void 0, void 0, void 0, function* () {
     //----------> if image exist
@@ -32,7 +33,7 @@ export const TransformImage = (imageFiles, inputValidityName) => __awaiter(void 
                 previewImageTemplate(result, imageName, imageId, inputValidityName);
                 if (index === imageFiles.length - 1) {
                     //---------> set image validity to true
-                    //productInputIsValid(inputValidityName); //todo uncomment this
+                    productInputIsValid(inputValidityName);
                 }
             });
         }

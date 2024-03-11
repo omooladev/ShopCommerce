@@ -6,5 +6,5 @@ export const changeProductInputHandler = (event: Event, inputType: string) => {
   const input = event.target as HTMLInputElement;
   let inputValue: string = input.value;
   //----------> validate the input
-  //ValidateProductInput(inputValue, inputType);//todo uncomment this line of code because it turns off the validation
+  ValidateProductInput(inputValue, inputType);
 };

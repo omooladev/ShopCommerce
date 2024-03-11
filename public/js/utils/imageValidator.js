@@ -67,6 +67,3 @@ const validateFileSize = (imageFile) => __awaiter(void 0, void 0, void 0, functi
 // CASE 2:-
 //    we check if the total images already uploaded is equal to the
 //    maximum image you can upload
-// CASE 3:-
-//    This helps us to know how many more images is needed to equal the maximum image number
-//    we first add the total images already uploaded to the current images selected to be uploaded

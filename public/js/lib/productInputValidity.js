@@ -24,7 +24,6 @@ export const productInputNotValid = (inputValidityName, errorMessage, skip = "no
         //----------> save form validity
         saveFormValidity();
     }
-    console.log(productFormIsValid);
     //----------> set error message since is it not valid
     return setFormReply(errorMessage, "error");
 };

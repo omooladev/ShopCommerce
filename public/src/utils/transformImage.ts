@@ -25,7 +25,7 @@ export const TransformImage = async (imageFiles: FileList | null, inputValidityN
         previewImageTemplate(result, imageName, imageId, inputValidityName);
         if (index === imageFiles.length - 1) {
           //---------> set image validity to true
-          //productInputIsValid(inputValidityName); //todo uncomment this
+          productInputIsValid(inputValidityName);
         }
       };
     }
