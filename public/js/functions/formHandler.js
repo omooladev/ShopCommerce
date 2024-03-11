@@ -41,15 +41,6 @@ export const submitFormHandler = (event) => __awaiter(void 0, void 0, void 0, fu
     //   const pageLocation = isEditing && window.location.href.split("/");
     //const productId = pageLocation && pageLocation[pageLocation.length - 1];
     //----------> set loading state
-    return (timeOutId = setTimeout(() => {
-        //----------> Reset the timeout
-        resetTimeOut(timeOutId);
-        //----------> Reset the form
-        resetForm();
-        // if (data.message === "Product has been edited successfully") {
-        //   //window.location.href = "/admin/products";
-        // }
-    }, 2000));
     setIsLoading(true, isEditing);
     try {
         const { data } = yield axios.post(`/admin${isEditing ? `/edit-product/${productId}` : "/add-product"}`, formData, {

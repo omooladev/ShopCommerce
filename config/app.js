@@ -1,7 +1,7 @@
-let MAX_IMAGE_SIZE = 1 * 1024 * 1024; //todo---change to 1MB
+let MAX_IMAGE_SIZE = 1 * 1024 * 1024; //TODO---change to 1MB
 module.exports.configurations = {
   //----------> maximum product images that can be uploaded
-  MAX_PRODUCT_IMAGES: 2, //todo change to 4
+  MAX_PRODUCT_IMAGES: 4,
   MAX_IMAGE_SIZE,
   MAX_IMAGE_SIZE_WHOLE_NUMBER: MAX_IMAGE_SIZE.toString().slice(0, 1),
 };
