@@ -14,8 +14,6 @@ const productPrice = document.querySelector("#product_price");
 const productDescription = document.querySelector("#product_description");
 const productImage = document.querySelector("#product_image");
 const productImagePreview = document.querySelector(".preview_image");
-//----------> make the button disabled
-productFormButton.disabled = false; //todo----> remove this as it makes the validation of our application invalid
 //---------->Declare Variables
 let productImageFiles = [];
 let transformedImages = [];
