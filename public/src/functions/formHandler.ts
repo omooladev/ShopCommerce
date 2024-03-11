@@ -1,14 +1,12 @@
 import { Product } from "../interface/Product.js";
 import { FormatError } from "../utils/FormatError.js";
 import { setFormReply } from "./setFormReply.js";
+import { setIsLoading } from "./setIsLoading.js";
 
 let timeOutId: NodeJS.Timeout;
 
 export const submitFormHandler = async (event: Event) => {
   event.preventDefault();
-
-  //----------> disable form button
-  productFormButton.disabled = true;
   //----------> reset reply when the form is submitted
   setFormReply("", "", "reset");
   //----------> create form data
@@ -34,6 +32,8 @@ export const submitFormHandler = async (event: Event) => {
   let productId = 5;
   //   const pageLocation = isEditing && window.location.href.split("/");
   //const productId = pageLocation && pageLocation[pageLocation.length - 1];
+  //----------> set loading state
+  setIsLoading(true, isEditing);
   try {
     const { data } = await axios.post(
       `/admin${isEditing ? `/edit-product/${productId}` : "/add-product"}`,
@@ -48,25 +48,20 @@ export const submitFormHandler = async (event: Event) => {
       setFormReply(message, "success");
       //----------> set a timeout that counts for 2s then the form is reset automatically
       timeOutId = setTimeout(() => {
-        console.log("reset form here");
         //resetForm();
+        resetTimeOut();
         if (data.message === "Product has been edited successfully") {
           //window.location.href = "/admin/products";
         }
       }, 2000);
-      //----------> clear the TimeOut
-      // clearTimeout(timeOut);
     }
   } catch (error) {
     FormatError(error as any, (message: string) => {
       setFormReply(message, "error");
     });
-    timeOutId = setTimeout(() => {
-      console.log("time out done");
-      resetTimeOut();
-    }, 2000);
   }
-  productFormButton.disabled = false;
+
+  setIsLoading(false, isEditing);
 };
 
 //----------> reset form reply
@@ -99,7 +94,6 @@ export const submitFormHandler = async (event: Event) => {
 // };
 
 const resetTimeOut = () => {
-  console.log(timeOutId);
+  //----------> clear the timeout
   clearTimeout(timeOutId);
-  console.log(timeOutId);
 };

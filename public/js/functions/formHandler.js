@@ -9,11 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { FormatError } from "../utils/FormatError.js";
 import { setFormReply } from "./setFormReply.js";
+import { setIsLoading } from "./setIsLoading.js";
 let timeOutId;
 export const submitFormHandler = (event) => __awaiter(void 0, void 0, void 0, function* () {
     event.preventDefault();
-    //----------> disable form button
-    productFormButton.disabled = true;
     //----------> reset reply when the form is submitted
     setFormReply("", "", "reset");
     //----------> create form data
@@ -39,6 +38,8 @@ export const submitFormHandler = (event) => __awaiter(void 0, void 0, void 0, fu
     let productId = 5;
     //   const pageLocation = isEditing && window.location.href.split("/");
     //const productId = pageLocation && pageLocation[pageLocation.length - 1];
+    //----------> set loading state
+    setIsLoading(true, isEditing);
     try {
         const { data } = yield axios.post(`/admin${isEditing ? `/edit-product/${productId}` : "/add-product"}`, formData, {
             headers: { "Content-Type": "multipart/form-data" },
@@ -49,26 +50,20 @@ export const submitFormHandler = (event) => __awaiter(void 0, void 0, void 0, fu
             setFormReply(message, "success");
             //----------> set a timeout that counts for 2s then the form is reset automatically
             timeOutId = setTimeout(() => {
-                console.log("reset form here");
                 //resetForm();
+                resetTimeOut();
                 if (data.message === "Product has been edited successfully") {
                     //window.location.href = "/admin/products";
                 }
             }, 2000);
-            //----------> clear the TimeOut
-            // clearTimeout(timeOut);
         }
     }
     catch (error) {
         FormatError(error, (message) => {
             setFormReply(message, "error");
         });
-        timeOutId = setTimeout(() => {
-            console.log("time out done");
-            resetTimeOut();
-        }, 2000);
     }
-    productFormButton.disabled = false;
+    setIsLoading(false, isEditing);
 });
 //----------> reset form reply
 // const resetFormReply = () => {
@@ -96,7 +91,6 @@ export const submitFormHandler = (event) => __awaiter(void 0, void 0, void 0, fu
 //   resetFormReply();
 // };
 const resetTimeOut = () => {
-    console.log(timeOutId);
+    //----------> clear the timeout
     clearTimeout(timeOutId);
-    console.log(timeOutId);
 };
