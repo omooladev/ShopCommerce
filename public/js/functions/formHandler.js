@@ -59,7 +59,7 @@ export const submitFormHandler = (event) => __awaiter(void 0, void 0, void 0, fu
                 // if (data.message === "Product has been edited successfully") {
                 //   //window.location.href = "/admin/products";
                 // }
-            }, 2000);
+            }, 3000);
         }
     }
     catch (error) {

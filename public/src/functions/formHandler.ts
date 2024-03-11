@@ -58,7 +58,7 @@ export const submitFormHandler = async (event: Event) => {
         // if (data.message === "Product has been edited successfully") {
         //   //window.location.href = "/admin/products";
         // }
-      }, 2000);
+      }, 3000);
     }
   } catch (error) {
     FormatError(error as any, (message: string) => {
