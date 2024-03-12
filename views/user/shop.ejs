@@ -1,6 +1,5 @@
 <%-include("../includes/head")%>
  <link rel="stylesheet" href="/css/product.css" />
- <script src="/js/script.js" defer></script>
  <script src="/js/shop/shop.js" defer></script>
   <script src="/js/cart.js" defer></script>
 </head>
@@ -12,7 +11,7 @@
             <h2>No Products found in store</h2>
         <%}else{%>
             <h2>Products Available in store</h2>
-            <div class="shop-products">
+            <section class="shop-products">
                 <%products.forEach(product=>{%>
                     <div class="product-card">
                         <div class="product-image-container">
@@ -46,7 +45,7 @@
                         </div>
                     </div>
                 <%})%>
-            </div>
+                </section>
     <%}%>
     </main>
    

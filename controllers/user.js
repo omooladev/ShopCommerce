@@ -4,7 +4,6 @@ const User = require("../models/user");
 //----------> view the shop page
 exports.viewShopPage = async (req, res) => {
   //----------> fetch products
-
   const products = await Product.find();
   //----------> render shop page
   return res.render("user/shop", {

@@ -13,10 +13,10 @@ const {
 
 const router = express.Router();
 
-//----------> redirect to the shop page
+//<---------- ROUTES ---------->
 router.get("/", (req, res) => res.redirect("/shop"));
 
-//----------> view shop page
+//<---------- VIEW THE SHOP PAGE ---------->
 router.get("/shop", viewShopPage);
 
 //----------> view cart page

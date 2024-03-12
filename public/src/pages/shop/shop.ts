@@ -1,7 +1,12 @@
-const productImages = document.querySelectorAll(".product-image-container .product-images");
-const imageSwitcher = document.querySelectorAll(".image-switcher");
-const prevArrow = document.querySelectorAll(".prev-arrow");
-const nextArrow = document.querySelectorAll(".next-arrow");
+//<---------- HTML ELEMENTS ---------->
+const productImages = document.querySelectorAll(
+  ".product-image-container .product-images"
+) as NodeListOf<HTMLElement>;
+
+const imageSwitcher = document.querySelectorAll(".image-switcher") as NodeListOf<HTMLElement>;
+//<---------- HTML BUTTON ELEMENTS ---------->
+const prevArrow = document.querySelectorAll(".prev-arrow") as NodeListOf<HTMLButtonElement>;
+const nextArrow = document.querySelectorAll(".next-arrow") as NodeListOf<HTMLButtonElement>;
 
 const toggleHoverImage = (event, { action }) => {
   event.stopPropagation();
