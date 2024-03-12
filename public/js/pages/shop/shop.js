@@ -1,13 +1,10 @@
+"use strict";
 //<---------- HTML ELEMENTS ---------->
-const productImages = document.querySelectorAll(
-  ".product-image-container .product-images"
-) as NodeListOf<HTMLElement>;
-
-const imageSwitcher = document.querySelectorAll(".image-switcher") as NodeListOf<HTMLElement>;
+const productImages = document.querySelectorAll(".product-image-container .product-images");
+const imageSwitcher = document.querySelectorAll(".image-switcher");
 //<---------- HTML BUTTON ELEMENTS ---------->
-const prevArrow = document.querySelectorAll(".prev-arrow") as NodeListOf<HTMLButtonElement>;
-const nextArrow = document.querySelectorAll(".next-arrow") as NodeListOf<HTMLButtonElement>;
-
+const prevArrow = document.querySelectorAll(".prev-arrow");
+const nextArrow = document.querySelectorAll(".next-arrow");
 // const handleImageNavigation = (event, { direction }) => {
 //   event.stopPropagation();
 //   let targetElement = event.target;
@@ -24,13 +21,10 @@ const nextArrow = document.querySelectorAll(".next-arrow") as NodeListOf<HTMLBut
 //     nextArrow = targetElement.parentElement.children[1];
 //     prevArrow = targetElement;
 //   }
-
 //   const productImagesElement = targetElement.parentElement.parentElement;
-
 //   let productImagesArray = targetElement.parentElement.parentElement.children;
 //   //----------> we create a new array and remove the first item from the html collection
 //   productImagesArray = Array.prototype.slice.call(productImagesArray, 1);
-
 //   //----------> check if the length of the images is only one
 //   if (productImagesArray.length === 1) {
 //     return;
@@ -38,7 +32,6 @@ const nextArrow = document.querySelectorAll(".next-arrow") as NodeListOf<HTMLBut
 //   let imageIndexNumber = Number(productImagesElement.dataset.imageIndexNumber);
 //   if (direction === "next" && imageIndexNumber < productImagesArray.length - 1) {
 //     imageIndexNumber += 1;
-
 //     productImagesElement.dataset.imageIndexNumber = imageIndexNumber;
 //     productImagesArray[imageIndexNumber - 1].classList.remove("active");
 //     productImagesArray[imageIndexNumber].classList.add("active");
@@ -56,7 +49,6 @@ const nextArrow = document.querySelectorAll(".next-arrow") as NodeListOf<HTMLBut
 //     productImagesArray[imageIndexNumber + 1].classList.remove("active");
 //     productImagesArray[imageIndexNumber].classList.add("active");
 //     //----------> check if the next arrow is already disabled
-
 //     if (nextArrow.disabled) {
 //       nextArrow.disabled = false;
 //     }
