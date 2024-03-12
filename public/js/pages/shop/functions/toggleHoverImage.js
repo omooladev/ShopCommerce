@@ -1,5 +1,4 @@
 export const toggleHoverImage = (event, action) => {
-    console.log(action);
     event.stopPropagation();
     //----------> get the target element that was hovered or left
     let targetElement = event.target;

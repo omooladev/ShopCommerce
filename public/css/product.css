@@ -35,7 +35,6 @@
   border-radius: 0.5rem;
 }
 .shop-products .product-card .product-image-container .product-images img {
-  cursor: pointer;
   /* position: absolute; */
   display: block;
   max-height: 250px;

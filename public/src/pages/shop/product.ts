@@ -1,5 +1,3 @@
-//<---------- EVENT LISTENERS ON THE SHOP PAGE ---------->
-
 import { toggleHoverImage } from "./functions/toggleHoverImage.js";
 
 //----------> Loop through the product images and add an event listener to them
