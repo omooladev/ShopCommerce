@@ -2,7 +2,7 @@ const fs = require("fs");
 const { UnprocessableEntityError } = require("../errors");
 const { productDetailsValidator } = require("../lib/productValidator");
 const Product = require("../models/product");
-const cloudinary = require("../config/cloudinary");
+const { cloudinary, uploadFolder } = require("../config/cloudinary");
 const {
   configurations: { MAX_PRODUCT_IMAGES },
 } = require("../config/app");
@@ -37,7 +37,7 @@ const addProductToList = async (req, res) => {
     const imagePath = images[index].path;
     try {
       const result = await cloudinary.uploader.upload(imagePath, {
-        folder: "ShopCommerce/products",
+        folder: uploadFolder,
         use_filename: true,
       });
       imageUrls.push(result.secure_url);
