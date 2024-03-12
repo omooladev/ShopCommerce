@@ -127,11 +127,10 @@ const viewEditProductPage = (req, res) => {
 //----------> view admin products page
 const viewAdminProductsPage = async (req, res) => {
   const products = await Product.find();
-
-  //----------> render shop page
-  return res.render("user/shop", {
-    path: "/",
-    pageTitle: "Shop",
+  //----------> render the admin products page
+  return res.render("admin/products", {
+    path: "/admin/products",
+    pageTitle: "Admin Products",
     products: products || [],
   });
 };
