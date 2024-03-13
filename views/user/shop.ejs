@@ -18,8 +18,8 @@
                         <div class="product-image-container">
                             <div class="product-images"  data-image-id="<%=product._id%>" data-image-index-number="0" data-image-urls="<%=product.imageUrls%>">
                                 <div class="image-switcher" data-image-id="<%=product._id%>">
-                                    <button data-image-id="<%=product._id%>" type="button" class="prev-arrow"  disabled><i class='bx bx-left-arrow-alt prev-arrow icon' data-image-id="<%=product._id%>"></i></button>
-                                    <button data-image-id="<%=product._id%>" type="button" class="next-arrow" ><i class='bx bx-right-arrow-alt next-arrow icon' data-image-id="<%=product._id%>"></i></button>
+                                    <button data-image-id="<%=product._id%>" type="button" class="prev-arrow"  disabled><i class='bx bx-left-arrow-alt prev-arrow icon'></i></button>
+                                    <button data-image-id="<%=product._id%>" type="button" class="next-arrow" ><i class='bx bx-right-arrow-alt next-arrow icon'></i></button>
                                 </div>
                                <%for(let i=0;i<product.imageUrls.length;i++){%>
                                     <%if(i===0){%>

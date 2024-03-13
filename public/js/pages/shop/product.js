@@ -1,4 +1,5 @@
 import { toggleHoverImage } from "./functions/toggleHoverImage.js";
+import { HandleImageNavigation } from "./utils/HandleImageNavigation.js";
 //----------> Loop through the product images and add an event listener to them
 productImages.forEach((productImages) => {
     productImages.addEventListener("mouseenter", (event) => {
@@ -8,13 +9,13 @@ productImages.forEach((productImages) => {
         toggleHoverImage(event, "leave");
     });
 });
-// nextArrow.forEach((nextArrow) => {
-//   nextArrow.addEventListener("click", (event) => {
-//     handleImageNavigation(event, { direction: "next" });
-//   });
-// });
-// prevArrow.forEach((prevArrow) => {
-//   prevArrow.addEventListener("click", (event) => {
-//     handleImageNavigation(event, { direction: "previous" });
-//   });
-// });
+nextArrow.forEach((nextArrow) => {
+    nextArrow.addEventListener("click", (event) => {
+        HandleImageNavigation(event, "next");
+    });
+});
+prevArrow.forEach((prevArrow) => {
+    prevArrow.addEventListener("click", (event) => {
+        HandleImageNavigation(event, "previous");
+    });
+});

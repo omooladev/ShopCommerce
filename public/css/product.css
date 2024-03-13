@@ -76,16 +76,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 10rem;
 }
 /* .shop-products .product-card .product-image-container .image-switcher button i {
   background-color: red;
 } */
-.shop-products
-  .product-card
-  .product-image-container
-  .product-images
-  .image-switcher
-  button:disabled {
+.shop-products .product-card .product-image-container .product-images .image-switcher button:disabled {
   cursor: not-allowed;
   background-color: #888;
 }
