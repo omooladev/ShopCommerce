@@ -35,7 +35,7 @@
                             <div class="product_info">
                                 <h3 class="product_name"><%=product.name%></h3>
                                 <%if(product.description.trim().length>100){%>
-                                        <h4 class="product_description" ><%=product.description.substring(0,50)%>...<a href="#">read more</a></h4>
+                                        <h4 class="product_description" ><%=product.description.substring(0,50)%>...<a href="/shop/<%=product._id%>">read more</a></h4>
                                     <%}else{%>
                                         <h4 class="product_description" ><%=product.description%></h4>
                                     <%}%>
