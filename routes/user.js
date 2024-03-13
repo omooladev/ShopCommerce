@@ -4,6 +4,7 @@ const express = require("express");
 //----------> custom modules
 const {
   viewShopPage,
+  viewProductDetailsPage,
   getAllCartItems,
   addProductToCart,
   viewCartPage,
@@ -18,6 +19,9 @@ router.get("/", (req, res) => res.redirect("/shop"));
 
 //<---------- VIEW THE SHOP PAGE ---------->
 router.get("/shop", viewShopPage);
+
+//<---------- VIEW THE PRODUCT DETAILS PAGE ---------->
+router.get("/shop/:productID", viewProductDetailsPage);
 
 //----------> view cart page
 router.route("/cart").get(viewCartPage);
