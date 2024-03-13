@@ -1,13 +1,48 @@
 export const HandleImageNavigation = (event: Event, direction: string) => {
   event.stopPropagation();
-  //----------> access the element clicked on
+  //----------> access the element clicked on. The element can either be the next/prev button or the icon
   let target = event.target as HTMLButtonElement;
 
-  //----------> If the target element is an icon, then access the button element which is the parent element
+  //----------> If the element clicked is an icon, then access the parent element which is the button
   if (target.className.includes("icon")) {
     target = target.parentElement as HTMLButtonElement;
   }
   viewNextPrevImage(target, direction);
+};
+
+const configureProductImageClassName = (
+  productImages: any[],
+  imageIndexNumber: number,
+  direction: string
+) => {
+  //----------> A function for toggling the active state of the product images
+  if (direction === "next") {
+    productImages[imageIndexNumber - 1].classList.remove("active");
+    productImages[imageIndexNumber].classList.add("active");
+  }
+  if (direction === "previous") {
+    productImages[imageIndexNumber + 1].classList.remove("active");
+    productImages[imageIndexNumber].classList.add("active");
+  }
+};
+const configureNextPrevButton = (element: HTMLButtonElement, direction: string) => {
+  //----------> A function for accessing the next button and previous button when the either of the button is clicked
+  //            The reason for this is because of the position that the elements will appear
+  let nextButton;
+  let prevButton;
+
+  //----------> This means that if the next button is clicked
+  if (direction === "next") {
+    nextButton = element as HTMLButtonElement;
+    prevButton = element!.parentElement!.children[0] as HTMLButtonElement;
+  }
+  //----------> This means that if the previous button is clicked
+  if (direction === "previous") {
+    prevButton = element as HTMLButtonElement;
+    nextButton = element!.parentElement!.children[1] as HTMLButtonElement;
+  }
+
+  return { nextButton, prevButton };
 };
 
 const viewNextPrevImage = (element: HTMLButtonElement, direction: string) => {
@@ -28,8 +63,7 @@ const viewNextPrevImage = (element: HTMLButtonElement, direction: string) => {
   let imageIndexNumber = Number(productImagesElement!.dataset.imageIndexNumber);
 
   if (direction === "next" && imageIndexNumber < productImagesArray.length - 1) {
-    //----------> increase the image index number by 1
-    imageIndexNumber += 1;
+    imageIndexNumber += 1; //----------> increase the image index number by 1
     //----------> update the image index number in the product images element
     productImagesElement!.dataset.imageIndexNumber = imageIndexNumber.toString();
     //-----------> configure the class
@@ -48,8 +82,7 @@ const viewNextPrevImage = (element: HTMLButtonElement, direction: string) => {
   //----------> The statement will only run if the image index number is greater than 0
   //            This means that the current image is not the first one
   if (direction === "previous" && imageIndexNumber > 0) {
-    //----------> decrease the image index number by 1
-    imageIndexNumber -= 1;
+    imageIndexNumber -= 1; //----------> decrease the image index number by 1
     //----------> update the image index number in the product images element
     productImagesElement!.dataset.imageIndexNumber = imageIndexNumber.toString();
     //----------> configure the class
@@ -62,35 +95,4 @@ const viewNextPrevImage = (element: HTMLButtonElement, direction: string) => {
       prevButton!.disabled = true;
     }
   }
-};
-const configureProductImageClassName = (
-  productImages: any[],
-  imageIndexNumber: number,
-  direction: string
-) => {
-  if (direction === "next") {
-    productImages[imageIndexNumber - 1].classList.remove("active");
-    productImages[imageIndexNumber].classList.add("active");
-  }
-  if (direction === "previous") {
-    productImages[imageIndexNumber + 1].classList.remove("active");
-    productImages[imageIndexNumber].classList.add("active");
-  }
-};
-const configureNextPrevButton = (element: HTMLButtonElement, direction: string) => {
-  let nextButton;
-  let prevButton;
-
-  //----------> This means that if the next button is clicked
-  if (direction === "next") {
-    nextButton = element as HTMLButtonElement;
-    prevButton = element!.parentElement!.children[0] as HTMLButtonElement;
-  }
-  //----------> This means that if the previous button is clicked
-  if (direction === "previous") {
-    prevButton = element as HTMLButtonElement;
-    nextButton = element!.parentElement!.children[1] as HTMLButtonElement;
-  }
-
-  return { nextButton, prevButton };
 };
