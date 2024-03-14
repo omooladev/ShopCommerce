@@ -2,18 +2,20 @@
 require("express-async-errors");
 const path = require("path");
 const express = require("express");
-
+const cors = require("cors");
 const swaggerUI = require("swagger-ui-express");
 //----------> import custom dependencies
 const errorHandlerMiddleware = require("./middlewares/error-handler");
-const cors = require("cors");
+const { NotFound } = require("./middlewares/not-found");
+
 
 //---------->routers
 const adminRouter = require("./routes/admin");
 const userRouter = require("./routes/user");
 //----------> documentation
 const swaggerDocumentation = require("./documentation/swaggerDocumentation");
-const { cloudinary_js_config } = require("./config/cloudinary");
+
+
 
 //----------> Initialize application
 const app = express();
@@ -34,5 +36,7 @@ app.use(userRouter);
 
 //----------> middlewares
 app.use(errorHandlerMiddleware);
+//----------> When route does not exist
+app.use(NotFound)
 
 module.exports = app;

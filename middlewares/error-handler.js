@@ -8,10 +8,11 @@ const errorHandlerMiddleware = (error, req, res, next) => {
     message: error.message || "Something went wrong, please try again later",
     statusCode: error.statusCode || 500,
   };
-  if (error.code === "LIMIT_FILE_SIZE") {
-    customError.message = `Please upload a file that is no larger than ${MAX_IMAGE_SIZE_WHOLE_NUMBER}MB`;
-    customError.statusCode = StatusCodes.UNPROCESSABLE_ENTITY;
-  }
+  console.log(error)
+  // if (error.code === "LIMIT_FILE_SIZE") {
+  //   customError.message = `Please upload a file that is no larger than ${MAX_IMAGE_SIZE_WHOLE_NUMBER}MB`;
+  //   customError.statusCode = StatusCodes.UNPROCESSABLE_ENTITY;
+  // }
 
   res.status(customError.statusCode).json({ message: customError.message });
 };
