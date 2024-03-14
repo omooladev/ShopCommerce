@@ -1,7 +1,6 @@
 const Product = require("../models/product");
 const User = require("../models/user");
 
-
 //----------> view the shop page
 exports.viewShopPage = async (req, res) => {
   //----------> fetch products
@@ -13,14 +12,17 @@ exports.viewShopPage = async (req, res) => {
     products: products || [],
   });
 };
-exports.viewProductDetailsPage=async(req,res)=>{
-  const {productID}=req.params;
- const product=await Product.findById(productID)
- //TODO -----> work on display a not found page error when no product with that id is found
- if(!product){
-  return console.log("page not found")
- }
- res.render("user/product-details", { path: "/", pageTitle: "Details", product})}
+exports.viewProductDetailsPage = async (req, res) => {
+  const { productID } = req.params;
+  const product = await Product.findById(productID);
+  //TODO -----> work on display a not found page error when no product with that id is found
+  if (!product) {
+    //----------> fetch products
+    const products = await Product.find();
+    return res.render("user/product-not-found", { path: "/product-not-found", pageTitle: "Product Not Found", products });
+  }
+  res.render("user/product-details", { path: "/", pageTitle: "Details", product });
+};
 exports.viewCartPage = (req, res) => {
   // req.user
   //   .populate("cart.items.productId")
