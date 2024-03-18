@@ -19,7 +19,11 @@ exports.viewProductDetailsPage = async (req, res) => {
   if (!product) {
     //----------> fetch products
     const products = await Product.find();
-    return res.render("user/product-not-found", { path: "/product-not-found", pageTitle: "Product Not Found", products });
+    return res.render("user/product-not-found", {
+      path: "/product-not-found",
+      pageTitle: "Product Not Found",
+      products,
+    });
   }
   res.render("user/product-details", { path: "/", pageTitle: "Details", product });
 };

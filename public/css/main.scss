@@ -18,6 +18,12 @@ button {
   outline: none;
 }
 
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
 .header {
   background-color: rgb(233, 233, 255);
   padding: 1rem 5%;
@@ -110,11 +116,8 @@ button {
 .header .navigation .navigation_list .navigation_link .cart.active .cart_number {
 }
 .main {
-  max-width: 1200rem;
-  width: 90%;
-  margin: auto;
   padding: 1rem 0;
-  overflow-x: hidden;
+  // overflow-x: hidden;
   margin-top: 10vh;
 }
 

@@ -8,9 +8,9 @@
 }
 .shop-products .product-card {
   height: auto;
-  width: 20rem;
+  width: 18rem;
   background-color: white;
-  margin: 1rem;
+  margin: 1rem 0rem;
   padding: 1rem;
   display: flex;
   flex-direction: column;
