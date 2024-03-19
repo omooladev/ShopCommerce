@@ -1,0 +1,29 @@
+@import url(./header/header.css);
+@import url(./main/main.css);
+@import url(./UI/notification.css);
+
+// colors
+$primary-color: aliceblue;
+$body-color: aliceblue;
+
+* {
+  margin: 0;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: $body-color;
+}
+
+a {
+  text-decoration: none;
+}
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}

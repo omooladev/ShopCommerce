@@ -1,29 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  user-select: none;
-}
-a {
-  text-decoration: none;
-}
-body {
-  font-family: "Poppins", sans-serif;
-  background-color: aliceblue;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-  outline: none;
-}
-
-.container {
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-}
-
 .header {
   background-color: rgb(233, 233, 255);
   padding: 1rem 5%;
@@ -114,57 +88,4 @@ button {
   color: orangered;
 }
 .header .navigation .navigation_list .navigation_link .cart.active .cart_number {
-}
-.main {
-  padding: 1rem 0;
-  // overflow-x: hidden;
-  margin-top: 10vh;
-}
-
-.main h2 {
-  text-align: center;
-  padding: 1rem 0;
-}
-
-/* for notification */
-.notification {
-  position: fixed;
-  left: 16px;
-  bottom: 16px;
-  background-color: white;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 28rem;
-
-  border-radius: 0.3rem;
-  padding: 1rem;
-  box-shadow: 0 1px 3px #807979, 0 1px 2px #807979;
-  z-index: 999;
-}
-
-.notification.hide {
-  display: none;
-  /* animation: fadeOutAnimation ease-in-out 0.25s forwards; */
-}
-
-.notification .body {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  gap: 8px;
-}
-.notification .body a {
-  cursor: pointer;
-  color: orangered;
-}
-.notification i {
-  font-size: 24px;
-  margin: auto;
-  cursor: pointer;
-}
-.notification .body i {
-  cursor: default;
-  color: green;
 }
