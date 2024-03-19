@@ -5,6 +5,7 @@
 // colors
 $primary-color: aliceblue;
 $body-color: aliceblue;
+$product-background-color: white;
 
 * {
   margin: 0;
@@ -26,4 +27,10 @@ button {
   cursor: pointer;
   border: none;
   outline: none;
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
 }

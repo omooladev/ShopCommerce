@@ -1,18 +1,18 @@
 <%-include("../includes/head")%>
- <link rel="stylesheet" href="/css/product.css" />
+ <link rel="stylesheet" href="/css/pages/shop/product.css" />
  <script src="/js/pages/shop/shop.js"  defer></script>
  <script src="/js/pages/shop/product.js" type="module" defer></script>
   <script src="/js/cart.js" defer></script>
 </head>
 <body>
     <%-include("../includes/navigation")%>
-    <main class="container main">
+    <main class="main">
         <%-include("../includes/notification")%>
         <%if(products.length===0){%>
             <h2>No Products found in store</h2>
         <%}else{%>
             <h2>Products Available in store</h2>
-            <section class="shop-products">
+            <section class="container shop-products">
                 <%products.forEach(product=>{%>
                     <div class="product-card">
                         <div class="product-image-container">
