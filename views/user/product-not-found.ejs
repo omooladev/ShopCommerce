@@ -1,5 +1,5 @@
 <%-include("../includes/head")%>
-    <link rel="stylesheet" href="/css/product.css" />
+    <link rel="stylesheet" href="/css/pages/shop/product.css" />
     <script src="/js/pages/shop/shop.js" defer></script>
     <script src="/js/pages/shop/product.js" type="module" defer></script>
     <script src="/js/cart.js" defer></script>
@@ -8,58 +8,72 @@
     <body>
         <%-include("../includes/navigation")%>
             <main class="main">
-                <h2>Oops! We couldn't find the exact product you were looking for. No worries, we have a great
-                    selection of similar items
-                    you might love! Browse through some of our recommendations below:</h2>
-                <section class="shop-products">
-                    <%products.forEach(product=>{%>
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <div class="product-images" data-image-id="<%=product._id%>" data-image-index-number="0"
-                                    data-image-urls="<%=product.imageUrls%>">
-                                    <div class="image-switcher" data-image-id="<%=product._id%>">
-                                        <button data-image-id="<%=product._id%>" type="button" class="prev-arrow"
-                                            disabled><i class='bx bx-left-arrow-alt prev-arrow icon'></i></button>
-                                        <button data-image-id="<%=product._id%>" type="button" class="next-arrow"><i
-                                                class='bx bx-right-arrow-alt next-arrow icon'></i></button>
-                                    </div>
-                                    <%for(let i=0;i<product.imageUrls.length;i++){%>
-                                        <%if(i===0){%>
-                                            <img data-image-id="<%=product._id%>" alt="<%=product.name%>"
-                                                src="<%=product.imageUrls[i]%>" class="product-image active" />
-                                            <%}else{%>
+                <section class="container not-found">
+                    <div class="message">
+                        <h2 class="message">The exact product you're looking for couldn't be found. Not to worry,
+                            we
+                            have a fantastic
+                            range of products you might adore! Take a look at some of our suggestions below:</h2>
+                    </div>
+
+                    <div class="featured_products">
+                        <h3>Featured Products</h3>
+                        <p></p>
+                    </div>
+
+                    <section class="shop-products">
+
+                        <%products.forEach(product=>{%>
+                            <div class="product-card">
+                                <div class="product-image-container">
+                                    <div class="product-images" data-image-id="<%=product._id%>"
+                                        data-image-index-number="0" data-image-urls="<%=product.imageUrls%>">
+                                        <div class="image-switcher" data-image-id="<%=product._id%>">
+                                            <button data-image-id="<%=product._id%>" type="button" class="prev-arrow"
+                                                disabled><i class='bx bx-left-arrow-alt prev-arrow icon'></i></button>
+                                            <button data-image-id="<%=product._id%>" type="button" class="next-arrow"><i
+                                                    class='bx bx-right-arrow-alt next-arrow icon'></i></button>
+                                        </div>
+                                        <%for(let i=0;i<product.imageUrls.length;i++){%>
+                                            <%if(i===0){%>
                                                 <img data-image-id="<%=product._id%>" alt="<%=product.name%>"
-                                                    src="<%=product.imageUrls[i]%>" class="product-image" />
-                                                <%}%>
+                                                    src="<%=product.imageUrls[i]%>" class="product-image active" />
+                                                <%}else{%>
+                                                    <img data-image-id="<%=product._id%>" alt="<%=product.name%>"
+                                                        src="<%=product.imageUrls[i]%>" class="product-image" />
                                                     <%}%>
+                                                        <%}%>
+                                    </div>
+
+
                                 </div>
-
-
-                            </div>
-                            <div class="product_info">
-                                <h3 class="product_name">
-                                    <%=product.name%>
-                                </h3>
-                                <%if(product.description.trim().length>100){%>
-                                    <h4 class="product_description">
-                                        <%=product.description.substring(0,50)%>...<a href="/shop/<%=product._id%>">read
-                                                more</a>
-                                    </h4>
-                                    <%}else{%>
+                                <div class="product_info">
+                                    <h3 class="product_name">
+                                        <%=product.name%>
+                                    </h3>
+                                    <%if(product.description.trim().length>100){%>
                                         <h4 class="product_description">
-                                            <%=product.description%>
+                                            <%=product.description.substring(0,50)%>...<a
+                                                    href="/shop/<%=product._id%>">read
+                                                    more</a>
                                         </h4>
-                                        <%}%>
-                                            <h4 class="product_price">$<%=product.price%>
-                                                    </h3>
+                                        <%}else{%>
+                                            <h4 class="product_description">
+                                                <%=product.description%>
+                                            </h4>
+                                            <%}%>
+                                                <h4 class="product_price">$<%=product.price%>
+                                                        </h3>
+                                </div>
+                                <div class="product_actions">
+                                    <button type="button" class="add_to_cart" value="<%=product._id%>">Add to
+                                        cart</button>
+                                </div>
                             </div>
-                            <div class="product_actions">
-                                <button type="button" class="add_to_cart" value="<%=product._id%>">Add to
-                                    cart</button>
-                            </div>
-                        </div>
-                        <%})%>
+                            <%})%>
+                    </section>
                 </section>
+
 
             </main>
 

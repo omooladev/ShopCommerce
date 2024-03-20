@@ -18,7 +18,7 @@ exports.viewProductDetailsPage = async (req, res) => {
   //TODO -----> work on display a not found page error when no product with that id is found
   if (!product) {
     //----------> fetch products
-    const products = await Product.find();
+    const products = await Product.find().sort({ _id: -1 });
     return res.render("user/product-not-found", {
       path: "/product-not-found",
       pageTitle: "Product Not Found",

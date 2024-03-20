@@ -1,0 +1,27 @@
+.not-found .message {
+  max-width: 50rem;
+  overflow: hidden;
+  margin: 1rem auto;
+  padding: 1rem;
+  width: 95%;
+}
+
+.not-found .message h2 {
+  font-size: 1.2rem;
+}
+
+.not-found .featured_products {
+  text-align: center;
+}
+
+.not-found .featured_products h3 {
+  text-decoration: underline;
+  text-decoration-color: orangered;
+  text-decoration-thickness: 0.25rem;
+  text-underline-offset: 0.5rem;
+}
+
+.not-found .featured_products p {
+  height: 10px;
+  width: 10px;
+}
