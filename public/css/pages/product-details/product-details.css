@@ -1,8 +1,13 @@
 .product_details {
   overflow: hidden;
+  margin-top: 1rem;
 }
 .product_details h2 {
+  font-size: 1.2rem;
   text-align: left;
+}
+.product_details h2 span {
+  color: orangered;
 }
 .product_details .product_container {
   display: flex;
@@ -12,6 +17,7 @@
   width: 100%;
   overflow: hidden;
   gap: 2rem;
+  padding: 1rem 0;
 }
 .product_details .product_container .product_images_container {
   width: 50%;
