@@ -15,7 +15,6 @@ exports.viewShopPage = async (req, res) => {
 exports.viewProductDetailsPage = async (req, res) => {
   const { productID } = req.params;
   const product = await Product.findById(productID);
-  //TODO -----> work on display a not found page error when no product with that id is found
   if (!product) {
     //----------> fetch products
     const products = await Product.find().sort({ _id: -1 });
