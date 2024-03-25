@@ -1,4 +1,4 @@
-//-----------> The Reason fro Formatting the description is to
+//-----------> The reason for Formatting the description is to
 //             remove line breaks that are found
 
 module.exports.FormatDescription = (description) => {

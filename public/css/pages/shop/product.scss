@@ -9,6 +9,7 @@
     height: auto;
     width: 100%;
     padding: 1rem;
+    margin: 1rem 0;
 
     display: flex;
     flex-direction: column;
@@ -157,7 +158,13 @@
   transform: scale(0.95);
   border-radius: 1.5rem;
 }
-
+@media (min-width: 500px) {
+  .products {
+    .product-card {
+      width: 48%;
+    }
+  }
+}
 @media (min-width: 850px) {
   .products {
     .product-card {
@@ -168,7 +175,7 @@
 @media (min-width: 1200px) {
   .products {
     .product-card {
-      width:17rem;
+      width: 23%;
     }
   }
 }
