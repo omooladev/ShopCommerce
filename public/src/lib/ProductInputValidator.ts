@@ -4,7 +4,7 @@ import { productInputIsValid, productInputNotValid } from "./ProductInputValidit
 //----------> set the product description length to the maximum when page loads
 productDescription.maxLength = PRODUCT_DESCRIPTION_MAX_LENGTH;
 export const ValidateProductInput = (value: string, type: string) => {
-  let lengthOfValue: number = value.trim().length;
+  let lengthOfValue: number = value.length;
   const inputValidityName: string = `product${type}IsValid`;
   if (type === "Name") {
     return ValidateProductName(lengthOfValue, inputValidityName);
@@ -13,45 +13,49 @@ export const ValidateProductInput = (value: string, type: string) => {
     return ValidateProductPrice(lengthOfValue, inputValidityName, value);
   }
   if (type === "Description") {
-    return ValidateProductDescription(lengthOfValue, inputValidityName, value); //TODO remove value
+    return ValidateProductDescription(lengthOfValue, inputValidityName);
   }
 };
 
-const ValidateProductName = (lengthOfValue: any, inputValidityName: string, value?: string) => {
+const ValidateProductName = (lengthOfValue: number, inputValidityName: string) => {
   //----------> check if the input value length is 0
   if (lengthOfValue === 0) {
     return productInputNotValid(inputValidityName, "Please provide a product name");
   }
-  //----------> when length is greater than zero
+  //----------> if the length is greater than 0.
   return productInputIsValid(inputValidityName);
 };
-const ValidateProductPrice = (lengthOfValue: any, inputValidityName: string, value?: string) => {
+const ValidateProductPrice = (lengthOfValue: number, inputValidityName: string, value: string) => {
   //----------> check if the input value length is 0
   if (lengthOfValue === 0) {
     //----------> I use skip to bypass a conditional statement in the productInputNotValid function
-    //            Because the default valid state of product price is zero, if you enter another something that
-    //            is not a price, we still check the validity first.
+    //            Because the default valid state of product price is false, if you enter another value that
+    //            is not a price, we check the validity again
 
     let skip = productFormIsValid[inputValidityName] ? "no" : "yes";
     return productInputNotValid(inputValidityName, "Please provide a product price", skip);
   }
   if (!Number(value)) {
+    //----------> I use skip to bypass a conditional statement in the productInputNotValid function
+    //            Because the default valid state of product price is false, if you enter another value that
+    //            is not a price, we check the validity again
+    let skip = productFormIsValid[inputValidityName] ? "no" : "yes";
     //----------> when price is not a number
-    return productInputNotValid(inputValidityName, "Product");
+    return productInputNotValid(inputValidityName, "Product price is invalid", skip);
   }
   //----------> when price is a number and the length is greater than 0
   return productInputIsValid(inputValidityName);
 };
-const ValidateProductDescription = (lengthOfValue: any, inputValidityName: string, value?: string) => {
+const ValidateProductDescription = (lengthOfValue: number, inputValidityName: string) => {
   //----------> set the length of the product description in the inner html
-  productDescriptionLength.innerHTML = lengthOfValue;
+  productDescriptionLength.innerHTML = lengthOfValue.toString();
   if (lengthOfValue === 0) {
     return productInputNotValid(inputValidityName, "Please provide a product description");
   }
   if (lengthOfValue > PRODUCT_DESCRIPTION_MAX_LENGTH) {
     // ----------> configure the styles
     productDescriptionLength.style.color = "red";
-    return productInputNotValid(inputValidityName, "Product description length cannot exceed 500 characters");
+    return productInputNotValid(inputValidityName, `Product description length cannot exceed 500 characters`);
   }
 
   if (lengthOfValue > 0 && lengthOfValue <= PRODUCT_DESCRIPTION_MAX_LENGTH) {
