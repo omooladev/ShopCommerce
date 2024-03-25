@@ -22,8 +22,6 @@ const addProductToList = async (req, res) => {
   const images = req.files;
 
   description = await FormatDescription(description);
-  console.log(description.length);
-  return;
   //----------->TODO validate the products details
   const { status, message } = await productDetailsValidator({
     name,
