@@ -1,6 +1,7 @@
 .product_details {
   overflow: hidden;
   margin-top: 1rem;
+  background-color: red;
 }
 .product_details h2 {
   font-size: 1.4rem;
@@ -16,8 +17,6 @@
   justify-content: space-between;
   width: 100%;
   overflow: hidden;
-  gap: 2rem;
-  padding: 1rem 0;
 }
 .product_details .product_container .product_images_container {
   width: 50%;

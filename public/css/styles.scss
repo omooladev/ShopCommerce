@@ -29,14 +29,24 @@ button {
   outline: none;
 }
 
-.container {
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-}
 .add_to_cart {
   background-color: orangered;
   padding: 0.6rem 0.6rem;
   border-radius: 0.2rem;
   color: white;
+}
+
+// global styles here
+.pt-50 {
+  padding-top: 50px;
+}
+
+.pb-50 {
+  padding-bottom: 50px;
+}
+
+.page-wrapper {
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
