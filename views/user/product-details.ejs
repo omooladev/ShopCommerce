@@ -9,28 +9,34 @@
         <%-include("../includes/navigation")%>
             <main class="main">
                 <section class="container product_details">
-                    <h2>Shop > Product ><span> <%=product.name%></span>
+                    <h2>Shop > Product ><span>
+                            <%=product.name%>
+                        </span>
                     </h2>
                     <section class="product_container">
                         <div class="product_images_container">
                             <%if(product.imageUrls.length>1){%>
-                                <img src="<%=product.imageUrls[0]%>" alt="<%=product.name%>" class="main-image active" />
+                                <img src="<%=product.imageUrls[0]%>" alt="<%=product.name%>"
+                                    class="main-image active" />
                                 <div class="gallery">
                                     <%for(let index=0;index<product.imageUrls.length;index++){%>
                                         <%if(index===0){%>
-                                            <img src="<%=product.imageUrls[index]%>" alt="<%=product.name%>" class="active"/>
-                                        <%}else{%>
-                                        <img src="<%=product.imageUrls[index]%>" alt="<%=product.name%>" />
-                                        <%}%>
-                                    <%}%>
+                                            <img src="<%=product.imageUrls[index]%>" alt="<%=product.name%>"
+                                                class="active" />
+                                            <%}else{%>
+                                                <img src="<%=product.imageUrls[index]%>" alt="<%=product.name%>" />
+                                                <%}%>
+                                                    <%}%>
                                 </div>
-                            <%} else{%>
-                                <img src="<%=product.imageUrls[0]%>" alt="<%=product.name%>" class="main-image"/>
-                                <%}%>
+                                <%} else{%>
+                                    <img src="<%=product.imageUrls[0]%>" alt="<%=product.name%>" class="main-image" />
+                                    <%}%>
                         </div>
-                     <div class="product_details_container">
-                            <h2 class="product_name"><%=product.name%></h2>
-                            <h5 class="product_price">$<%=product.price%></h5>
+                        <div class="product_details_container">
+                            <h2 class="product_name">
+                                <%=product.name%>
+                            </h2>
+                            <h5 class="product_price">$ <%=product.price.toLocaleString("en-US")%></h5>
                             <p class="product_description">
                                 <%=product.description%>
                             </p>

@@ -45,7 +45,6 @@ const addProductToList = async (req, res) => {
       });
       imageUrls.push(result.secure_url);
     } catch (error) {
-      console.log(error);
       imageUrls.push("error");
       failedUploads++;
     }

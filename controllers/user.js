@@ -1,3 +1,4 @@
+const { FormatPrice } = require("../helpers/FormatPrice");
 const Product = require("../models/product");
 const User = require("../models/user");
 
@@ -15,7 +16,7 @@ exports.viewShopPage = async (req, res) => {
 exports.viewProductDetailsPage = async (req, res) => {
   const { productID } = req.params;
   let product = await Product.findById(productID);
-  
+
   if (!product) {
     //----------> fetch products
     const products = await Product.find().sort({ _id: -1 });
@@ -25,6 +26,8 @@ exports.viewProductDetailsPage = async (req, res) => {
       products,
     });
   }
+
+  //----------> update the product array with
   res.render("user/product-details", {
     path: "/details",
     pageTitle: `${product.name}:ShopCommerce`,
