@@ -14,7 +14,8 @@ exports.viewShopPage = async (req, res) => {
 };
 exports.viewProductDetailsPage = async (req, res) => {
   const { productID } = req.params;
-  const product = await Product.findById(productID);
+  let product = await Product.findById(productID);
+  
   if (!product) {
     //----------> fetch products
     const products = await Product.find().sort({ _id: -1 });
@@ -24,7 +25,11 @@ exports.viewProductDetailsPage = async (req, res) => {
       products,
     });
   }
-  res.render("user/product-details", { path: "/", pageTitle: "Details", product });
+  res.render("user/product-details", {
+    path: "/details",
+    pageTitle: `${product.name}:ShopCommerce`,
+    product,
+  });
 };
 exports.viewCartPage = (req, res) => {
   // req.user

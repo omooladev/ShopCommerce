@@ -19,6 +19,12 @@ const viewAddProductPage = (req, res) => {
 const addProductToList = async (req, res) => {
   const { name, price, description } = req.body;
   const images = req.files;
+  console.log(req.body)
+  console.log(description.length);
+  req.body.description=description.replace(/\r\n/g, "\n");
+  console.log(req.body);
+  console.log(description.length);
+  return;
   //----------->TODO validate the products details
   const { status, message } = await productDetailsValidator({
     name,

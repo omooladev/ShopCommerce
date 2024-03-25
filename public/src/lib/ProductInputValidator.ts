@@ -13,7 +13,7 @@ export const ValidateProductInput = (value: string, type: string) => {
     return ValidateProductPrice(lengthOfValue, inputValidityName, value);
   }
   if (type === "Description") {
-    return ValidateProductDescription(lengthOfValue, inputValidityName);
+    return ValidateProductDescription(lengthOfValue, inputValidityName, value); //TODO remove value
   }
 };
 
@@ -45,7 +45,6 @@ const ValidateProductPrice = (lengthOfValue: any, inputValidityName: string, val
 const ValidateProductDescription = (lengthOfValue: any, inputValidityName: string, value?: string) => {
   //----------> set the length of the product description in the inner html
   productDescriptionLength.innerHTML = lengthOfValue;
-
   if (lengthOfValue === 0) {
     return productInputNotValid(inputValidityName, "Please provide a product description");
   }

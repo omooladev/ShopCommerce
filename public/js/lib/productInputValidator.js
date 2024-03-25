@@ -12,7 +12,7 @@ export const ValidateProductInput = (value, type) => {
         return ValidateProductPrice(lengthOfValue, inputValidityName, value);
     }
     if (type === "Description") {
-        return ValidateProductDescription(lengthOfValue, inputValidityName);
+        return ValidateProductDescription(lengthOfValue, inputValidityName, value); //TODO remove value
     }
 };
 const ValidateProductName = (lengthOfValue, inputValidityName, value) => {
