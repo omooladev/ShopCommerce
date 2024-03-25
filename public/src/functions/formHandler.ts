@@ -15,9 +15,9 @@ export const submitFormHandler = async (event: Event) => {
   const formData = new FormData();
   //----------> assign a variable for the new product and
   let newProduct: Product = {
-    name: productName.value.trim(), //TODO added trim to the input values because the description length is trimed
+    name: productName.value.trim(),
     price: productPrice.value.trim(),
-    description: productDescription.value.trim(),
+    description: productDescription.value, //---------> product description was not trimmed
     images: productImageFiles,
   };
 

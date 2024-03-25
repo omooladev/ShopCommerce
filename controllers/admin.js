@@ -2,6 +2,7 @@ const fs = require("fs");
 const { UnprocessableEntityError } = require("../errors");
 const { productDetailsValidator } = require("../lib/productValidator");
 const Product = require("../models/product");
+const { FormatDescription } = require("../helpers/FormatDescription");
 const { cloudinary, uploadFolder } = require("../config/cloudinary");
 const {
   configurations: { MAX_PRODUCT_IMAGES },
@@ -17,9 +18,11 @@ const viewAddProductPage = (req, res) => {
 };
 
 const addProductToList = async (req, res) => {
-  const { name, price, description } = req.body;
+  let { name, price, description } = req.body;
   const images = req.files;
-  console.log(req.body)
+
+  description = await FormatDescription(description);
+  console.log(description.length);
   return;
   //----------->TODO validate the products details
   const { status, message } = await productDetailsValidator({
