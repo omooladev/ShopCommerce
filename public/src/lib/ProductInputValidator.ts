@@ -4,20 +4,20 @@ import { productInputIsValid, productInputNotValid } from "./ProductInputValidit
 //----------> set the product description length to the maximum when page loads
 productDescription.maxLength = PRODUCT_DESCRIPTION_MAX_LENGTH;
 export const ValidateProductInput = (value: string, type: string) => {
-  let lengthOfValue: number = value.length;
   const inputValidityName: string = `product${type}IsValid`;
   if (type === "Name") {
-    return ValidateProductName(lengthOfValue, inputValidityName);
+    return ValidateProductName(inputValidityName, value);
   }
   if (type === "Price") {
-    return ValidateProductPrice(lengthOfValue, inputValidityName, value);
+    return ValidateProductPrice(inputValidityName, value);
   }
   if (type === "Description") {
-    return ValidateProductDescription(lengthOfValue, inputValidityName);
+    return ValidateProductDescription(inputValidityName, value);
   }
 };
 
-const ValidateProductName = (lengthOfValue: number, inputValidityName: string) => {
+const ValidateProductName = (inputValidityName: string, value: string) => {
+  const lengthOfValue = value.trim().length;
   //----------> check if the input value length is 0
   if (lengthOfValue === 0) {
     return productInputNotValid(inputValidityName, "Please provide a product name");
@@ -25,7 +25,8 @@ const ValidateProductName = (lengthOfValue: number, inputValidityName: string) =
   //----------> if the length is greater than 0.
   return productInputIsValid(inputValidityName);
 };
-const ValidateProductPrice = (lengthOfValue: number, inputValidityName: string, value: string) => {
+const ValidateProductPrice = (inputValidityName: string, value: string) => {
+  const lengthOfValue = value.trim().length;
   //----------> check if the input value length is 0
   if (lengthOfValue === 0) {
     //----------> I use skip to bypass a conditional statement in the productInputNotValid function
@@ -46,7 +47,8 @@ const ValidateProductPrice = (lengthOfValue: number, inputValidityName: string, 
   //----------> when price is a number and the length is greater than 0
   return productInputIsValid(inputValidityName);
 };
-const ValidateProductDescription = (lengthOfValue: number, inputValidityName: string) => {
+const ValidateProductDescription = (inputValidityName: string, value: string) => {
+  const lengthOfValue = value.length;
   //----------> set the length of the product description in the inner html
   productDescriptionLength.innerHTML = lengthOfValue.toString();
   if (lengthOfValue === 0) {
