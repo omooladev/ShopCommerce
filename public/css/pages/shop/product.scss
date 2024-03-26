@@ -5,12 +5,13 @@
   flex-wrap: wrap;
   justify-content: space-between;
   overflow: hidden;
+  gap: 0rem;
   .product-card {
     height: auto;
+    max-width: 20rem;
     width: 100%;
     padding: 1rem;
-    margin: 1rem 0;
-
+    margin: 1rem auto;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -160,8 +161,10 @@
 }
 @media (min-width: 500px) {
   .products {
+    gap: 1rem;
     .product-card {
       width: 48%;
+      margin: 1rem 0;
     }
   }
 }
