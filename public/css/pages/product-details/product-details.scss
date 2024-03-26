@@ -1,13 +1,26 @@
-.product_details {
+.product-details {
   overflow: hidden;
-  margin-top: 1rem;
-  background-color: red;
-  h2 {
-    font-size: 1.4rem;
-    text-align: left;
-    span {
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    width: auto;
+    gap: 0.2rem;
+    h2 {
+      font-size: 1rem;
+    }
+    h2.product-name {
+      max-width: 25rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
       color: orangered;
     }
+    // text-align: left;
+    // overflow: hidden;
+    // width: 30rem;
+    // text-overflow: ellipsis;
+    // span.product-name {
+    //   background-color: red;
+    // }
   }
   .product_container {
     display: flex;

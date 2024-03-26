@@ -6,13 +6,15 @@
     </head>
 
     <body>
-        <%-include("../includes/navigation")%>
+        <div><%-include("../includes/navigation")%>
             <main class="main">
-                <section class="container product_details">
-                    <h2>Shop > Product ><span>
+                <section class="page-wrapper pt-50 pb-50 product-details">
+                    <div class="breadcrumb">
+                        <h2>Shop > Product > </h2>
+                        <h2 class="product-name" title="<%=product.name%>">
                             <%=product.name%>
-                        </span>
                     </h2>
+                    </div>
                     <section class="product_container">
                         <div class="product_images_container">
                             <%if(product.imageUrls.length>1){%>
