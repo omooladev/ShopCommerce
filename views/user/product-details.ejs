@@ -7,45 +7,46 @@
 
     <body>
         <div><%-include("../includes/navigation")%>
-            <main class="main">
-                <section class="page-wrapper pt-50 pb-50 product-details">
-                    <div class="breadcrumb">
-                        <h2>Shop > Product > </h2>
-                        <h2 class="product-name" title="<%=product.name%>">
-                            <%=product.name%>
-                    </h2>
-                    </div>
-                    <section class="product_container">
-                        <div class="product_images_container">
-                            <%if(product.imageUrls.length>1){%>
-                                <img src="<%=product.imageUrls[0]%>" alt="<%=product.name%>"
-                                    class="main-image active" />
-                                <div class="gallery">
-                                    <%for(let index=0;index<product.imageUrls.length;index++){%>
-                                        <%if(index===0){%>
-                                            <img src="<%=product.imageUrls[index]%>" alt="<%=product.name%>"
-                                                class="active" />
-                                            <%}else{%>
-                                                <img src="<%=product.imageUrls[index]%>" alt="<%=product.name%>" />
-                                                <%}%>
-                                                    <%}%>
-                                </div>
-                                <%} else{%>
-                                    <img src="<%=product.imageUrls[0]%>" alt="<%=product.name%>" class="main-image" />
-                                    <%}%>
-                        </div>
-                        <div class="product_details_container">
-                            <h2 class="product_name">
+                <main class="main">
+                    <section class="page-wrapper product-details">
+                        <div class="breadcrumb">
+                            <h2>Shop > Product > </h2>
+                            <h2 class="product-name" title="<%=product.name%>">
                                 <%=product.name%>
                             </h2>
-                            <h5 class="product_price">$ <%=product.price.toLocaleString("en-US")%></h5>
-                            <p class="product_description">
-                                <%=product.description%>
-                            </p>
-                            <button type="button" class="add_to_cart" value="<%=product._id%>">Add to cart</button>
                         </div>
+                        <section class="product-details__container">
+                            <div class="product-image__container <%=product.imageUrls.length===1?" single":"multiple"%>">
+                                <%if(product.imageUrls.length>1){%>
+                                    <img src="<%=product.imageUrls[0]%>" alt="<%=product.name%>"
+                                        class="main-image active" />
+                                    <div class="gallery <%=product.imageUrls.length===2?"two":product.imageUrls.length===3?"three":product.imageUrls.length===4?"four":""%>">
+                                        <%for(let index=0;index<product.imageUrls.length;index++){%>
+                                            <%if(index===0){%>
+                                                <img src="<%=product.imageUrls[index]%>" alt="<%=product.name%>"
+                                                    class="active" />
+                                                <%}else{%>
+                                                    <img src="<%=product.imageUrls[index]%>" alt="<%=product.name%>" />
+                                                    <%}%>
+                                                        <%}%>
+                                    </div>
+                                    <%} else{%>
+                                        <img src="<%=product.imageUrls[0]%>" alt="<%=product.name%>"
+                                            class="main-image" />
+                                        <%}%>
+                            </div>
+                            <div class="product_details_container">
+                                <h2 class="product_name">
+                                    <%=product.name%>
+                                </h2>
+                                <h5 class="product_price">$ <%=product.price.toLocaleString("en-US")%></h5>
+                                <p class="product_description">
+                                    <%=product.description%>
+                                </p>
+                                <button type="button" class="add_to_cart" value="<%=product._id%>">Add to cart</button>
+                            </div>
+                        </section>
                     </section>
-                </section>
-            </main>
+                </main>
 
     </body>
