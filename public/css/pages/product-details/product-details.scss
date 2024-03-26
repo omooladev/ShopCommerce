@@ -5,11 +5,13 @@
     align-items: center;
     width: auto;
     gap: 0.2rem;
+    flex-wrap: nowrap;
     h2 {
       font-size: 1rem;
     }
     h2.product-name {
-      max-width: 25rem;
+      max-width: 15rem;
+      width: 40%;
       overflow: hidden;
       text-overflow: ellipsis;
       color: orangered;
