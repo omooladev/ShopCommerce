@@ -66,6 +66,7 @@
   border-radius: 0.5rem;
   object-fit: cover;
   cursor: pointer;
+  border: 2px solid transparent;
 }
 .product-details__container .product-image__container.multiple .gallery img.active {
   border: 2px solid orangered;

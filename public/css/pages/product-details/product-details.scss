@@ -67,6 +67,7 @@
             border-radius: 0.5rem;
             object-fit: cover;
             cursor: pointer;
+            border: 2px solid transparent;
             &.active {
               border: 2px solid orangered;
             }
