@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="/css/pages/product-details/product-details.css" />
     <link rel="stylesheet" href="/css/pages/cart/cart.css" />
     <script src="/js/pages/shop/shop.js" defer></script>
-    <script src="/js/pages/shop/product.js" type="module" defer></script>
+    <script src="/js/pages/product-details/product-details.js" type="module" defer></script>
     <script src="/js/cart.js" defer></script>
     </head>
 
@@ -25,9 +25,9 @@
                                         <%for(let index=0;index<product.imageUrls.length;index++){%>
                                             <%if(index===0){%>
                                                 <img src="<%=product.imageUrls[index]%>" alt="<%=product.name%>"
-                                                    class="active" />
+                                                    class="gallery-images active" />
                                                 <%}else{%>
-                                                    <img src="<%=product.imageUrls[index]%>" alt="<%=product.name%>" />
+                                                    <img src="<%=product.imageUrls[index]%>" alt="<%=product.name%>" class="gallery-images"/>
                                                     <%}%>
                                                         <%}%>
                                     </div>
