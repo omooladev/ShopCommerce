@@ -1,0 +1,25 @@
+.product-quantity {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 0;
+  gap: 1.5rem;
+}
+.product-quantity .quantity {
+  font-size: 1.6rem;
+}
+.product-quantity form .control {
+  font-size: 1.4rem;
+  font-weight: bold;
+  background-color: transparent;
+}
+.product-quantity form .control:disabled {
+  cursor: not-allowed;
+}
+
+.add-to-cart__btn {
+  background-color: orangered;
+  padding: 0.6rem 0.6rem;
+  border-radius: 0.2rem;
+  color: white;
+}
